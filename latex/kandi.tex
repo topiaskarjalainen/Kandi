@@ -8,6 +8,13 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+%hallitse tilaa ennen kappale otsikkoa
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter head
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter* head
+\makeatother
+
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Q}{\mathbb{Q}}
