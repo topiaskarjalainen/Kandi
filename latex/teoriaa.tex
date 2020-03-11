@@ -125,6 +125,46 @@ Määritellään ensiksi todennäköisyys.
 		\pr ^{(m)} = \pr ^m
 	\end{equation}
 \end{lause}
+\begin{proof}
+	Todistus on melko pitkä, joten ohitetaan se.
+\end{proof}
+
+\begin{maar}
+	Todennäköisyysjakauma $\pi=(\pi)_{i\in S}$ on Markovin ketjun $\{X_n\}$ tasapainojakauma, jos 
+	\begin{equation}\label{stationary-dist}
+		\sum_{i\in S} \pi_i p_{ij}=\pi_j, \forall j\in S
+	\end{equation}
+	Yhtälö \ref{stationary-dist} voidaan kirjoittaa myös muotoon 
+	\begin{equation}\label{stationary-dist2}
+		\pi\pr= \pi
+	\end{equation}
+\end{maar}
+
+\begin{esim}
+	Pohditaan lyhyttä esimerkkiä, jossa tilajoukko on $S=\{"sataa", "paistaa"\}$. Määritellään siirtymätodennäköisyydet siirtymämatriisilla
+	\begin{displaymath}
+		\pr ^{(1)}=  
+		\begin{pmatrix}
+			0.7 & 0.3 \\
+			0.2 & 0.8
+		\end{pmatrix}
+	\end{displaymath}
+	Tämä voidaan visualisoida seuraavanlaisesti:
+	
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,semithick]
+
+		\node[state](s){Paistaa};
+    	\node[state, right of=s](r){Sataa};
+		\draw[every loop]
+            (s) edge[bend left] node {0.2} (r)
+            (r) edge[bend left] node {0.3} (s)
+            (r) edge[loop right] node {0.7} (r)
+            (s) edge[loop left] node {0.8} (s);
+	\end{tikzpicture}
+	\end{center}
+	
+\end{esim}
 
 
 
