@@ -1,7 +1,7 @@
 
 
 
-\chapter{Yleisiä tuloksia}\label{teor}
+\chapter{Teoriaa}\label{teor}
 
 \section{Perusmääritelmiä}
 
@@ -181,14 +181,45 @@ Määritellään ensiksi todennäköisyys.
 	Ketju on äärellinen, joten sillä on tasapainojakauma. Yhtälö \ref{stationary-dist2} implikoi, että jakauma $\pi$ on siirtymämatriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). Tämä voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt nähdään, että \ref{stationary-dist2} pätee.
 \end{esim}
 
+\subsection{Ääretön jatkuva tilajoukko}
+Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaan simuloida normaalijakaumasta, joka voi saada minkä vain arvon väliltä $(-\infty,\infty)$), niin teoria muuttuu hieman. Suurin osa tuloksista pätee pienin muutoksin, mutta niiden todistaminen on hankalaa ja ylittää kanditason. Esitetään kuitenkin tarvittavat perustulokset.
 
 
+\begin{maar}
+	Kun $S$ on rajoittamaton, siirtymämatriisi on parasta ajatella kuvauksena $\pr: S\times S \rightarrow [0,1]$, joka kuvaa tilaparin $x,y\in S$ todennäköisyydeksi $p(x,y)$
+\end{maar}
 
+\begin{maar}
+	Iistymätodennäköisyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtymätiheytenä} $p^{(n)}(x,y)$, jolle pätee
+	\begin{equation}\label{siirt-tiheys}
+		\int_S p(x,y)dy = 1 \hspace{1cm} \text{ja} \hspace{1cm} \int_S p^{(n)}(x,y)dy = 1, \forall n \geq 1
+	\end{equation}
+\end{maar}
 
+\begin{maar}
+	Jakauma $\pi$ on Markovin ketjun $\{ X_n \}$ kun $S$ on jatkuva, tasapainojakauma jos 
+	\begin{equation}
+		\pi(y) = \int_S \pi(x) p(x,y) dx
+	\end{equation}
+\end{maar}
 
+\begin{maar}
+	Markovin ketju jatkuvassa $S$:ssä on kääntyvä, jos on olemassa 
+	\begin{equation}
+		\pi(x)p(x,y)=\pi(y)p(y,x), \forall x,y\in S
+	\end{equation}
+\end{maar}
 
+\begin{lause}
+	Jos Markovin ketju $\{X_n\}$ on kääntyvä ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
+\end{lause}
 
-
+\begin{proof}
+	Yhtälön \ref{siirt-tiheys} mukaan $\int_S p(y,x)dx = 1$, joten
+	\begin{equation}
+		\int_S \pi(x) p(x,y) dx = \int_S \pi(y) p(y,x) dx = \pi(y)\int_S p(y,x) dx = \pi(y)
+	\end{equation}
+\end{proof}
 
 
 
