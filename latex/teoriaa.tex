@@ -136,9 +136,24 @@ Määritellään ensiksi todennäköisyys.
 	\end{equation}
 	Yhtälö \ref{stationary-dist} voidaan kirjoittaa myös muotoon 
 	\begin{equation}\label{stationary-dist2}
-		\pi\pr= \pi
+		\pi^T\pr= \pi^T
 	\end{equation}
 \end{maar}
+
+\begin{lause}
+	Äärellisellä Markovin ketjulla on aina jokin tasapainojakauma $\pi$.
+\end{lause}
+
+\begin{maar}
+	Markovin ketju on \textit{kääntyvä}, jos löytyy sellainen TN-jakauma $\lambda=(\lambda_i)_{i\in S}$, että 
+	\begin{equation}
+		\lambda_ip_{ij}= \lambda_jp_{ji},\forall i,j\in S
+	\end{equation}
+\end{maar}
+
+\begin{lause}
+	Jos Markovin ketju on kääntyvä, niin $\lambda=\pi$ on sen tasapainojakauma.
+\end{lause}
 
 \begin{esim}
 	Pohditaan lyhyttä esimerkkiä, jossa tilajoukko on $S=\{"sataa", "paistaa"\}$. Määritellään siirtymätodennäköisyydet siirtymämatriisilla
@@ -163,7 +178,7 @@ Määritellään ensiksi todennäköisyys.
             (s) edge[loop left] node {0.8} (s);
 	\end{tikzpicture}
 	\end{center}
-	
+	Ketju on äärellinen, joten sillä on tasapainojakauma. Yhtälö \ref{stationary-dist2} implikoi, että jakauma $\pi$ on siirtymämatriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). Tämä voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt nähdään, että \ref{stationary-dist2} pätee.
 \end{esim}
 
 
