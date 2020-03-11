@@ -39,12 +39,18 @@ Määritellään ensiksi todennäköisyys.
 
 \section{Markovin ketjut}
 
+\subsection{Äärellinen tilajoukko}
+
 \begin{maar}
 	Jono $(X_n:n=1,2,3,...)$ satunnaismuuttujia on diskreettiaikainen \textit{stokastinen prosessi}.
 \end{maar}
 
+\begin{merk}
+	Merkitään stokastista prosessia merkinnällä $\{ X_n \}_{n\in T}$
+\end{merk}
+
 \begin{maar}
-	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju}, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
+	Stokastinen prosessi $\{X_n\}$ on \textit{Markovin ketju}, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
 	\begin{equation}\label{markov-property}
 		\begin{split}
 			&\pr(X_{n+1}=j|X_0=i_0,X_1=i_1,...,X_{n-1}=i_{n-1},X_n=i) \\
@@ -93,8 +99,32 @@ Määritellään ensiksi todennäköisyys.
 	jossa $\forall n=0,1,2,...,n: \pr(X_n=i_n|X_{n-1}=i_{n-1})$ on siirtymätödennäköisyys $p_{i_{n-1},i_n}$ jolloin tulos seuraa substituoimalla termit.
 \end{proof}
 
+\begin{merk}
+	\begin{equation}
+		p_{ij}^{(m)} \coloneqq \pr (X_m=j|X_0=i),\ i,j\in S,m\in T
+	\end{equation}
+	on siirtymätodennäköisyys tilasta $i$ tilaan $j$, kun aikaa kuluu $m$ yksikköä.
+\end{merk}
 
+\begin{maar}
+	\textit{Siirtymämatriisi} on matriisi
+	\begin{equation}
+		\pr ^{(m)} \coloneqq (p_{ij}^{(m)})_{i,j} =
+		\begin{pmatrix}
+			p_{00}^{(m)} & p_{01}^{(m)} & \dots & p_{0n}^{(m)} \\
+			p_{10}^{(m)} & p_{11}^{(m)} & \dots & p_{1n}^{(m)} \\
+			\vdots & & \ddots & \vdots \\
+			p_{n0}^{(m)} & p_{n1}^{(m)} & \dots & p_{nn}^{(m)}
+		\end{pmatrix}
+	\end{equation}
+\end{maar}
 
+\begin{lause}
+	Kaikilla ajanhetkillä on voimassa
+	\begin{equation}
+		\pr ^{(m)} = \pr ^m
+	\end{equation}
+\end{lause}
 
 
 
