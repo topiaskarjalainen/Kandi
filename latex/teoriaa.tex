@@ -46,7 +46,7 @@ Määritellään ensiksi todennäköisyys.
 \end{maar}
 
 \begin{merk}
-	Merkitään stokastista prosessia merkinnällä $\{ X_n \}_{n\in T}$
+	Merkitään stokastista prosessia merkinnällä $\{ X_n \}$
 \end{merk}
 
 \begin{maar}
@@ -144,7 +144,7 @@ Määritellään ensiksi todennäköisyys.
 	Äärellisellä Markovin ketjulla on aina jokin tasapainojakauma $\pi$.
 \end{lause}
 
-\begin{maar}
+\begin{maar}\label{kaant-disk}
 	Markovin ketju on \textit{kääntyvä}, jos löytyy sellainen TN-jakauma $\lambda=(\lambda_i)_{i\in S}$, että 
 	\begin{equation}
 		\lambda_ip_{ij}= \lambda_jp_{ji},\forall i,j\in S
@@ -186,27 +186,27 @@ Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaa
 
 
 \begin{maar}
-	Kun $S$ on rajoittamaton, siirtymämatriisi on parasta ajatella kuvauksena $\pr: S\times S \rightarrow [0,1]$, joka kuvaa tilaparin $x,y\in S$ todennäköisyydeksi $p(x,y)$
+	Kun $S$ on rajoittamaton, siirtymämatriisi on parasta ajatella kuvauksena $T: S\times S \rightarrow [0,1]$, joka kuvaa tilaparin $x,y\in S$ todennäköisyydeksi $T(x,y)$
 \end{maar}
 
 \begin{maar}
-	Iistymätodennäköisyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtymätiheytenä} $p^{(n)}(x,y)$, jolle pätee
+	Iistymätodennäköisyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtymätiheytenä} $T^{(n)}(x,y)$, jolle pätee
 	\begin{equation}\label{siirt-tiheys}
-		\int_S p(x,y)dy = 1 \hspace{1cm} \text{ja} \hspace{1cm} \int_S p^{(n)}(x,y)dy = 1, \forall n \geq 1
+		\int_S T(x,y)dy = 1 \hspace{1cm} \text{ja} \hspace{1cm} \int_S T^{(n)}(x,y)dy = 1, \forall n \geq 1
 	\end{equation}
 \end{maar}
 
 \begin{maar}
 	Jakauma $\pi$ on Markovin ketjun $\{ X_n \}$ kun $S$ on jatkuva, tasapainojakauma jos 
 	\begin{equation}
-		\pi(y) = \int_S \pi(x) p(x,y) dx
+		\pi(y) = \int_S \pi(x) T(x,y) dx
 	\end{equation}
 \end{maar}
 
-\begin{maar}
+\begin{maar}\label{kaant-jatk}
 	Markovin ketju jatkuvassa $S$:ssä on kääntyvä, jos on olemassa 
 	\begin{equation}
-		\pi(x)p(x,y)=\pi(y)p(y,x), \forall x,y\in S
+		\pi(x)T(x,y)=\pi(y)T(y,x), \forall x,y\in S
 	\end{equation}
 \end{maar}
 
@@ -215,9 +215,9 @@ Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaa
 \end{lause}
 
 \begin{proof}
-	Yhtälön \ref{siirt-tiheys} mukaan $\int_S p(y,x)dx = 1$, joten
+	Yhtälön \ref{siirt-tiheys} mukaan $\int_S T(y,x)dx = 1$, joten
 	\begin{equation}
-		\int_S \pi(x) p(x,y) dx = \int_S \pi(y) p(y,x) dx = \pi(y)\int_S p(y,x) dx = \pi(y)
+		\int_S \pi(x) T(x,y) dx = \int_S \pi(y) T(y,x) dx = \pi(y)\int_S T(y,x) dx = \pi(y)
 	\end{equation}
 \end{proof}
 

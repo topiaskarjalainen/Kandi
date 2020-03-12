@@ -6,10 +6,10 @@
 	Metropolis--Hastings algoritmi on seuraavanlainen
 	\begin{enumerate}
 		\item Valitaan aloitus tila $\theta_0$ ja asetetaan $t=0$
-		\item Generoidaan kandidaatti tila $\theta'$ satunnaisesti jakaumasta $J_t(\theta'|\theta_{t-1})$
+		\item Generoidaan kandidaatti tila $\theta'$ satunnaisesti jakaumasta $J_n(\theta'|\theta_{n-1})$
 		\item Lasketaan tiheyksien tai todenn‰kˆisyyksien suhde
 		\begin{displaymath}
-			r = \frac{p(\theta'|y)/J_t(\theta'|\theta^{t-1})}{p(\theta^{t-1}|y)/J_t(\theta^{t-1}|\theta')}
+			r = \frac{p(\theta'|y)/J_n(\theta'|\theta_{n-1})}{p(\theta_{n-1}|y)/J_n(\theta_{n-1}|\theta')}
 		\end{displaymath}
 		\item Asetetaan
 		\begin{displaymath}
@@ -24,9 +24,16 @@
 \end{maar}
 
 \begin{lause}
-	M‰‰ritelm‰n \ref{mh-maar} algoritmi tuottaa Markovin ketjun jolla on uniikki tasapainojakauma, ja jonka tasapainojakauma on haluttu jakauma $p(\theta|y)$, jossa $y$ on data. 
+	M‰‰ritelm‰n \ref{mh-maar} algoritmi tuottaa Markovin ketjun jolla on uniikki tasapainojakauma, ja jonka tasapainojakauma on posteriorijakauma $p(\theta|y)$, jossa $y$ on data. 
 \end{lause}
 
 \begin{proof}
-	Ohitamme todistuksen, ett‰ kyseess‰ Markovin ketju jolla yksi tasapainojakauma, mutta todistamme toisen osan, eli ett‰ tasapainojakauma on haluttu $p(\theta|y)$ eli posteriori jakauma. 
+	Ohitamme todistuksen, ett‰ kyseess‰ Markovin ketju jolla yksi tasapainojakauma, mutta todistamme toisen osan, eli ett‰ tasapainojakauma on haluttu $p(\theta|y)$ eli posteriori jakauma. Todistus nojautuu Markovin ketjun k‰‰ntyvyysominaisuuteen (\ref{kaant-disk} ja \ref{kaant-jatk}), eli
+	\begin{equation}\label{kaant-mcmc}
+		T(\theta_{n+1}|\theta_n)p(\theta_n|y) = T(\theta_n|\theta_{n+1})p(\theta_{n+1}|y)
+	\end{equation}
+	joka on siis riitt‰v‰ ehto tasapainojakauman olemassaololle. Mietit‰‰n kahta tapausta: (1) $\theta_n \neq \theta_{n-1}$ ja (2) $\theta_n = \theta_{n-1}$.
+	Tapauksen (2) siirtym‰ voi tapahtua kahdella tavalla. Joko kohdassa 4. ehdotus $\theta'$ hyl‰t‰‰n, tai se hyv‰ksyt‰‰n, mutta osutaan sattumanvaraisesti takaisin samaan kohtaan. Kuitenkin selv‰sti n‰hd‰‰n, ett‰ ehto \ref{kaant-mcmc} p‰tee tilanteessa (2).
+	
+	Tilanteessa (1)
 \end{proof}
