@@ -1,6 +1,12 @@
 \chapter{Metropolis--Hastings algoritmi}
 
-\textit{Metropolis--Hastings} algoritmi on kehittelijöidenssä Nicholas Metropolisksen (1915-1999) ja \textit{Wilfred Keith Hastings}:n (1930-2016) mukaan nimetty MCMC-menetelmä, jolla voidaan simuloida Bayesiläisessä analyysissa käytettäviä posteriori jakaumia myös silloin kun tiheys on mahdotonta määrittää analyyttisesti.
+\textit{Metropolis--Hastings} algoritmi on kehittelijöidenssä \textit{Nicholas Metropolisksen} (1915-1999) ja \textit{Wilfred Keith Hastings}:n (1930-2016) mukaan nimetty MCMC-menetelmä, jolla voidaan simuloida Bayesiläisessä analyysissa käytettäviä posteriori jakaumia myös silloin kun tiheys on mahdotonta määrittää analyyttisesti.
+
+Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työskennellessään \textit{Los Alamosissa} ja myöhemmin \textit{Metropolis} kehitteli nykyään \textit{Metropolis-algoritmina} tunnettua algoritmiä ja esittelivät sen artikkelissa \textit{Equation of state calculations by fast computing machines}\cite{metropolis_nicholas_equation_1953}. Tämä versio algoritmista vaati, että pian esiteltävä \textit{ehdotusjakauma} on symmetrinen. Myöhemmin \textit{Hastings} laajenti algoritmin koskemaan myös epäsymmetrisiä ehdotusjakaumia artikkelissa \textit{Monte Carlo Sampling Methods Using Markov Chains and Their Applications}
+
+\begin{merk}
+	TN-jakauma $J_n(\cdot|\cdot)$ on niin sanottu \textit{ehdotusjakauma} (\textit{proposal distribution, jumping distribution}), josta \textit{MH-algoritmissa} arvotaan ehdotus tila.
+\end{merk}
 
 \begin{maar}\label{mh-maar}
 	Metropolis--Hastings algoritmi on seuraavanlainen
@@ -28,12 +34,64 @@
 \end{lause}
 
 \begin{proof}
+
 	Ohitamme todistuksen, että kyseessä Markovin ketju jolla yksi tasapainojakauma, mutta todistamme toisen osan, eli että tasapainojakauma on haluttu $p(\theta|y)$ eli posteriori jakauma. Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk} ja \ref{kaant-jatk}), eli
 	\begin{equation}\label{kaant-mcmc}
-		T(\theta_{n+1}|\theta_n)p(\theta_n|y) = T(\theta_n|\theta_{n+1})p(\theta_{n+1}|y)
+		T(\theta_{n}|\theta_{n-1})p(\theta_{n-1}|y) = T(\theta_{n-1}|\theta_{n})p(\theta_{n}|y)
 	\end{equation}
 	joka on siis riittävä ehto tasapainojakauman olemassaololle. Mietitään kahta tapausta: (1) $\theta_n \neq \theta_{n-1}$ ja (2) $\theta_n = \theta_{n-1}$.
 	Tapauksen (2) siirtymä voi tapahtua kahdella tavalla. Joko kohdassa 4. ehdotus $\theta'$ hylätään, tai se hyväksytään, mutta osutaan sattumanvaraisesti takaisin samaan kohtaan. Kuitenkin selvästi nähdään, että ehto \ref{kaant-mcmc} pätee tilanteessa (2).
 	
-	Tilanteessa (1)
+	Tilanteessa (1)Siirtymätodennäköisyys pisteestä $\theta_{n-1}$ pisteeseen $\theta_n$ on
+	\begin{equation}
+		T(\theta_n|\theta_{n-1}) = J_n(\theta_n|\theta_{n-1})
+		\min\Big( \frac{p(\theta_n|y)J_n(\theta_{n-1}|\theta_n)}{p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1})},1 \Big)
+	\end{equation}
+	Jota voidaan muokata helposti
+	\begin{equation}\label{metr-has-proof1}
+		\begin{split}
+			T(\theta_n|\theta_{n-1}) &= J_n(\theta_n|\theta_{n-1})
+		\min\Big( \frac{p(\theta_n|y)J_n(\theta_{n-1}|\theta_n)}{p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1})},1 \Big) \\
+		&= \frac{1}{p(\theta_{n-1}|y)} \min \Big( p(\theta_n|y)J_n(\theta_{n-1}|\theta_n) , p(\theta_{n-1}|y)J_n(\theta_n|\theta_{n-1})  \Big)
+		\end{split}
+	\end{equation}
+	Nähdään kuitenkin, että yhtälön \ref{metr-has-proof1} alempi yhtäläisyys on symmetrinen eli
+	
+	\begin{equation}\label{symmetric}
+		T(\theta_{n-1}|\theta_{n})=\frac{1}{p(\theta_{n}|y)} \min \Big( p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1}) , p(\theta_{n}|y)J_n(\theta_{n-1}|\theta_{n})  \Big)
+	\end{equation}
+	joten kerrotaan \ref{metr-has-proof1} termillä $p(\theta_{n-1}|y)$ ja hyödynnetään \ref{symmetric} ominaisuutta
+	\begin{equation*}
+	\begin{split}
+		T(\theta_n|\theta_{n-1})p(\theta_{n-1}|y) &= \frac{1}{p(\theta_{n-1}|y)} \min \Big( p(\theta_n|y)J_n(\theta_{n-1}|\theta_n) , p(\theta_{n-1}|y)J_n(\theta_n|\theta_{n-1})  \Big) p(\theta_{n-1}|y) \\
+		&= \frac{1}{p(\theta_{n}|y)} \min \Big( p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1}) , p(\theta_{n}|y)J_n(\theta_{n-1}|\theta_{n})  \Big) p(\theta_{n}|y) \\
+		&= T(\theta_{n-1}|\theta_{n})p(\theta_{n}|y)
+	\end{split}
+	\end{equation*}
+	Eli myös tapauksessa (1) yhtälö \ref{kaant-mcmc} pätee.
 \end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
