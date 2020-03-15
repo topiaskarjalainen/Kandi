@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(kandi_stuff)
+project(helperfunctions)
 
-add_library(test SHARED src/RcppExports.cpp)
+add_library(src/RcppExports.cpp src/helper.cpp)
 
 include_directories(/Library/Frameworks/R.framework/Headers)
 include_directories(/Library/Frameworks/R.framework/Resources/library/Rcpp/include)

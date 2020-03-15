@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/kandi_stuff.iml" filepath="$PROJECT_DIR$/.idea/kandi_stuff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/helperfunctions.iml" filepath="$PROJECT_DIR$/.idea/helperfunctions.iml" />
     </modules>
   </component>
 </project>

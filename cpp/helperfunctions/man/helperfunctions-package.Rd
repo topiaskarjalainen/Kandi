@@ -1,25 +1,25 @@
-\name{kandi_stuff-package}
-\alias{kandi_stuff-package}
-\alias{kandi_stuff}
+\name{helperfunctions-package}
+\alias{helperfunctions-package}
+\alias{helperfunctions}
 \docType{package}
 \title{
-\packageTitle{kandi_stuff}
+\packageTitle{helperfunctions}
 }
 \description{
-\packageDescription{kandi_stuff}
+\packageDescription{helperfunctions}
 }
 \details{
 
 The DESCRIPTION file:
-\packageDESCRIPTION{kandi_stuff}
-\packageIndices{kandi_stuff}
+\packageDESCRIPTION{helperfunctions}
+\packageIndices{helperfunctions}
 ~~ An overview of how to use the package, including the most important ~~
 ~~ functions ~~
 }
 \author{
-\packageAuthor{kandi_stuff}
+\packageAuthor{helperfunctions}
 
-Maintainer: \packageMaintainer{kandi_stuff}
+Maintainer: \packageMaintainer{helperfunctions}
 }
 \references{
 ~~ Literature or other references for background information ~~
