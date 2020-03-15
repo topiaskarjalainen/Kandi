@@ -21,7 +21,7 @@ CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion
 FLIBS=-L/usr/local/Cellar/gcc/9.2.0_3/lib/gcc/9
 ```
 
-joilla paketti ainakin kääntyy. Gcc on perus homebrew gcc. Kääntötapahtuu
+joilla paketti ainakin kääntyy. Tämä pakottaa R:n käyttämään gcc:tä sillä MacOS:ssä default asetuksilla `gcc` on symlink Apple `clang` kääntäjään eikä oikeaan `gcc`:n historiallisista syistä, ja `openmp` ei oikein toimi yhteen Applen kääntäjän kanssa. Gcc minulla on perus homebrew gcc. Kääntö tapahtuu
 
 ```
 cd ~/path/to/directory/
