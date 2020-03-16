@@ -5,3 +5,11 @@ mvrnormArma <- function(n, mu, sigma) {
     .Call(`_helperfunctions_mvrnormArma`, n, mu, sigma)
 }
 
+ringfunc <- function(v) {
+    .Call(`_helperfunctions_ringfunc`, v)
+}
+
+mhalgo <- function(n, initial, VCOV, burnin) {
+    .Call(`_helperfunctions_mhalgo`, n, initial, VCOV, burnin)
+}
+
