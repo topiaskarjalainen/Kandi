@@ -5,23 +5,11 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 
-// This is a simple example of exporting a C++ function to R. You can
-// source this function into an R session using the Rcpp::sourceCpp
-// function (or via the Source button on the editor toolbar). Learn
-// more about Rcpp at:
-//
-//   http://www.rcpp.org/
-//   http://adv-r.had.co.nz/Rcpp.html
-//   http://gallery.rcpp.org/
-//
-
-
 
 // [[Rcpp::export]]
 arma::mat mvrnormArma(int n, arma::rowvec mu, arma::mat sigma) {
     int ncols = sigma.n_cols;
     arma::mat Y = arma::randn(n, ncols);
-
     return arma::repmat(mu.t(), 1, n).t() + Y * arma::chol(sigma);
 }
 
@@ -42,9 +30,7 @@ arma::mat mhalgo(const int n,
 
 
     arma::mat samples = arma::zeros<arma::mat>(n, 2);
-    //arma::mat VCOV = arma::zeros<arma::mat>(2,2);
-    //VCOV(0,0) = 1;
-    //VCOV(1,1) = 1;
+
 
     arma::rowvec state = initial;
     samples.row(0) = state;

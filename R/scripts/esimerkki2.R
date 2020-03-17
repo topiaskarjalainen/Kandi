@@ -8,9 +8,9 @@ data1 <- helperfunctions::mhalgo(10000, c(5,5), vcov1, 0)
 set.seed(1)
 data2 <- helperfunctions::mhalgo(10000, c(0,0), vcov1, 0)
 set.seed(1)
-data3 <- helperfunctions::mhalgo(100000, c(0,0), vcov1, 0)
+data3 <- helperfunctions::mhalgo(200000, c(0,0), vcov1, 0)
 
-k <- MASS::kde2d(data3[,1], data3[,2], n=500)
+k <- MASS::kde2d(data3[,1], data3[,2], n=500, lims = c(-2, 2, -2, 2))
 
 
 
