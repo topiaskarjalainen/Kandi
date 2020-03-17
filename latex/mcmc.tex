@@ -11,7 +11,7 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työsken
 \begin{maar}\label{mh-maar}
 	Metropolis--Hastings algoritmi on seuraavanlainen
 	\begin{enumerate}
-		\item Valitaan aloitus tila $\theta_0$ ja asetetaan $t=0$
+		\item Valitaan aloitus tila $\theta_0$ ja asetetaan $n=0$
 		\item Generoidaan kandidaatti tila $\theta'$ satunnaisesti jakaumasta $J_n(\theta'|\theta_{n-1})$
 		\item Lasketaan tiheyksien tai todennäköisyyksien suhde
 		\begin{displaymath}
@@ -74,8 +74,16 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työsken
 \begin{esim}
 	Ajatellaan kuvitteellista tapausta, jossa meillä jatkuva kaksiulotteinen todennäköisyysjakauma, jonka tiheysfunktio on 
 	\begin{equation}
-		unski
+		p(\theta) \varpropto \exp(-5 |\theta_1^2+\theta_2^2-1|)
 	\end{equation}
+	joka muodostaa regasmaisen 2-ulotteisen jakauman. Valitaan ehdotusjakaumaksi $J_n(\theta_n|\theta_{n-1})$ 2d-multinormaalijakauma 
+	\begin{equation}
+		J_n(\theta_n|\theta_{n-1}) \sim N(\theta_{n-1}, I_2)
+	\end{equation}
+	jossa $I_2$ on 2x2 yksikkömatriisi. Nyt Metropolis Hastings algoritmin avulla voidaan simuloida jakaumaa $p(\theta)$ algoritmilla \ref{mh-maar}. Simuloiddaan kaksi Markovin ketjua asettemalla aloitustiloiksi $(0,0)$ ja $(5,5)$. 
+	\begin{figure}[h!]
+		\includegraphics[width=\textwidth]{mhexample1}
+	\end{figure}
 	
 \end{esim}
 
