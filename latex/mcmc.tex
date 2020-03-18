@@ -71,7 +71,7 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työsken
 	Eli myös tapauksessa (1) yhtälö \ref{kaant-mcmc} pätee.
 \end{proof}
 
-\begin{esim}
+\begin{esim}\label{mh-esim1}
 	Ajatellaan kuvitteellista tapausta, jossa meillä jatkuva kaksiulotteinen todennäköisyysjakauma, jonka tiheysfunktio on 
 	\begin{equation}
 		p(\theta) \varpropto \exp(-5 |\theta_1^2+\theta_2^2-1|)
@@ -80,18 +80,37 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työsken
 	\begin{equation}
 		J_n(\theta_n|\theta_{n-1}) \sim N(\theta_{n-1}, \sigma^2 I_2)
 	\end{equation}
-	jossa $I_2$ on 2x2 yksikkömatriisi ja olkoot $\sigma^2 = 0.01$. Nyt Metropolis Hastings algoritmin avulla voidaan simuloida jakaumaa $p(\theta)$ algoritmilla \ref{mh-maar}. Simuloiddaan kaksi Markovin ketjua asettemalla aloitustiloiksi $(0,0)$ ja $(5,5)$. 
+	jossa $I_2$ on 2x2 yksikkömatriisi ja olkoot $\sigma^2 = 0.01$. Nyt Metropolis Hastings algoritmin avulla voidaan simuloida jakaumaa $p(\theta)$ algoritmilla \ref{mh-maar}. Simuloidaan kaksi Markovin ketjua asettemalla aloitustiloiksi $(0,0)$ ja $(5,5)$, 
 	\begin{figure}[h!]
 		\includegraphics[width=\textwidth]{mhexample1}
-		\caption{\textit{Vasemmalla aloituspiste on (5,5), keskellä (0,0), ja oikea kuva on tiheysestimaatti.}}
+		\caption{\textit{Vasemmalla: (5,5). Keskellä: (0,0) Oikealla: tiheysestimaatti (huomaa eri skaala).}}
 		\label{kuva1}
 	\end{figure}
-	Simuloimme tästä Markovin ketjusta 10 000 pistettä näillä aloituspisteillä. Simuloimme myös 200 000 pistettä aloitusarvolla (0,0), joista loimme tiheysestimaatin. Tulokset löytyy kuvasta \ref{kuva1}. Kahdessa ekassa kuvassa viiva on ensimmäisen 250 pisteen polku. Selvästi nähdään, että aloituspisteellä ei ole väliä. Markovin ketjun tasapainojakauma on sama huolimatta aloituspisteestä.
+	kummastakin 10 000 tilaa. Simuloimme myös 200 000 pistettä aloitusarvolla (0,0), joista luodaan tiheysestimaatti. Tulokset löytyy kuvasta \ref{kuva1}. Kahdessa ekassa kuvassa viiva on ensimmäisen 250 pisteen polku. Selvästi nähdään, että aloituspisteellä ei ole väliä. Markovin ketjun tasapainojakauma on sama huolimatta aloituspisteestä.
 	
 \end{esim}
 
-\begin{esim}
+\begin{esim}\label{MH-esim2}
+	Otetaan toisena esimerkkinä klassinen diskreetti tapaus, jossa oletetaan, että havainnot ovat jauakautuneet \textit{Bernoulli-jakauman} mukaan, 
+	$y_i \sim Bernoulli(\theta)$, 
+	ja että priori on tasajakauma. Tällöin tiedetään, että analyyttinen posteriori on 
+	\begin{equation*}
+		p(\theta|y_i) = Beta(\sum_{i=1}^{n} y_i+1, n - \sum_{i=1}^{n} y_i+1)
+	\end{equation*}
+	Valitaan hieman erikoinen ehdotusjakauma:
+	\begin{equation}
+		J_n(\theta_n|\theta_{n-1}) \sim \begin{cases}
+			Unif(\theta_{n-1},1) & \text{kun } \theta_{n-1}<0.5 \\
+			Unif(0,\theta_{n-1}) & \text{kun } \theta_{n-1}\geq0.5
+		\end{cases}
+	\end{equation}
+	Toisin kuin esimerkissä \ref{mh-esim1}, nyt ehdotusjakauma ei olekkaan symmetrinen.
 	
+	Oletetaan että, meillä on havainnot $(1,1,1,0,0,1,0,0,0,0)$ ja tarkastellaan sekä analyyttistä että MH-algoritmin tuottamaa jakaumaa ja niiden eroja.
+	\begin{figure}[h!]
+		\includegraphics[width=\textwidth]{mhexample2}
+		\caption{Esimerkin \ref{MH-esim2} tulokset}
+	\end{figure}
 \end{esim}
 
 
