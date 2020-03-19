@@ -1,4 +1,27 @@
-\chapter{Metropolis--Hastings algoritmi}
+\chapter{Markov Chain Monte Carlo}
+
+\section{Gibbsin otanta-algoritmi}
+
+\textit{Gibbsin otanta-algoritmi} on tapa simuloida Bayesiläistä moniulotteista posteriorijakaumaa (eli ulottuvuuksia vähintään 2), kun suora otanta on hankalaa. Algoritmi on nimetty amerikkalaisen fyysikon, \textit{Josiah Willard Gibbs}'n (1839-1903) mukaan, mutta sen todellinen kehittäjä on veljekset \textit{Donald Geman} (1943-) ja \textit{Stuart Geman} (1949-) vuonna 1984 artikkelissa \textit{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}
+
+\begin{maar}
+	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
+	\begin{enumerate}
+		\item Valitaan $\theta$:n osavektoreille järjestys.
+		\item Arvotaan uusi tila jokaiselle osavektorille $\theta_j$ ehdollistamalla se jokaiselle muulle parametrille, eli vedetään arvot $\theta = (\theta_1, \theta_2,...,\theta_d)$ jakaumista
+		\begin{equation}
+			p(\theta_j|\theta_{-j,n-1},y)
+		\end{equation}
+		missä $\theta_{-j,n-1}$ on kaikki muut $\theta$:n komponentit paitsi $j$s komponentti, näiden tämänhetkisillä arvoilla eli 
+		\begin{equation*}
+			\theta_{-j,n-1} = (\theta_{1,n},...,\theta_{j-1,n},\theta_{j+1,n-1},...,\theta_{d,n-1})
+		\end{equation*}
+	\end{enumerate}
+\end{maar}
+
+
+
+\section{Metropolis--Hastings algoritmi}\label{Metropolis--Hastings algoritmi}
 
 \textit{Metropolis--Hastings} algoritmi on kehittelijöidenssä \textit{Nicholas Metropolisksen} (1915-1999) ja \textit{Wilfred Keith Hastings}:n (1930-2016) mukaan nimetty MCMC-menetelmä, jolla voidaan simuloida Bayesiläisessä analyysissa käytettäviä posteriori jakaumia myös silloin kun tiheys on mahdotonta määrittää analyyttisesti.
 
@@ -83,7 +106,7 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työsken
 	jossa $I_2$ on 2x2 yksikkömatriisi ja olkoot $\sigma^2 = 0.01$. Nyt Metropolis Hastings algoritmin avulla voidaan simuloida jakaumaa $p(\theta)$ algoritmilla \ref{mh-maar}. Simuloidaan kaksi Markovin ketjua asettemalla aloitustiloiksi $(0,0)$ ja $(5,5)$, 
 	\begin{figure}[h!]
 		\includegraphics[width=\textwidth]{mhexample1}
-		\caption{\textit{Vasemmalla: (5,5). Keskellä: (0,0) Oikealla: tiheysestimaatti (huomaa eri skaala).}}
+		\caption[Kaksiulotteinen Metropolis--Hastings esimerkki]{\textit{Vasemmalla: (5,5). Keskellä: (0,0) Oikealla: tiheysestimaatti (huomaa eri skaala).}}
 		\label{kuva1}
 	\end{figure}
 	kummastakin 10 000 tilaa. Simuloimme myös 200 000 pistettä aloitusarvolla (0,0), joista luodaan tiheysestimaatti. Tulokset löytyy kuvasta \ref{kuva1}. Kahdessa ekassa kuvassa viiva on ensimmäisen 250 pisteen polku. Selvästi nähdään, että aloituspisteellä ei ole väliä. Markovin ketjun tasapainojakauma on sama huolimatta aloituspisteestä.
@@ -91,13 +114,18 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työsken
 \end{esim}
 
 \begin{esim}\label{MH-esim2}
+	\begin{figure}[h!]
+		\includegraphics[width=0.7\textwidth]{mhexample2}
+		\caption[Yksiulotteinen Metropolis--Hastings esimerkki]{Esimerkin \ref{MH-esim2} tulokset}
+		\label{kuva2}
+	\end{figure}
 	Otetaan toisena esimerkkinä klassinen diskreetti tapaus, jossa oletetaan, että havainnot ovat jauakautuneet \textit{Bernoulli-jakauman} mukaan, 
 	$y_i \sim Bernoulli(\theta)$, 
 	ja että priori on tasajakauma. Tällöin tiedetään, että analyyttinen posteriori on 
 	\begin{equation*}
 		p(\theta|y_i) = Beta(\sum_{i=1}^{n} y_i+1, n - \sum_{i=1}^{n} y_i+1)
 	\end{equation*}
-	Valitaan hieman erikoinen ehdotusjakauma:
+	Valitaan hieman eksoottinen ehdotusjakauma esimerkin vuoksi:
 	\begin{equation}
 		J_n(\theta_n|\theta_{n-1}) \sim \begin{cases}
 			Unif(\theta_{n-1},1) & \text{kun } \theta_{n-1}<0.5 \\
@@ -107,16 +135,23 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työsken
 	Toisin kuin esimerkissä \ref{mh-esim1}, nyt ehdotusjakauma ei olekkaan symmetrinen.
 	
 	Oletetaan että, meillä on havainnot $(1,1,1,0,0,1,0,0,0,0)$ ja tarkastellaan sekä analyyttistä että MH-algoritmin tuottamaa jakaumaa ja niiden eroja.
-	\begin{figure}[h!]
-		\includegraphics[width=\textwidth]{mhexample2}
-		\caption{Esimerkin \ref{MH-esim2} tulokset}
-	\end{figure}
+
+	Kuvasta \ref{kuva2} nähdään esimerkin tulokset. Huomataan, että vaikka ehdotusjakauma on melko kummallinen, niin kuitenkin tarpeaksi monella iteraatiolla saavutetaan tasapainojakauma. Huomaa, että vasemmassa kuvaajassa on vihreällä simulaatio keskiarvo, ja punaisella analyyttinen keskiarvo, mutta nämä arvot ovat niin lähellä toisiaan, että viivat ovat päällekkäin.
 \end{esim}
 
+\subsection{Ehdotusjakauman valinnasta}
 
+Kummassakin kappaleen \ref{Metropolis--Hastings algoritmi} esimerkissä valitsimme ehdotusjakauman melko satunnaisesti. Varsinkin esimerkissä \ref{MH-esim2} se on erittäin epätavallinen, mistä syystä hyvän approksimaation saavuttaminen vie todella monta iteraatiota. Yleensä jos haluamme oikeasti tehokkaasti ja ekonomisesti simuloida jakaumia esitetyllä algoritmilla, haluamme valita ehdotusjakauman jollakin järkevällä, systemaattisella tavalla, joka minimoisi tarvittavien iteraatioiden määrän.
 
+Yleisesti ottaen hyvällä ehdotusjakaumalla on muutama ominaisuus\cite{gelman_andrew_bayesian_nodate}
+\begin{enumerate}
+	\item Kaikilla $\theta$:n arvoilla on helppo arpoa arvo $J(\theta'|\theta)$
+	\item Suhde $r$ on helppo laskea
+	\item Siirtymät ovat tarpeaksi pitkiä. Muuten Markovin Ketju etenee liian hitaasti ja hyvän estimaatin saaminen kestää liian pitkään.
+	\item Siirtymiä ei hylätä liian usein. Muuten Markovin Ketju ei etene vaan seisoo paikallaan.
+\end{enumerate}
 
-
+Lisäksi simulointia voidaan nopeuttaa mm. käyttämällä adaptiivista ehdotusjakaumaa, eli toisinsanoen ehdotusjakaumaa muunnellaan riippuen ketjun liikkeistä. Esimerkiksi jos ehdotusjakauman ydin on samaa muotoa ku
 
 
 

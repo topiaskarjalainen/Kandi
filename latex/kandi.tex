@@ -10,7 +10,6 @@
 
 
 \usepackage{mathtools}
-\usepackage{algorithmic}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{%
@@ -18,8 +17,8 @@
   color(1cm)=(orange!75!red)}
 }
 \usetikzlibrary{arrows,automata}
-%\usepackage[style=numeric]{biblatex}
-%\addbibresource{sources.bib}
+\usepackage[style=numeric, backend=bibtex]{biblatex}
+\addbibresource{sources.bib}
 
 %hallitse tilaa ennen kappale otsikkoa
 \usepackage{etoolbox}
@@ -71,18 +70,20 @@
 \maketitle
 
 \tableofcontents
+\listoffigures
 
 
 \include{johdanto}
 \include{teoriaa}
-\include{mcmc2}
 \include{mcmc}
 \include{loppusanat}
 
 
 
+\printbibliography
 
-\begin{thebibliography}{9}
+
+%\begin{thebibliography}{9}
 
 %\bibitem{ET}
 %Gustav Elfving ja Pekka Tuominen: Todennäköisyyslaskenta II, 2.\ painos, Limes ry, 1990.
@@ -96,6 +97,6 @@
 %\bibitem{Tuo}
 %Pekka Tuominen: Todennäköisyyslaskenta I, 5.\ painos, Limes ry, 2000.
 
-\end{thebibliography}
+%\end{thebibliography}
 
 \end{document}

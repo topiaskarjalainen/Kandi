@@ -164,8 +164,8 @@ Määritellään ensiksi todennäköisyys.
 			0.2 & 0.8
 		\end{pmatrix}
 	\end{displaymath}
-	Tämä voidaan visualisoida seuraavanlaisesti:
-	
+	Tämä voidaan visualisoida kuvan \ref{mc-esimerkki1} mukaisesti.
+	\begin{figure}[h!]\label{mc-esimerkki1}
 	\begin{center}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,semithick]
 
@@ -177,7 +177,9 @@ Määritellään ensiksi todennäköisyys.
             (r) edge[loop right] node {0.7} (r)
             (s) edge[loop left] node {0.8} (s);
 	\end{tikzpicture}
+	\caption[Yksinkertainen esimerrki Markovin ketjusta]{Esimerkki \ref{mc-esimerkki1}}
 	\end{center}
+	\end{figure}
 	Ketju on äärellinen, joten sillä on tasapainojakauma. Yhtälö \ref{stationary-dist2} implikoi, että jakauma $\pi$ on siirtymämatriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). Tämä voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt nähdään, että \ref{stationary-dist2} pätee.
 \end{esim}
 
