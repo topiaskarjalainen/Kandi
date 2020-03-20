@@ -43,13 +43,14 @@ mh_ber <- function(target, N, x) {
 
 
 set.seed(4)
-sam <- mh_ber(targ, 100000, 0)
+n.iter <- 10000
+sam <- mh_ber(targ, n.iter, 0)
 
 
-png("/Users/topiaskarjalainen/Documents/University/kandi/Kandi/latex/mhexample2.png",
-    width = 1000,
-    height = 500
-)
+#png("/Users/topiaskarjalainen/Documents/University/kandi/Kandi/latex/mhexample2.png",
+#    width = 1000,
+#    height = 500
+#)
 par(mfrow=c(1,2))
 plot(1, type="n", 
      xlab=expression(theta), 
@@ -67,18 +68,20 @@ x <- seq(0,1,length.out = 200)
 lines(x, dbeta(x, 5, 7), col = "red", lwd=3)
 abline(v = 5/(5+7), col = "red", lty=6, lwd=3)
 abline(v = mean(sam), col = "green", lty=6)
-
+par(mfrow=c(1,1))
 plot(1, type="n", 
      xlab="n", 
      ylab=expression(theta), 
      main = "n=100000",
-     xlim=c(0, 100000), 
+     xlim=c(0, n.iter), 
      ylim=c(0, 1),
      cex.lab=1.5,
      cex.axis=1.5, 
      cex.main=1.5, 
      cex.sub=1.5
 )
-lines(head(sam, 100000))
+lines(sam)
 abline(h=mean(sam), col = "red")
-dev.off()
+#dev.off()
+
+rstan::monitor(sam, digits = 5, warmup = 0)
