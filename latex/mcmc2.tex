@@ -50,8 +50,38 @@ Gelmanin $\hat{R}$ mittaa sitä miten paljon kullakin hetkellä $\psi$:n jakauma v
 
 Toinen hyödyllinen diagnostiikka MCMC-menetelmissä on niin sanottu \textit{effective sample size (ESS)}, joka mittaa sitä kuinka monta effektiivisesti riippumatonta otosta ketjussa on. Tämä tarkoittaa siis sitä, että se mittaa kuinka paljon ketjun autokorrelaatio vaikuttaa keskivirheeseen verrattuna täysin riippumattomiin otoksiin.
 \begin{maar}
-	ESS lasketaan siten, että lasketaan $\hat{\sigma}^+$ kaavan \ref{sigma+} mukaan, ja sitten lasketaan 
+	ESS lasketaan kaavalla
+	\begin{equation}
+		\hat{n}_{eff}=\frac{mn}{1+2\sum_{t=1}^{T}\hat{\rho}_t}
+	\end{equation}
+	jossa 
+	\begin{subequations}
+	\begin{equation}
+		\hat{\rho}_t = 1 - \frac{V_t}{2\hat{\sigma}^+}
+	\end{equation}
+	\begin{equation}
+		V_t=\frac{1}{m(n-t)}\sum_{j=1}^{m}\sum_{i=t+1}^{n}(\psi_{ij}-\psi_{i-t,j})^2
+	\end{equation}
+	\end{subequations}
+	$\hat{\sigma}^+$ saadaan kaavasta \ref{sigma+}. Termissä $\sum_{t=1}^{T}\hat{\rho}_t$ autokorrelaatioita summataan, kunnes kahden peräkkäisen kovariaatin summa on negatiivinen \cite{geyer_practical_1992}.
 \end{maar}
+
+\begin{esim}
+	Tarkastellaan esimerkin \ref{MH-esim2} tilannetta. Simuloimme siinä 100 000 iteraatiota ilman burn-in periodia. Arvioidaan tälle ketjulle $\hat{R}$ ja $\hat{n}_{eff}$.
+	\begin{center}
+		\begin{tabular}{ |m{3em}||m{3em}|m{3em}| m{3em} | }
+	 	\hline
+		\multicolumn{4}{|c|}{Esimerkki \ref{MH-esim2}} \\
+ 		\hhline{|=||=|=|=|}
+ 		Param & $\hat{R}$ & $\hat{n}_{eff-bulk}$&$\hat{n}_{eff-tail}$ \\
+ 		\hline
+ 		$\theta$ & 1.0002 & 29768 & 16182 \\
+ 		\hline 		
+		\end{tabular}	
+	\end{center}
+
+
+\end{esim}
 
 
 

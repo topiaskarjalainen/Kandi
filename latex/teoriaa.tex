@@ -37,7 +37,13 @@ Määritellään ensiksi todennäköisyys.
 	\textit{Satunnaismuuttuja} $X$ on (lähes) mielivaltainen kuvaus $X:\Omega\rightarrow S$, jossa $S$ on \textit{tilajoukko}. 
 \end{maar}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Tässä Markovin ketjuista   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Markovin ketjut}
+
+Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät kuulu sellaisenaan opetussuunnitelmaan. \cite{piiroinen_stokastiset_nodate}
 
 \subsection{Äärellinen tilajoukko}
 
@@ -154,7 +160,11 @@ Määritellään ensiksi todennäköisyys.
 \begin{lause}
 	Jos Markovin ketju on kääntyvä, niin $\lambda=\pi$ on sen tasapainojakauma.
 \end{lause}
-
+\begin{proof}
+	\begin{equation*}
+		\sum_{i\in S} \lambda_i p_{ij} = \sum_{i\in S} \lambda_j p_{ji} = \lambda_j \sum_{i\in S} p_{ij} = \lambda_j
+	\end{equation*}
+\end{proof}
 \begin{esim}
 	Pohditaan lyhyttä esimerkkiä, jossa tilajoukko on $S=\{"sataa", "paistaa"\}$. Määritellään siirtymätodennäköisyydet siirtymämatriisilla
 	\begin{displaymath}
@@ -165,7 +175,8 @@ Määritellään ensiksi todennäköisyys.
 		\end{pmatrix}
 	\end{displaymath}
 	Tämä voidaan visualisoida kuvan \ref{mc-esimerkki1} mukaisesti.
-	\begin{figure}[h!]\label{mc-esimerkki1}
+	\begin{figure}[h!]
+	\label{mc-esimerkki1}
 	\begin{center}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,semithick]
 
