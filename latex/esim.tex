@@ -1,1 +1,22 @@
 \chapter{Laajempi esimerkki}
+
+Tarkastellaan vielä lopuksi laajempaa esimerkkiä. Tarkastellaan normaalia lineaarista regressiomallia. Käytetään \texttt{R}:stä löytyvää \texttt{MASS::Boston} dataa, jossa on dataa Bostinin lähiöiden talojen mediaanihinnoista. Regressoidaan datasetin muuttuja \texttt{medv} muuttujille \texttt{dis} ja \texttt{crim}, eli regressoidaan \textit{asunnon mediaanihinta} muuttujille \textit{etäisyys yrityskyliin} ja \textit{rikollisuuden määrä}. Sovitetaan tämä malli Gibbsin otanta-algoritmin avulla. Sitä varten meidän on ensiksi määriteltävä marginaaliset ehdolliset jakaumat parametreille.
+
+Määritellään ensiksi malli. Merkitään $\tau = 1/\sigma^2$, $\theta = (\beta_0,\beta_1,\beta_2,\tau)$
+\begin{equation}
+\begin{split}
+	y_i|\beta_0,\beta_1,\beta_2,\tau &\sim N(\beta_0+\beta_1 x_i+\beta_2x_i, 1/\tau) \\
+	\beta_0|\mu_0,\tau_0 &\sim N(\mu_0, 1/\tau_0) \\
+	\beta_1|\mu_1,\tau_1 &\sim N(\mu_1, 1/\tau_1) \\
+	\beta_2|\mu_2,\tau_2 &\sim N(\mu_2, 1/\tau_2) \\
+	\tau|\alpha, \gamma &\sim Gamma(\alpha, \gamma)
+\end{split}	
+\end{equation}
+Muodostetaan uskottavuusfunktio
+\begin{equation}
+	L(y|\theta) = \prod_{i=1}^{N} N(\beta_0+\beta_1 x_i+\beta_2x_i, 1/\tau)
+\end{equation}
+Ja posterioiri on siten 
+\begin{equation}
+	p(\theta|y) \propto p(\beta_0)p(\beta_1)p(\beta_2)p(\tau)\prod_{i=1}^{N} N(\beta_0+\beta_1 x_i+\beta_2x_i, 1/\tau)
+\end{equation}

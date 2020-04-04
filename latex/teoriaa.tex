@@ -3,26 +3,26 @@
 
 \chapter{Teoriaa}\label{teor}
 
-\section{Perusm‰‰ritelmi‰}
+\section{Perusm√§√§ritelmi√§}
 
-M‰‰ritell‰‰n ensiksi todenn‰kˆisyys.
+M√§√§ritell√§√§n ensiksi todenn√§k√∂isyys.
 
 \begin{maar}
-	\textit{$\sigma$-algebra.} Olkoot $\Omega$ mielivaltainen ep‰tyhj‰ joukko. Sigma-algebra perusjoukolla $\Omega$ on sen osajoukkojen joukkoperhe $\mathcal{F}$, joka toteuttaa ehdot:
+	\textit{$\sigma$-algebra.} Olkoot $\Omega$ mielivaltainen ep√§tyhj√§ joukko. Sigma-algebra perusjoukolla $\Omega$ on sen osajoukkojen joukkoperhe $\mathcal{F}$, joka toteuttaa ehdot:
 	
 	\begin{enumerate}
 		\item $\emptyset\in\mathcal{F}$
 		\item jos $A\in\mathcal{F},\ niin\ A^c \in\mathcal{F}$
-		\item jos jos $A_k\in\mathcal{F},\ kaikilla\ k\in K$, miss‰ $K$ on numeroituva joukko, niin $\bigcup_{k\in K} A_k \in \mathcal{F}$
+		\item jos jos $A_k\in\mathcal{F},\ kaikilla\ k\in K$, miss√§ $K$ on numeroituva joukko, niin $\bigcup_{k\in K} A_k \in \mathcal{F}$
 	\end{enumerate}
 \end{maar}
 
 \begin{maar}
-	Kuvaus \pr\ liitt‰‰ kuhunkin tapahtumaan $A$ \textit{todenn‰kˆisyyden}, joka on luku suljetulla v‰lill‰ [0,1] ja sille p‰tee:
+	Kuvaus \pr\ liitt√§√§ kuhunkin tapahtumaan $A$ \textit{todenn√§k√∂isyyden}, joka on luku suljetulla v√§lill√§ [0,1] ja sille p√§tee:
 	\begin{enumerate}
 		\item $\pr(\Omega)=1$
-		\item Jos $A$ on tapahtuma, niin sen komplementtitapahtuman $A^c$ todenn‰kˆisyys on $\pr(A^c)= 1 - \pr(A)$
-		\item Jos $(A_k)_{k\in\N}$ ovat erillisi‰ tapahtumia, niin 
+		\item Jos $A$ on tapahtuma, niin sen komplementtitapahtuman $A^c$ todenn√§k√∂isyys on $\pr(A^c)= 1 - \pr(A)$
+		\item Jos $(A_k)_{k\in\N}$ ovat erillisi√§ tapahtumia, niin 
 		\begin{displaymath}
 			\pr(\bigcup_{k\in\N} A_k) = \sum_{k\in\N}\pr(A_k)
 		\end{displaymath}
@@ -30,45 +30,45 @@ M‰‰ritell‰‰n ensiksi todenn‰kˆisyys.
 \end{maar}
 
 \begin{maar}
-	Kolmikkoa $(\Omega, \mathcal{F}, \pr )$ kutsutaan \textit{todenn‰kˆisyysavaruudeksi}.
+	Kolmikkoa $(\Omega, \mathcal{F}, \pr )$ kutsutaan \textit{todenn√§k√∂isyysavaruudeksi}.
 \end{maar}
 
 \begin{maar}
-	\textit{Satunnaismuuttuja} $X$ on (l‰hes) mielivaltainen kuvaus $X:\Omega\rightarrow S$, jossa $S$ on \textit{tilajoukko}. 
+	\textit{Satunnaismuuttuja} $X$ on (l√§hes) mielivaltainen kuvaus $X:\Omega\rightarrow S$, jossa $S$ on \textit{tilajoukko}. 
 \end{maar}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  T‰ss‰ Markovin ketjuista   %%
+%%  T√§ss√§ Markovin ketjuista   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Markovin ketjut}
 
-Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuulu sellaisenaan opetussuunnitelmaan. \cite{piiroinen_stokastiset_nodate}
+Esitell√§√§n ensiksi joitain perus asioita Markovin Ketjuista, sill√§ ne eiv√§t kuulu sellaisenaan opetussuunnitelmaan. \cite{piiroinen_stokastiset_nodate}
 
-\subsection{ƒ‰rellinen tilajoukko}
+\subsection{√Ñ√§rellinen tilajoukko}
 
 \begin{maar}
 	Jono $(X_n:n=1,2,3,...)$ satunnaismuuttujia on diskreettiaikainen \textit{stokastinen prosessi}.
 \end{maar}
 
 \begin{merk}
-	Merkit‰‰n stokastista prosessia merkinn‰ll‰ $\{ X_n \}$
+	Merkit√§√§n stokastista prosessia merkinn√§ll√§ $\{ X_n \}$
 \end{merk}
 
 \begin{maar}
-	Stokastinen prosessi $\{X_n\}$ on \textit{Markovin ketju}, jos kaikilla alkuhetkill‰ $m,n$ ja tiloilla $i,j\in S$ on voimassa
+	Stokastinen prosessi $\{X_n\}$ on \textit{Markovin ketju}, jos kaikilla alkuhetkill√§ $m,n$ ja tiloilla $i,j\in S$ on voimassa
 	\begin{equation}\label{markov-property}
 		\begin{split}
 			&\pr(X_{n+1}=j|X_0=i_0,X_1=i_1,...,X_{n-1}=i_{n-1},X_n=i) \\
 		 &= \pr(X_{n+1}=j|X_n=i) 
 		\end{split}
 	\end{equation}
-	ja \textit{siirtym‰todenn‰kˆisyyksille} on voimassa 
+	ja \textit{siirtym√§todenn√§k√∂isyyksille} on voimassa 
 	\begin{equation}\label{stationary}
 		p_{ij}=\pr(X_{n+1}=j|X_n=i)=\pr(X_{m+1}=j|X_m=i)
 	\end{equation}
-	Yht‰lˆ‰ \ref{markov-property} kutsutaan \textit{Markovin-ehdoksi} ja yht‰lˆ‰ \ref{stationary} taas kutsutaan \textit{stationarisuusehdoksi}, mik‰ tarkoittaa, 
-	ett‰ siirtym‰todenn‰kˆisyys tilojen $i\ \text{ja}\ j$ v‰lill‰ ei riipu ajasta $m\ \text{ja}\ n$, vaan pelk‰st‰‰n tiloista $i\ \text{ja}\ j$.
+	Yht√§l√∂√§ \ref{markov-property} kutsutaan \textit{Markovin-ehdoksi} ja yht√§l√∂√§ \ref{stationary} taas kutsutaan \textit{stationarisuusehdoksi}, mik√§ tarkoittaa, 
+	ett√§ siirtym√§todenn√§k√∂isyys tilojen $i\ \text{ja}\ j$ v√§lill√§ ei riipu ajasta $m\ \text{ja}\ n$, vaan pelk√§st√§√§n tiloista $i\ \text{ja}\ j$.
 \end{maar}
 
 \begin{maar}
@@ -76,13 +76,13 @@ Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuul
 \end{maar}
 
 \begin{lause}
-	Ajanhetkell‰ $n\geq 1$ polun $(i_0,...i_n)$ todenn‰kˆisyys on 
+	Ajanhetkell√§ $n\geq 1$ polun $(i_0,...i_n)$ todenn√§k√∂isyys on 
 	\begin{equation}
 		\pr (X_0=i_0,...,X_n=i_n) = p_{i_0} p_{i_0,i_1} p_{i_1,i_2} ... p_{i_{n-1},i_n}
 	\end{equation} 
 \end{lause}
 \begin{proof}
-	K‰ytt‰en ehdollisen todenn‰kˆisyyden kaavaa, saadaan 2:lle tapahtumalle
+	K√§ytt√§en ehdollisen todenn√§k√∂isyyden kaavaa, saadaan 2:lle tapahtumalle
 	\begin{equation*}
 		\pr (A_0, A_1)=\pr(A_0)\pr(A_1|A_0)
 	\end{equation*}
@@ -90,7 +90,7 @@ Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuul
 	\begin{equation*}
 		\pr (A_0, A_1, A_2)=\pr(A_0)\pr(A_1|A_0)\pr(A_2|A_1, A_0)
 	\end{equation*}
-	nelj‰
+	nelj√§
 	\begin{equation*}
 		\pr (A_0, A_1, A_2, A_3)=\pr(A_0)\pr(A_1|A_0)\pr(A_2|A_1, A_0)\pr(A_3|A_2,A_1,A_0)
 	\end{equation*}
@@ -98,22 +98,22 @@ Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuul
 	\begin{equation}\label{condprob}
 		\pr (A_0,...,A_n)=\pr(A_0)\pr(A_1|A_0)...\pr(A_n|A_{n-1},...A_0)
 	\end{equation}
-	T‰m‰ on yleinen ehdollinen todenn‰kˆisyys. Merkataan $A_n \coloneqq (X_i=i_n)$. Koska k‰sittelemme Markovin ketjua, niin yht‰lˆ \ref{markov-property} p‰tee, jolloin yht‰lˆst‰ \ref{condprob} saadaan 
+	T√§m√§ on yleinen ehdollinen todenn√§k√∂isyys. Merkataan $A_n \coloneqq (X_i=i_n)$. Koska k√§sittelemme Markovin ketjua, niin yht√§l√∂ \ref{markov-property} p√§tee, jolloin yht√§l√∂st√§ \ref{condprob} saadaan 
 	\begin{equation*}
 		\pr(X_0=i_0,...,X_n=i_n) = \pr(X_0=i_0) \pr(X_1=i_1|X_0=i_0)...\pr(X_n=i_n|X_{n-1}=i_{n-1})
 	\end{equation*}
-	jossa $\forall n=0,1,2,...,n: \pr(X_n=i_n|X_{n-1}=i_{n-1})$ on siirtym‰tˆdenn‰kˆisyys $p_{i_{n-1},i_n}$ jolloin tulos seuraa substituoimalla termit.
+	jossa $\forall n=0,1,2,...,n: \pr(X_n=i_n|X_{n-1}=i_{n-1})$ on siirtym√§t√∂denn√§k√∂isyys $p_{i_{n-1},i_n}$ jolloin tulos seuraa substituoimalla termit.
 \end{proof}
 
 \begin{merk}
 	\begin{equation}
 		p_{ij}^{(m)} \coloneqq \pr (X_m=j|X_0=i),\ i,j\in S,m\in T
 	\end{equation}
-	on siirtym‰todenn‰kˆisyys tilasta $i$ tilaan $j$, kun aikaa kuluu $m$ yksikkˆ‰.
+	on siirtym√§todenn√§k√∂isyys tilasta $i$ tilaan $j$, kun aikaa kuluu $m$ yksikk√∂√§.
 \end{merk}
 
 \begin{maar}
-	\textit{Siirtym‰matriisi} on matriisi
+	\textit{Siirtym√§matriisi} on matriisi
 	\begin{equation}
 		\pr ^{(m)} \coloneqq (p_{ij}^{(m)})_{i,j} =
 		\begin{pmatrix}
@@ -126,39 +126,39 @@ Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuul
 \end{maar}
 
 \begin{lause}
-	Kaikilla ajanhetkill‰ on voimassa
+	Kaikilla ajanhetkill√§ on voimassa
 	\begin{equation}
 		\pr ^{(m)} = \pr ^m
 	\end{equation}
 \end{lause}
 \begin{proof}
-	Todistus on melko pitk‰, joten ohitetaan se.
+	Todistus on melko pitk√§, joten ohitetaan se.
 \end{proof}
 
 \begin{maar}
-	Todenn‰kˆisyysjakauma $\pi=(\pi)_{i\in S}$ on Markovin ketjun $\{X_n\}$ tasapainojakauma, jos 
+	Todenn√§k√∂isyysjakauma $\pi=(\pi)_{i\in S}$ on Markovin ketjun $\{X_n\}$ tasapainojakauma, jos 
 	\begin{equation}\label{stationary-dist}
 		\sum_{i\in S} \pi_i p_{ij}=\pi_j, \forall j\in S
 	\end{equation}
-	Yht‰lˆ \ref{stationary-dist} voidaan kirjoittaa myˆs muotoon 
+	Yht√§l√∂ \ref{stationary-dist} voidaan kirjoittaa my√∂s muotoon 
 	\begin{equation}\label{stationary-dist2}
 		\pi^T\pr= \pi^T
 	\end{equation}
 \end{maar}
 
 \begin{lause}
-	ƒ‰rellisell‰ Markovin ketjulla on aina jokin tasapainojakauma $\pi$.
+	√Ñ√§rellisell√§ Markovin ketjulla on aina jokin tasapainojakauma $\pi$.
 \end{lause}
 
 \begin{maar}\label{kaant-disk}
-	Markovin ketju on \textit{k‰‰ntyv‰}, jos lˆytyy sellainen TN-jakauma $\lambda=(\lambda_i)_{i\in S}$, ett‰ 
+	Markovin ketju on \textit{k√§√§ntyv√§}, jos l√∂ytyy sellainen TN-jakauma $\lambda=(\lambda_i)_{i\in S}$, ett√§ 
 	\begin{equation}
 		\lambda_ip_{ij}= \lambda_jp_{ji},\forall i,j\in S
 	\end{equation}
 \end{maar}
 
 \begin{lause}
-	Jos Markovin ketju on k‰‰ntyv‰, niin $\lambda=\pi$ on sen tasapainojakauma.
+	Jos Markovin ketju on k√§√§ntyv√§, niin $\lambda=\pi$ on sen tasapainojakauma.
 \end{lause}
 \begin{proof}
 	\begin{equation*}
@@ -166,7 +166,7 @@ Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuul
 	\end{equation*}
 \end{proof}
 \begin{esim}
-	Pohditaan lyhytt‰ esimerkki‰, jossa tilajoukko on $S=\{"sataa", "paistaa"\}$. M‰‰ritell‰‰n siirtym‰todenn‰kˆisyydet siirtym‰matriisilla
+	Pohditaan lyhytt√§ esimerkki√§, jossa tilajoukko on $S=\{"sataa", "paistaa"\}$. M√§√§ritell√§√§n siirtym√§todenn√§k√∂isyydet siirtym√§matriisilla
 	\begin{displaymath}
 		\pr ^{(1)}=  
 		\begin{pmatrix}
@@ -174,7 +174,7 @@ Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuul
 			0.2 & 0.8
 		\end{pmatrix}
 	\end{displaymath}
-	T‰m‰ voidaan visualisoida kuvan \ref{mc-esimerkki1} mukaisesti.
+	T√§m√§ voidaan visualisoida kuvan \ref{mc-esimerkki1} mukaisesti.
 	\begin{figure}[h!]
 	\label{mc-esimerkki1}
 	\begin{center}
@@ -191,19 +191,19 @@ Esitell‰‰n ensiksi joitain perus asioita Markovin Ketjuista, sill‰ ne eiv‰t kuul
 	\caption[Yksinkertainen esimerrki Markovin ketjusta]{Esimerkki \ref{mc-esimerkki1}}
 	\end{center}
 	\end{figure}
-	Ketju on ‰‰rellinen, joten sill‰ on tasapainojakauma. Yht‰lˆ \ref{stationary-dist2} implikoi, ett‰ jakauma $\pi$ on siirtym‰matriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). T‰m‰ voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt n‰hd‰‰n, ett‰ \ref{stationary-dist2} p‰tee.
+	Ketju on √§√§rellinen, joten sill√§ on tasapainojakauma. Yht√§l√∂ \ref{stationary-dist2} implikoi, ett√§ jakauma $\pi$ on siirtym√§matriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). T√§m√§ voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt n√§hd√§√§n, ett√§ \ref{stationary-dist2} p√§tee.
 \end{esim}
 
-\subsection{ƒ‰retˆn jatkuva tilajoukko}
-Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaan simuloida normaalijakaumasta, joka voi saada mink‰ vain arvon v‰lilt‰ $(-\infty,\infty)$), niin teoria muuttuu hieman. Suurin osa tuloksista p‰tee pienin muutoksin, mutta niiden todistaminen on hankalaa ja ylitt‰‰ kanditason. Esitet‰‰n kuitenkin tarvittavat perustulokset.
+\subsection{√Ñ√§ret√∂n jatkuva tilajoukko}
+Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaan simuloida normaalijakaumasta, joka voi saada mink√§ vain arvon v√§lilt√§ $(-\infty,\infty)$), niin teoria muuttuu hieman. Suurin osa tuloksista p√§tee pienin muutoksin, mutta niiden todistaminen on hankalaa ja ylitt√§√§ kanditason. Esitet√§√§n kuitenkin tarvittavat perustulokset.
 
 
 \begin{maar}
-	Kun $S$ on rajoittamaton, siirtym‰matriisi on parasta ajatella kuvauksena $T: S\times S \rightarrow [0,1]$, joka kuvaa tilaparin $x,y\in S$ todenn‰kˆisyydeksi $T(x,y)$
+	Kun $S$ on rajoittamaton, siirtym√§matriisi on parasta ajatella kuvauksena $T: S\times S \rightarrow [0,1]$, joka kuvaa tilaparin $x,y\in S$ todenn√§k√∂isyydeksi $T(x,y)$
 \end{maar}
 
 \begin{maar}
-	Iistym‰todenn‰kˆisyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtym‰tiheyten‰} $T^{(n)}(x,y)$, jolle p‰tee
+	Iistym√§todenn√§k√∂isyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtym√§tiheyten√§} $T^{(n)}(x,y)$, jolle p√§tee
 	\begin{equation}\label{siirt-tiheys}
 		\int_S T(x,y)dy = 1 \hspace{1cm} \text{ja} \hspace{1cm} \int_S T^{(n)}(x,y)dy = 1, \forall n \geq 1
 	\end{equation}
@@ -217,18 +217,18 @@ Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaa
 \end{maar}
 
 \begin{maar}\label{kaant-jatk}
-	Markovin ketju jatkuvassa $S$:ss‰ on k‰‰ntyv‰, jos on olemassa 
+	Markovin ketju jatkuvassa $S$:ss√§ on k√§√§ntyv√§, jos on olemassa 
 	\begin{equation}
 		\pi(x)T(x,y)=\pi(y)T(y,x), \forall x,y\in S
 	\end{equation}
 \end{maar}
 
 \begin{lause}
-	Jos Markovin ketju $\{X_n\}$ on k‰‰ntyv‰ ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
+	Jos Markovin ketju $\{X_n\}$ on k√§√§ntyv√§ ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
 \end{lause}
 
 \begin{proof}
-	Yht‰lˆn \ref{siirt-tiheys} mukaan $\int_S T(y,x)dx = 1$, joten
+	Yht√§l√∂n \ref{siirt-tiheys} mukaan $\int_S T(y,x)dx = 1$, joten
 	\begin{equation}
 		\int_S \pi(x) T(x,y) dx = \int_S \pi(y) T(y,x) dx = \pi(y)\int_S T(y,x) dx = \pi(y)
 	\end{equation}
