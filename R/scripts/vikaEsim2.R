@@ -1,0 +1,126 @@
+library(foreach)
+library(doParallel)
+library(tidyverse)
+library(coda)
+
+####################################################################################
+
+n_cores <- detectCores()
+registerDoParallel(cores = n_cores)
+
+####################################################################################
+
+air <- airquality %>% 
+  select(Ozone, Solar.R, Wind) %>% 
+  na.omit() %>% 
+  as.matrix() 
+
+y <- air[,1]
+x1 <- air[,2]
+x2 <- air[,3]
+
+
+update_tau <- function() {
+  alpha <- alpha_p + (N/2)
+  res <- (y-beta0-beta1*x1-beta2*x2)^2
+  gamma <- gamma_p + .5 * sum(res)
+  rgamma(1, alpha, gamma)
+}
+
+update_beta0 <- function() {
+  precision <- tau0 + tau * N
+  mean <- tau0*mu0 + tau*sum(y-beta1*x1-beta2*x2)
+  mean <- mean/precision
+  rnorm(1, mean, 1/sqrt(precision))
+}
+
+update_beta1 <- function() {
+  precision <- tau1 + tau * sum(x1^2)
+  mean <- (tau1*mu1 + tau*sum((y-beta0-beta2*x2)*x1))/precision
+  rnorm(1, mean, 1/sqrt(precision))
+}
+
+update_beta2 <- function() {
+  precision <- tau2 + tau * sum(x2^2)
+  mean <- (tau2*mu2 + tau*sum((y-beta0-beta1*x1)*x2))/precision
+  rnorm(1, mean, 1/sqrt(precision))
+}
+
+N <- air[,1] %>% length()
+chains <- n_cores
+iter <- 20000
+
+
+mu0 <- 80
+mu1 <- 0
+mu2 <- -5
+tau0 <- 20
+tau1 <- 20
+tau2 <- 20
+alpha_p <- 5
+gamma_p <- 0.01
+
+samples <- foreach(j = 1:chains) %dopar% {
+  samples <- matrix(0, nrow = iter, ncol = 4)
+  beta0 <- rnorm(1)
+  beta1 <- rnorm(1)
+  beta2 <- rnorm(1)
+  tau <- rnorm(1)
+  samples[1,] <- c(beta0, beta1, beta2, tau)
+  for (i in 1:iter-1) {
+    beta0 <- update_beta0()
+    beta1 <- update_beta1()
+    beta2 <- update_beta2()
+    tau <- update_tau()
+  
+    samples[i,] <- c(beta0, beta1, beta2, tau)
+  }
+  samples
+}
+
+
+
+
+
+####################################################################################
+####################################################################################
+
+# Muutetaan ketjut parametrikohtaisiksi ja katkaistaan burnin pois
+##beta0 <- map(samples, function(x) x[10000:20000,1]) %>% unlist() %>% matrix(ncol = 8)
+##beta1 <- map(samples, function(x) x[10000:20000,2]) %>% unlist() %>% matrix(ncol = 8)
+##beta2 <- map(samples, function(x) x[10000:20000,3]) %>% unlist() %>% matrix(ncol = 8)
+##tau   <- map(samples, function(x) x[10000:20000,4]) %>% unlist() %>% matrix(ncol = 8)
+
+
+# Muutetaan ketjut coda objekteiksi ja poistetaan burnin
+samples2 <- map(samples, function(x) as.mcmc(x[10000:20000,]))
+samples.mcmc <- mcmc.list(samples2)
+
+gelman.diag(samples.mcmc, autoburnin=FALSE, multivariate=FALSE)
+effectiveSize(samples.mcmc)
+summary(samples.mcmc)
+
+  
+####################################################################################
+####################################################################################
+
+plot(samples[,3], type = "l", col = rgb(0,0,0,0.2))
+lines(samples[,2], col = rgb(1,0,0,0.2))
+
+mean(samples[,1])
+mean(samples[,2])
+mean(samples[,3])
+1/mean(samples[,4])
+
+hist(samples[,1], breaks = 50, freq = F)
+hist(samples[,2], breaks = 50, freq = F)
+hist(samples[,3], breaks = 50, freq = F)
+hist(1/samples[,4], breaks = 50, freq = F, xlab = expression(sigma^2))
+samples <- samples[seq(1, 20000, length.out = 250),]
+pairs(samples, pch = 20, col = rgb(0,0,0,0.3))
+
+
+###############
+
+
+
