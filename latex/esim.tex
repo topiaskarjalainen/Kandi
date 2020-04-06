@@ -20,3 +20,17 @@ Ja posterioiri on siten
 \begin{equation}
 	p(\theta|y) \propto p(\beta_0)p(\beta_1)p(\beta_2)p(\tau)\prod_{i=1}^{N} N(\beta_0+\beta_1 x_i+\beta_2x_i, 1/\tau)
 \end{equation}
+Tästä saadaan sitten johdettua marginaaliset jakaumat otanta-algoritmia varten
+\begin{equation}
+\begin{split}
+	\beta_0 | \beta_1,\beta_2,\tau_0,\tau,\mu_0,x,y &\sim 
+	N\pqty{\frac{\tau_0\mu_0+\tau\sum_{i=1}^{N}(y_i-\beta_1x_{i1}-\beta_2x_{i2})}{\tau_0+\tau N}, \frac{1}{\tau_0+\tau N}} \\
+	\beta_1 | \beta_0,\beta_2,\tau_1,\tau,\mu_1,x,y &\sim 
+	N\pqty{\frac{\tau_1\mu_1+\tau\sum_{i=1}^{N}(y_i-\beta_0-\beta_2x_{i2})x_{i1}}{\tau_1+\tau\sum_{i=1}^{N}x_{i1}^2}, \frac{1}{\tau_1+\tau\sum_{i=1}^{N}x_{i1}^2}}\\
+	\beta_2 | \beta_0,\beta_1,\tau_2,\tau,\mu_2,x,y &\sim 
+	N\pqty{\frac{\tau_2\mu_2+\tau\sum_{i=1}^{N}(y_i-\beta_0-\beta_1x_{i1})x_{i2}}{\tau_2+\tau\sum_{i=1}^{N}x_{i2}^2}, \frac{1}{\tau_2+\tau\sum_{i=1}^{N}x_{i2}^2}}\\
+	\tau | \beta_0,\beta_1,\beta_2,\alpha,\gamma,x,y &\sim 
+	Gamma\pqty{\alpha+\frac{N}{2},\gamma + \frac{N}{2}\sum_{i=1}^{N}(y_i-\beta_0-\beta_1x_{i1}-\beta_2x_{i2})^2}
+\end{split}
+\end{equation}
+Asetetaan aloitusarvot

@@ -6,6 +6,20 @@
 
 using namespace Rcpp;
 
+// sampleGibbs
+arma::mat sampleGibbs(int n, arma::mat data, arma::rowvec initial, arma::rowvec hypers);
+RcppExport SEXP _helperfunctions_sampleGibbs(SEXP nSEXP, SEXP dataSEXP, SEXP initialSEXP, SEXP hypersSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type initial(initialSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type hypers(hypersSEXP);
+    rcpp_result_gen = Rcpp::wrap(sampleGibbs(n, data, initial, hypers));
+    return rcpp_result_gen;
+END_RCPP
+}
 // mvrnormArma
 arma::mat mvrnormArma(int n, arma::rowvec mu, arma::mat sigma);
 RcppExport SEXP _helperfunctions_mvrnormArma(SEXP nSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
@@ -46,6 +60,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_helperfunctions_sampleGibbs", (DL_FUNC) &_helperfunctions_sampleGibbs, 4},
     {"_helperfunctions_mvrnormArma", (DL_FUNC) &_helperfunctions_mvrnormArma, 3},
     {"_helperfunctions_ringfunc", (DL_FUNC) &_helperfunctions_ringfunc, 1},
     {"_helperfunctions_mhalgo", (DL_FUNC) &_helperfunctions_mhalgo, 4},
