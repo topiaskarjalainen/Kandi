@@ -6,7 +6,7 @@ Sisältää nimensä mukaisesti latex koodin ja tietenkin lopullisen pdf tiedost
 
 ## R kansio
 
-Sisältää lyhyitä scriptejä esim kuvaajia varten
+Sisältää lyhyitä scriptejä esim kuvaajia varten ja muutaman esimerkin. Jotkin tiedostot toimivat vain unix ja unix-like koneilla koska ```parallel``` paketti toimii vaan niillä.
 
 ## cpp kansio 
 
