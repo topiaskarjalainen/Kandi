@@ -1,6 +1,6 @@
 \chapter{Laajempi esimerkki}
 
-Tarkastellaan vielä lopuksi laajempaa esimerkkiä. Tarkastellaan normaalia lineaarista regressiomallia. Käytetään \texttt{R}:stä löytyvää \texttt{MASS::Boston} dataa, jossa on dataa Bostinin lähiöiden talojen mediaanihinnoista. Regressoidaan datasetin muuttuja \texttt{medv} muuttujille \texttt{dis} ja \texttt{crim}, eli regressoidaan \textit{asunnon mediaanihinta} muuttujille \textit{etäisyys yrityskyliin} ja \textit{rikollisuuden määrä}. Sovitetaan tämä malli Gibbsin otanta-algoritmin avulla. Sitä varten meidän on ensiksi määriteltävä marginaaliset ehdolliset jakaumat parametreille.
+Tarkastellaan vielä lopuksi laajempaa esimerkkiä. Tarkastellaan normaalia lineaarista regressiomallia. Käytetään \texttt{R}:stä löytyvää \texttt{airquality} dataa, jossa on dataa New Yorkin ilmanlaadusta. Regressoidaan datasetin muuttuja \texttt{Ozone} muuttujille \texttt{Solar.R} ja \texttt{Wind}. Sovitetaan tämä malli Gibbsin otanta-algoritmin avulla. Sitä varten meidän on ensiksi määriteltävä marginaaliset ehdolliset jakaumat parametreille.
 
 Määritellään ensiksi malli. Merkitään $\tau = 1/\sigma^2$, $\theta = (\beta_0,\beta_1,\beta_2,\tau)$
 \begin{equation}
@@ -21,7 +21,7 @@ Ja posterioiri on siten
 	p(\theta|y) \propto p(\beta_0)p(\beta_1)p(\beta_2)p(\tau)\prod_{i=1}^{N} N(\beta_0+\beta_1 x_i+\beta_2x_i, 1/\tau)
 \end{equation}
 Tästä saadaan sitten johdettua marginaaliset jakaumat otanta-algoritmia varten
-\begin{equation}
+\begin{equation}\label{marginaalit}
 \begin{split}
 	\beta_0 | \beta_1,\beta_2,\tau_0,\tau,\mu_0,x,y &\sim 
 	N\pqty{\frac{\tau_0\mu_0+\tau\sum_{i=1}^{N}(y_i-\beta_1x_{i1}-\beta_2x_{i2})}{\tau_0+\tau N}, \frac{1}{\tau_0+\tau N}} \\
@@ -33,4 +33,26 @@ Tästä saadaan sitten johdettua marginaaliset jakaumat otanta-algoritmia varten
 	Gamma\pqty{\alpha+\frac{N}{2},\gamma + \frac{N}{2}\sum_{i=1}^{N}(y_i-\beta_0-\beta_1x_{i1}-\beta_2x_{i2})^2}
 \end{split}
 \end{equation}
-Asetetaan aloitusarvot
+Asetetaan hyperparametrit $\mu_0 = 80,\mu_1 = 0, \mu_2 = -5, \tau_0 = 1/50, \tau_1 = 1/50, \tau2 = 1/50, \alpha	= 5, \gamma = 0.01$. Parametrit on valittu sen mukaan, että ne asettavat suurimman tiheyden lähelle arvioitua sijaintia ja toisaalta eivät ole kovin informatiivisia vaan leveitä. Simuloidaan nyt tästä Gibbsin otanta-algoritmilla yhtälöitä \ref{marginaalit} käyttäen 8 ketjua, kunkin pituus 20 000. Burnin-periodi olkoot 10 000. Yhteensä siis meillä on 80 000 otosta.
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package% Tue Apr  7 16:14:05 2020\begin{table}[ht]\centering
+\label{results}\begin{tabular}{rrrrrrrr}  \hline $\theta$ & Mean & SD & 2.5\% & 25\% & 50\% & 75\% & 97.5\% \\   \hline  $\beta_0$ & 75.95307 & 2.11884 & 72.06682 & 74.62170 & 75.95679 & 77.29428 & 79.82864 \\   $\beta_1$ & 0.06646 & 0.01001 & 0.04698 & 0.05973 & 0.06645 & 0.07320 & 0.08612 \\   $\beta_2$ & -5.30405 & 0.20235 & -5.68918 & -5.43539 & -5.30480 & -5.17319 & -4.92167 \\   $\tau$ & 0.00173 & 0.00022 & 0.00132 & 0.00158 & 0.00172 & 0.00188 & 0.00219 \\    \hline\end{tabular}
+\caption{Tulokset regressiosta}\end{table}
+\begin{table}[ht]\label{diagnostics}\centering\begin{tabular}{rrr}  \hline $\theta$ & $\hat{R}$ & $\hat{n}_{eff}$ \\   \hline  $\beta_0$ & 1 & 80008 \\   $\beta_1$ & 1 & 80008 \\   $\beta_2$ & 1 & 80008  \\   $\tau$ & 1 & 80008  \\    \hline\end{tabular}
+\caption{Diagnostiikka}\end{table}
+
+Taulukoissa 4.1 ja 4.2 nähdään tulokset ja MCMC-diagnostiikat, joista puhuttiin aiemmin. Nähdään, että ketjut näyttäisivät konvergoituneen, mikä ei sinänsä ihmetytä lainkaan, sillä simulaatio määrämme on valtava.
+\begin{figure}[h!]
+	\includegraphics[width=\textwidth]{gibbsexample}
+	\caption[Regressio]{\textit{Esimerkin regression tulos, vasemmalla Solar.R -akselilla ja oikealla Wind. Punainen viiva on posteriori keskiarvolla piiretty regressio viiva ja vihreä on vertailun vuoksi PNS mentelmällä sovitettu suora. Siniset ovat sovitteita parametrien eri ehdotus arvoilla.}}
+	\label{kuva1}
+\end{figure}
+
+\begin{figure}[h!]
+	\includegraphics[width=\textwidth]{gibbs2}
+	\caption[]{\textit{Esimerkin ketjut ja parametrien posteriori tiheydet}}
+	\label{kuva1}
+\end{figure}
+
+
+
