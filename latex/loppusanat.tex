@@ -2,4 +2,7 @@
 
 Olemme nyt tarkastelleet perus ajatuksia MCMC-menetelmistä. Kävimme läpi hieman teoriaa, esittelimme algoritmit ja kokeilimme sellaista käytännön tilanteessa. Kuitenkin olemme vain raapaisseet pintaa. Käyttämämme algoritmit ovat monessa mielessä erittäin rajoittuneita. Gibbsin otanta-algortimissa meidän tulee tuntea marginaalijakaumat analyyttisesti, ja Metropolis--Hastings voi olla välillä hidas konvergoitumaan. 
 
-Tärkeitä laajennuksia, jotka korjaavat edellisessäkappaleessa mainitsemiani onglemia, on myöhemmin kehitetyt tehokkaammat MCMC-metodit. Tärkeimpänä \textit{Hamiltonian monte carlo} eli HMC. Se pyrkii vähentämään tarvittavien otosten määrää, joka tarvitaan tarpeeksi tarkan posteriori estimaatin saamiseksi.
+Tärkeitä laajennuksia, jotka korjaavat edellisessäkappaleessa mainitsemiani onglemia, on myöhemmin kehitetyt tehokkaammat MCMC-metodit. Tärkeimpänä \textit{Hamiltonian monte carlo} eli HMC. Se pyrkii vähentämään tarvittavien otosten määrää, joka tarvitaan tarpeeksi tarkan posteriori estimaatin saamiseksi, sillä menetelmä vähentää autokorrelaatiota tilojen välillä.
+
+Olen lisäksi tarkastellut tässä työssä menetelmiä enemmänkin vain Bayesiläisen tilastotieteen kannalta. Todellisuudessa näille menetelmille on paljon muitakin potentiaalisia käyttökohteita, esimerkiksi optimointiongelmien parissa.
+

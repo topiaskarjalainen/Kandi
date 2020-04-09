@@ -2,12 +2,12 @@
 
 \section{Gibbsin otanta-algoritmi}\label{gibbs}
 
-\textit{Gibbsin otanta-algoritmi} on tapa simuloida Bayesiläistä moniulotteista posteriorijakaumaa (eli ulottuvuuksia vähintään 2), kun suora otanta on hankalaa. Algoritmi on nimetty amerikkalaisen fyysikon, \textit{Josiah Willard Gibbs}'n (1839-1903) mukaan, mutta sen todellinen kehittäjä on veljekset \textit{Donald Geman} (1943-) ja \textit{Stuart Geman} (1949-) vuonna 1984 artikkelissa \textit{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}
+\textit{Gibbsin otanta-algoritmi} on tapa simuloida Bayesiläistä moniulotteista posteriorijakaumaa (eli ulottuvuuksia vähintään 2), kun suora otanta on hankalaa. Algoritmi on nimetty amerikkalaisen fyysikon, \textit{Josiah Willard Gibbs}'n (1839-1903) mukaan, mutta sen todellinen kehittäjä on veljekset \textit{Donald Geman} (1943-) ja \textit{Stuart Geman} (1949-) vuonna 1984 artikkelissa \textit{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}.
 
-\begin{maar}
+\begin{maar}\label{gibbs}
 	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
 	\begin{enumerate}
-		\item Valitaan $\theta$:n osavektoreille järjestys.
+		\item Valitaan satunnainen indeksi $j$ jolle $1 \leq j \leq d$
 		\item Arvotaan uusi tila jokaiselle osavektorille $\theta_j$ ehdollistamalla se jokaiselle muulle parametrille, eli vedetään arvot $\theta = (\theta_1, \theta_2,...,\theta_d)$ jakaumista
 		\begin{equation}
 			p(\theta_j|\theta_{-j,n-1},y)
@@ -19,7 +19,34 @@
 	\end{enumerate}
 \end{maar}
 
+Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestystä, vaan järjestys päätetään alussa, ja sitä pidetään koko algortimin ajan samana. Tällöin kyseessä on ns. \textit{systemic scan Gibbs sampler}.
 
+\begin{lause}
+	Määritelmän \ref{gibbs} mukaisen algoritmin tuottamalla Markovin ketjulla on tasapainojakauma $p(\theta)$. \cite{koistinen_computational_2009}
+\end{lause}
+
+\begin{proof}
+	Olkoot $\tnm$ alkuperäienen tila, ja $\tn_j$ uusi $j$:nennen parametrin tila. Nyt $\tnm$:n ja $\tn_j$:n yhteis tiheys on 
+	\begin{equation}
+		p(\tnm)p_j(\tn_j|\tnm_{-j})
+	\end{equation}
+	Nyt voidaan integroida
+	\begin{equation}
+		\begin{split}
+			\int p(\tnm)p_j(\tn_j|\tnm_{-j}) d\tnm_j &= \int p(\tnm_j|\tnm_{-j})p(\tnm_{-j})p_j(\tn_j|\tnm_{-j}) d\tnm_j \\
+			&= p(\tnm_{-j})p_j(\tn_j|\tnm_{-j}) \int p(\tnm_j|\tnm_{-j}) d\tnm_j \\
+			&= p(\tnm_{-j})p_j(\tn_j|\tnm_{-j}) \\
+			&= p(\tn_j,\tnm_{-j})
+		\end{split}
+	\end{equation}
+	Eli Gibbs otanta-algoritmin päivitys ei muuta jakaumaa. Nyt voidaan soveltaa lausetta \ref{cyclic-kernel}, jolloin voidaan todeta, että koska $p$ tasapainojakauma jokaiselle $p_j(\tn_j|\tnm_{-j})$, niin se on tasapainojakauma niiden yhteis siirtymätiheydelle
+	\begin{equation}
+		T = \prod_{j=1}^{d} p_j(\tn_j|\tnm_{-j})
+	\end{equation}
+
+\end{proof}
+
+Ohitetaan Gibbsin otanta-algoritmin kohdalla toistaiseksi esimerkit, ja palataan siihen kappaleessa \ref{esimerkki}, jossa tarkastelemme laajempaa esimerkkiä lineaarisen regression parissa. Toteutamme tämän Gibbsin otanta-algoritmina.
 
 \section{Metropolis--Hastings algoritmi}\label{Metropolis--Hastings algoritmi}
 
@@ -53,42 +80,41 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työske
 \end{maar}
 
 \begin{lause}
-	Määritelmän \ref{mh-maar} algoritmi tuottaa Markovin ketjun jolla on uniikki tasapainojakauma, ja jonka tasapainojakauma on posteriorijakauma $p(\theta|y)$, jossa $y$ on data. 
+	Määritelmän \ref{mh-maar} algoritmi tuottaa Markovin ketjun jolla on uniikki tasapainojakauma $p(\theta)$ 
 \end{lause}
 
 \begin{proof}
 
-	Ohitamme todistuksen, että kyseessä Markovin ketju jolla yksi tasapainojakauma, mutta todistamme toisen osan, eli että tasapainojakauma on haluttu $p(\theta|y)$ eli posteriori jakauma. Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk} ja \ref{kaant-jatk}), eli
+Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk} ja \ref{kaant-jatk}), eli
 	\begin{equation}\label{kaant-mcmc}
-		T(\theta_{n}|\theta_{n-1})p(\theta_{n-1}|y) = T(\theta_{n-1}|\theta_{n})p(\theta_{n}|y)
+		T(\tn|\tnm)p(\tnm) = T(\tnm|\tn)p(\tn)
 	\end{equation}
-	joka on siis riittävä ehto tasapainojakauman olemassaololle. Mietitään kahta tapausta: (1) $\theta_n \neq \theta_{n-1}$ ja (2) $\theta_n = \theta_{n-1}$.
+	joka on siis riittävä ehto tasapainojakauman olemassaololle. Mietitään kahta tapausta: (1) $\tn \neq \tnm$ ja (2) $\tn = \tnm$.
 	Tapauksen (2) siirtymä voi tapahtua kahdella tavalla. Joko kohdassa 4. ehdotus $\theta'$ hylätään, tai se hyväksytään, mutta osutaan sattumanvaraisesti takaisin samaan kohtaan. Kuitenkin selvästi nähdään, että ehto \ref{kaant-mcmc} pätee tilanteessa (2).
 	
-	Tilanteessa (1)Siirtymätodennäköisyys pisteestä $\theta_{n-1}$ pisteeseen $\theta_n$ on
+	Tilanteessa (1) siirtymätodennäköisyys pisteestä $\tnm$ pisteeseen $\tn$ on
 	\begin{equation}
-		T(\theta_n|\theta_{n-1}) = J_n(\theta_n|\theta_{n-1})
-		\min\Big( \frac{p(\theta_n|y)J_n(\theta_{n-1}|\theta_n)}{p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1})},1 \Big)
+		T(\tn|\tnm) = J_n(\tn|\tnm)
+		\min\Big( \frac{p(\tn)J_n(\tnm|\tn)}{p(\tnm)J_n(\tn|\tnm)}\Big)J_n(\tn|\tnm),1 \Big)
 	\end{equation}
 	Jota voidaan muokata helposti
 	\begin{equation}\label{metr-has-proof1}
 		\begin{split}
-			T(\theta_n|\theta_{n-1}) &= J_n(\theta_n|\theta_{n-1})
-		\min\Big( \frac{p(\theta_n|y)J_n(\theta_{n-1}|\theta_n)}{p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1})},1 \Big) \\
-		&= \frac{1}{p(\theta_{n-1}|y)} \min \Big( p(\theta_n|y)J_n(\theta_{n-1}|\theta_n) , p(\theta_{n-1}|y)J_n(\theta_n|\theta_{n-1})  \Big)
+			T(\tn|\tnm) &= J_n(\tn|\tnm)
+		\min\Big( \frac{p(\tn)J_n(\tnm|\tn)}{p(\tnm)J_n(\tn|\tnm)},1 \Big) \\
+		&= \frac{1}{p(\tnm)} \min \Big( p(\tn)J_n(\tnm|\tn) , p(\tnm)J_n(\tn|\tnm)  \Big)
 		\end{split}
 	\end{equation}
 	Nähdään kuitenkin, että yhtälön \ref{metr-has-proof1} alempi yhtäläisyys on symmetrinen eli
-	
 	\begin{equation}\label{symmetric}
-		T(\theta_{n-1}|\theta_{n})=\frac{1}{p(\theta_{n}|y)} \min \Big( p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1}) , p(\theta_{n}|y)J_n(\theta_{n-1}|\theta_{n})  \Big)
+		T(\tnm|\tn)=\frac{1}{p(\tn)} \min \Big( p(\tnm)J_n(\tn|\tnm) , p(\tn)J_n(\tnm|\tn)  \Big)
 	\end{equation}
-	joten kerrotaan \ref{metr-has-proof1} termillä $p(\theta_{n-1}|y)$ ja hyödynnetään \ref{symmetric} ominaisuutta
+	joten kerrotaan \ref{metr-has-proof1} termillä $p(\tnm)$ ja hyödynnetään \ref{symmetric} ominaisuutta
 	\begin{equation*}
 	\begin{split}
-		T(\theta_n|\theta_{n-1})p(\theta_{n-1}|y) &= \frac{1}{p(\theta_{n-1}|y)} \min \Big( p(\theta_n|y)J_n(\theta_{n-1}|\theta_n) , p(\theta_{n-1}|y)J_n(\theta_n|\theta_{n-1})  \Big) p(\theta_{n-1}|y) \\
-		&= \frac{1}{p(\theta_{n}|y)} \min \Big( p(\theta_{n-1}|y)J_n(\theta_{n}|\theta_{n-1}) , p(\theta_{n}|y)J_n(\theta_{n-1}|\theta_{n})  \Big) p(\theta_{n}|y) \\
-		&= T(\theta_{n-1}|\theta_{n})p(\theta_{n}|y)
+		T(\tn|\tnm)p(\tnm) &= \frac{1}{p(\tnm)} \min \Big( p(\tn)J_n(\tnm|\tn) , p(\tnm)J_n(\tn|\tnm)  \Big) p(\tnm) \\
+		&= \frac{1}{p(\tn)} \min \Big( p(\tnm)J_n(\tn|\tnm) , p(\tn)J_n(\tnm|\tn)  \Big) p(\tn) \\
+		&= T(\tnm|\tn)p(\tn)
 	\end{split}
 	\end{equation*}
 	Eli myös tapauksessa (1) yhtälö \ref{kaant-mcmc} pätee.
@@ -119,7 +145,7 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työske
 		\caption[Yksiulotteinen Metropolis--Hastings esimerkki]{Esimerkin \ref{MH-esim2} tulokset}
 		\label{kuva2}
 	\end{figure}
-	Otetaan toisena esimerkkinä klassinen diskreetti tapaus, jossa oletetaan, että havainnot ovat jauakautuneet \textit{Bernoulli-jakauman} mukaan, 
+	Otetaan toisena esimerkkinä klassinen tapaus, jossa oletetaan, että havainnot ovat jauakautuneet \textit{Bernoulli-jakauman} mukaan, 
 	$y_i \sim Bernoulli(\theta)$, 
 	ja että priori on tasajakauma. Tällöin tiedetään, että analyyttinen posteriori on 
 	\begin{equation*}

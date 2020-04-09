@@ -48,7 +48,7 @@ update_beta2 <- function(beta0, beta1, tau) {
 
 N <- air[,1] %>% length()
 chains <- n_cores
-iter <- 200
+iter <- 500
 
 
 mu0 <- 80
@@ -62,7 +62,8 @@ gamma_p <- 0.01
 
 samples <- foreach(i = 1:chains) %dopar% {
   samples <- matrix(0, nrow = iter, ncol = 4)
-  # Jostain syystä ei pelaa hyvin negatiivisten aloitusarvojen kanssa
+  #' Jostain syystä ei pelaa hyvin negatiivisten aloitusarvojen kanssa
+  #' en jaksa debugata just nyt
   beta0 <- rnorm(1) %>% abs()
   beta1 <- rnorm(1) %>% abs()
   beta2 <- rnorm(1) %>% abs()
@@ -95,12 +96,12 @@ samples <- foreach(i = 1:chains) %dopar% {
 
 # Muutetaan ketjut coda objekteiksi ja poistetaan burnin
 samples2 <- map(samples, function(x) as.mcmc(x[10000:19999,]))
-samples2 <- map(samples, function(x) as.mcmc(x))
+samples2 <- map(samples, function(x) as.mcmc(x[250:499,]))
 #samples <- map(samples, function(x) x[10000:20000,])
-samples <- do.call(rbind,samples)
+samples <- do.call(rbind,samples2)
 samples.mcmc <- mcmc.list(samples2)
 
-gelman.diag(samples.mcmc, autoburnin=TRUE, multivariate=FALSE)
+gelman.diag(samples.mcmc, autoburnin=FALSE, multivariate=FALSE)
 effectiveSize(samples.mcmc)
 summary(samples.mcmc)
 
@@ -111,7 +112,6 @@ png("/Users/topiaskarjalainen/Documents/University/kandi/Kandi/latex/gibbs2.png"
 plot(samples.mcmc)
 dev.off()
 
-  
 ####################################################################################
 ####################################################################################
 
@@ -152,6 +152,7 @@ b1 <- samples[,2] %>% mean()
 b2 <- samples[,3] %>% mean()
 ####################
 samples.p <- samples[seq(1, length(samples[,1]), length.out = 2000),]
+fit <- lm(y~x1+x2)
 
 png("/Users/topiaskarjalainen/Documents/University/kandi/Kandi/latex/gibbsexample.png",
     width = 1100,
