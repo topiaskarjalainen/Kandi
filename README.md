@@ -34,4 +34,4 @@ Tai asennus suoraan tarballista
 cd ~/path/to/directory/
 R CMD install [tarball name]
 ```
-
+```helperfunctions::sampleGibbs``` funktio aiheuttaa segfaultin. Teinkin tämän lopulta R:llä. En suosittele ajamaan siis tuota functiota
