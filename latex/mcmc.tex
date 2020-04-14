@@ -6,17 +6,20 @@
 
 \begin{maar}\label{gibbs}
 	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
+	\begin{maar}\label{gibbs}
+	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
 	\begin{enumerate}
 		\item Valitaan satunnainen indeksi $j$ jolle $1 \leq j \leq d$
 		\item Arvotaan uusi tila jokaiselle osavektorille $\theta_j$ ehdollistamalla se jokaiselle muulle parametrille, eli vedetään arvot $\theta = (\theta_1, \theta_2,...,\theta_d)$ jakaumista
 		\begin{equation}
-			p(\theta_j|\theta_{-j,n-1},y)
+			p(\theta_j|\tnm_{-j},y)
 		\end{equation}
-		missä $\theta_{-j,n-1}$ on kaikki muut $\theta$:n komponentit paitsi $j$s komponentti, näiden tämänhetkisillä arvoilla eli 
+		missä $\tnm_{-j}$ on kaikki muut $\theta$:n komponentit paitsi $j$s komponentti, näiden tämänhetkisillä arvoilla eli 
 		\begin{equation*}
-			\theta_{-j,n-1} = (\theta_{1,n},...,\theta_{j-1,n},\theta_{j+1,n-1},...,\theta_{d,n-1})
+			\tnm_{-j} = (\tn_{1},...,\tn_{j-1},\tnm_{j+1},...,\tnm_{d})
 		\end{equation*}
 	\end{enumerate}
+\end{maar}
 \end{maar}
 
 Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestystä, vaan järjestys päätetään alussa, ja sitä pidetään koko algortimin ajan samana. Tällöin kyseessä on ns. \textit{systemic scan Gibbs sampler}.
@@ -95,7 +98,7 @@ Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk} ja
 	Tilanteessa (1) siirtymätodennäköisyys pisteestä $\tnm$ pisteeseen $\tn$ on
 	\begin{equation}
 		T(\tn|\tnm) = J_n(\tn|\tnm)
-		\min\Big( \frac{p(\tn)J_n(\tnm|\tn)}{p(\tnm)J_n(\tn|\tnm)}\Big)J_n(\tn|\tnm),1 \Big)
+		\min\Big( \frac{p(\tn)J_n(\tnm|\tn)}{p(\tnm)J_n(\tn|\tnm)},1 \Big)
 	\end{equation}
 	Jota voidaan muokata helposti
 	\begin{equation}\label{metr-has-proof1}

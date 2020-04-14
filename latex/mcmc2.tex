@@ -46,6 +46,8 @@ Nyt $\hat{R}$ voidaan määritellä
 
 Gelmanin $\hat{R}$ mittaa sitä miten paljon kullakin hetkellä $\psi$:n jakauma voisi supistua, jos simulaatioiden annettaisiin jatkua loputtomasti. Eli siis kun $\hat{R}\approx 1$, niin voidaan sanoa, että Markovin ketju on todennäköisesti saavuttanut tasapainojakaumansa, sillä tällöin eri pisteitä aloitettujen ketjujen välinen varianssi on vakaantunut.
 
+Tällä diagnostiikalla on kuitenkin onglemansa ja rajoitteensa. Se saattaa virheellisesti diagnosoida konvergoituneen ketjun esimerkiksi jos ketjulla on pitkät hännät. Sen takia käytetäänkin mielummin muita diagnostiikka keinoja. Esimerkiksi \textit{Stan} käyttää korjattua $\hat{R}$ diagnostiikkaa \cite{vehtari_2019}.
+
 \subsection{ESS}
 
 Toinen hyödyllinen diagnostiikka MCMC-menetelmissä on niin sanottu \textit{effective sample size (ESS)}, joka mittaa sitä kuinka monta effektiivisesti riippumatonta otosta ketjussa on. Tämä tarkoittaa siis sitä, että se mittaa kuinka paljon ketjun autokorrelaatio vaikuttaa keskivirheeseen verrattuna täysin riippumattomiin otoksiin.
