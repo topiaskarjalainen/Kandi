@@ -10,10 +10,10 @@ registerDoParallel(cores = n_cores)
 
 ####################################################################################
 
-air <- airquality %>% 
-  select(Ozone, Solar.R, Wind) %>% 
-  na.omit() %>% 
-  as.matrix() 
+air <- airquality %>%
+  select(Ozone, Solar.R, Wind) %>%
+  na.omit() %>%
+  as.matrix()
 
 y <- air[,1]
 x1 <- air[,2]
@@ -48,7 +48,7 @@ update_beta2 <- function(beta0, beta1, tau) {
 
 N <- air[,1] %>% length()
 chains <- n_cores
-iter <- 500
+iter <- 2000
 
 
 mu0 <- 80
@@ -60,6 +60,8 @@ tau2 <- 1/50
 alpha_p <- 5
 gamma_p <- 0.01
 
+set.seed(1957)
+
 samples <- foreach(i = 1:chains) %dopar% {
   samples <- matrix(0, nrow = iter, ncol = 4)
   #' Jostain syystä ei pelaa hyvin negatiivisten aloitusarvojen kanssa
@@ -69,12 +71,12 @@ samples <- foreach(i = 1:chains) %dopar% {
   beta2 <- rnorm(1) %>% abs()
   tau <- rnorm(1) %>% abs()
   samples[1,] <- c(beta0, beta1, beta2, tau)
-  for (j in 1:iter-1) {
+  for (j in 2:iter) {
     beta0 <- update_beta0(beta1, beta2, tau)
     beta1 <- update_beta1(beta0, beta2, tau)
     beta2 <- update_beta2(beta0, beta1, tau)
     tau <- update_tau(beta0, beta1, beta2)
-  
+
     samples[j,] <- c(beta0, beta1, beta2, tau)
   }
   samples
@@ -95,13 +97,15 @@ samples <- foreach(i = 1:chains) %dopar% {
 
 
 # Muutetaan ketjut coda objekteiksi ja poistetaan burnin
-samples2 <- map(samples, function(x) as.mcmc(x[10000:19999,]))
-samples2 <- map(samples, function(x) as.mcmc(x[250:499,]))
+#samples2 <- map(samples, function(x) as.mcmc(x[10001:20000,]))
+samples2 <- map(samples, function(x) as.mcmc(x[1001:2000,]))
+#samples2 <- map(samples, function(x) as.mcmc(x[250:500,]))
 #samples <- map(samples, function(x) x[10000:20000,])
-samples <- do.call(rbind,samples2)
+samples <- do.call(rbind, samples2)
 samples.mcmc <- mcmc.list(samples2)
 
 gelman.diag(samples.mcmc, autoburnin=FALSE, multivariate=FALSE)
+gelman.plot(samples.mcmc)
 effectiveSize(samples.mcmc)
 summary(samples.mcmc)
 
@@ -142,6 +146,7 @@ density(1/samples[,4], breaks = 50) %>% plot(xlab = expression(sigma^2))
 
 ss <- summary(samples.mcmc)
 ss.df <- cbind(ss$statistics, ss$quantiles)
+ss.df <- ss.df[,c(1,2,5,6,7,8,9)]
 xtable::xtable(ss.df, type = "latex", digits = c(5)) %>% print()
 
 ####
