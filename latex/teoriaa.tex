@@ -175,10 +175,6 @@ Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaa
 
 
 \begin{maar}
-	Kun $S$ on rajoittamaton, siirtymämatriisi on parasta ajatella kuvauksena $T: S\times S \rightarrow [0,1]$, joka kuvaa tilaparin $x,y\in S$ todennäköisyydeksi $T(x,y)$
-\end{maar}
-
-\begin{maar}
 	Iistymätodennäköisyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtymätiheytenä} $T^{(n)}(x,y)$, jolle pätee
 	\begin{equation}\label{siirt-tiheys}
 		\int_S T(x,y)dy = 1 \hspace{1cm} \text{ja} \hspace{1cm} \int_S T^{(n)}(x,y)dy = 1, \forall n \geq 1
@@ -191,17 +187,6 @@ Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaa
 		\pi(y) = \int_S \pi(x) T(x,y) dx
 	\end{equation}
 \end{maar}
-
-\begin{lause}
-	Jos Markovin ketju $\{X_n\}$ on kääntyvä ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
-\end{lause}
-
-\begin{proof}
-	Yhtälön \ref{siirt-tiheys} mukaan $\int_S T(y,x)dx = 1$, joten
-	\begin{equation}
-		\int_S \pi(x) T(x,y) dx = \int_S \pi(y) T(y,x) dx = \pi(y)\int_S T(y,x) dx = \pi(y)
-	\end{equation}
-\end{proof}
 
 \begin{maar}
 	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. Voidaan esimerksiksi määritellä
