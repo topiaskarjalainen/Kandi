@@ -4,9 +4,8 @@
 
 \textit{Gibbsin otanta-algoritmi} on tapa simuloida Bayesiläistä moniulotteista posteriorijakaumaa (eli ulottuvuuksia vähintään 2), kun suora otanta on hankalaa. Algoritmi on nimetty amerikkalaisen fyysikon, \textit{Josiah Willard Gibbs}'n (1839-1903) mukaan, mutta sen todellinen kehittäjä on veljekset \textit{Donald Geman} (1943-) ja \textit{Stuart Geman} (1949-) vuonna 1984 artikkelissa \textit{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}.
 
+
 \begin{maar}\label{gibbs}
-	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
-	\begin{maar}\label{gibbs}
 	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
 	\begin{enumerate}
 		\item Valitaan satunnainen indeksi $j$ jolle $1 \leq j \leq d$
@@ -19,7 +18,6 @@
 			\tnm_{-j} = (\tn_{1},...,\tn_{j-1},\tnm_{j+1},...,\tnm_{d})
 		\end{equation*}
 	\end{enumerate}
-\end{maar}
 \end{maar}
 
 Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestystä, vaan järjestys päätetään alussa, ja sitä pidetään koko algortimin ajan samana. Tällöin kyseessä on ns. \textit{systemic scan Gibbs sampler}.
