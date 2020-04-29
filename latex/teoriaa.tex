@@ -43,7 +43,7 @@ Määritellään ensiksi todennäköisyys.
 
 \section{Markovin ketjut}
 
-Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät kuulu sellaisenaan opetussuunnitelmaan. \cite{piiroinen_stokastiset_nodate}
+Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät kuulu sellaisenaan opetussuunnitelmaan. Aloitetaan määrittelemällä stokastinen prosessi.
 
 \begin{maar}
 	Jono $(X_n:n=1,2,3,...)$ satunnaismuuttujia on diskreettiaikainen \textit{stokastinen prosessi}.
@@ -53,7 +53,23 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 	Merkitään stokastista prosessia merkinnällä $\{ X_n \}$
 \end{merk}
 
-Esitetään seuraavaksi \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}.
+Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet ja esitetään sitten \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}.
+
+\begin{maar}
+	Olkoot $(S,\mathcal{S})$ ja $(T,\mathcal{T})$ mitallisia avaruuksia. Siirtymäydin on funktio $T:S\times \mathcal{T} \rightarrow [0,\infty[$, jolle pätee
+	\begin{enumerate}[(i)]
+		\item $\forall s \in S: A \rightarrow T(s,A)$ on todennäköisyysmitta.
+		\item $\forall A \in \mathcal{T}: s \rightarrow T(s,A)$ on mitallinen
+	\end{enumerate}
+	Diskreetissä tapauksessa siirtymäydintä kutsutaan \textit{siirtymä matriisiksi}, joka on 
+	\begin{equation}
+		p_{ij} = \pr(X_n = i | X_{n-1} = j), \:\forall i,j \in S
+	\end{equation}
+	Jatkuvassa tapauksessaydin kuvaa sitä ehdollista todennäköisyyttä, että siirtymä tapahtuu, eli $P(X \in A|x) = \int_A T(x,x')dx'$. Tälle pätee, että 
+	\begin{equation}\label{siirt-tiheys}
+		\int_S T(x,x')dx' = 1
+	\end{equation}
+\end{maar}
 
 \begin{maar}\label{markovin-ehto-d}
 	Stokastinen prosessi $\{X_n\}$ on \textit{Markovin ketju}diskreetissä tila-avaruudessa, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
@@ -165,28 +181,12 @@ Kääntyvällä Markovin ketjulla on sellainen mukava ominaisuus, että ketjun k
 	Ketju on äärellinen, joten sillä on tasapainojakauma. Yhtälö \ref{stationary-dist2} implikoi, että jakauma $\pi$ on siirtymämatriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). Tämä voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt nähdään, että \ref{stationary-dist2} pätee.
 \end{esim}
 
+Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan tulos, jota tarvitsemme Gibbsin otanta-algoritmin tasapainojakauman todistuksen yhteydessä.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaan simuloida normaalijakaumasta, joka voi saada minkä vain arvon väliltä $(-\infty,\infty)$), niin teoria muuttuu hieman. Suurin osa tuloksista pätee pienin muutoksin, mutta niiden todistaminen on hankalaa ja ylittää kanditason. Esitetään kuitenkin tarvittavat perustulokset.
-
-
-\begin{maar}
-	Iistymätodennäköisyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtymätiheytenä} $T^{(n)}(x,y)$, jolle pätee
-	\begin{equation}\label{siirt-tiheys}
-		\int_S T(x,y)dy = 1 \hspace{1cm} \text{ja} \hspace{1cm} \int_S T^{(n)}(x,y)dy = 1, \forall n \geq 1
-	\end{equation}
-\end{maar}
-
-\begin{maar}
-	Jakauma $\pi$ on Markovin ketjun $\{ X_n \}$ kun $S$ on jatkuva, tasapainojakauma jos 
-	\begin{equation}
-		\pi(y) = \int_S \pi(x) T(x,y) dx
-	\end{equation}
-\end{maar}
 
 \begin{maar}
 	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. Voidaan esimerksiksi määritellä
