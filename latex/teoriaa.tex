@@ -30,6 +30,10 @@ Määritellään ensiksi todennäköisyys.
 \end{maar}
 
 \begin{maar}
+	Olkoot $\mathcal{A}$ $\sigma$-algebra, ja olkoot $X$ joukko. Pari $(X, \mathcal{A})$ on mitallinen avaruus.
+\end{maar}
+
+\begin{maar}
 	Kolmikkoa $(\Omega, \mathcal{F}, \pr )$ kutsutaan \textit{todennäköisyysavaruudeksi}.
 \end{maar}
 
@@ -50,7 +54,7 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 \end{maar}
 
 \begin{merk}
-	Merkitään stokastista prosessia merkinnällä $\{ X_n \}$
+	Merkitään stokastista prosessia merkinnällä $( X_n )$
 \end{merk}
 
 Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet ja esitetään sitten \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}.
@@ -72,7 +76,7 @@ Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen väl
 \end{maar}
 
 \begin{maar}\label{markovin-ehto-d}
-	Stokastinen prosessi $\{X_n\}$ on \textit{Markovin ketju}diskreetissä tila-avaruudessa, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
+	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju}diskreetissä tila-avaruudessa, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
 	\begin{equation}\label{markov-property}
 		\begin{split}
 			&\pr(X_{n+1}=j|X_0=i_0,X_1=i_1,...,X_{n-1}=i_{n-1},X_n=i) \\
@@ -88,7 +92,7 @@ Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen väl
 \end{maar}
 
 \begin{maar}\label{markov-maar-c}
-	Stokastinen prosessi $\{X_n\}$ on \textit{Markovin ketju} jatkuvassa tila-avaruudessa, jos kaikilla alkuhetkillä $t$, $X_t$:n ehdolliselle jakaumalle pätee
+	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju} jatkuvassa tila-avaruudessa, jos kaikilla alkuhetkillä $t$, $X_t$:n ehdolliselle jakaumalle pätee
 	\begin{equation}
 		P(X_t\in A | x_{t-1},x_{t-2},...,x_0) = 	P(X_t\in A | x_{t-1})
 	\end{equation}
@@ -101,7 +105,7 @@ Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen väl
 MCMC-menetelmien kannalta keskeinen ominaisuus Markovin ketjulle on sen tasapaino jakauma (eng. \textit{invariant distribution}). Siihen perustuu koko idea menetelmän takana. Esitetään seuraavaksi tämä ominaisuus, sekä määritellään toinen ominaisuus eli \textit{kääntyvä Markovin ketju} esittämällä ns. \textit{detailed balance}-yhtälö, jota tarvitaan Metropolis-hastings algoritmin tasapainojakauman olemassa olon osoittamiseen. 
 
 \begin{maar}
-	Todennäköisyysjakauma $\pi=(\pi)_{i\in S}$ on diskreetin tila-avaruuden Markovin ketjun $\{X_n\}$ tasapainojakauma, jos 
+	Todennäköisyysjakauma $\pi=(\pi)_{i\in S}$ on diskreetin tila-avaruuden Markovin ketjun $(X_n)$ tasapainojakauma, jos 
 	\begin{equation}\label{stationary-dist}
 		\sum_{i\in S} \pi_i p_{ij}=\pi_j, \forall j\in S
 	\end{equation}
@@ -110,7 +114,7 @@ MCMC-menetelmien kannalta keskeinen ominaisuus Markovin ketjulle on sen tasapain
 		\pi^T\pr= \pi^T
 	\end{equation}
 	
-	Jakauma $\pi$ on jatkuvan tila-avaruuden Markovin ketjun $\{ X_n \}$ tasapainojakauma jos 
+	Jakauma $\pi$ on jatkuvan tila-avaruuden Markovin ketjun $( X_n )$ tasapainojakauma jos 
 	\begin{equation}
 		\pi(y) = \int_S \pi(x) T(x,y) dx
 	\end{equation}
@@ -142,7 +146,7 @@ Kääntyvällä Markovin ketjulla on sellainen mukava ominaisuus, että ketjun k
 \end{proof}
 
 \begin{lause}
-	Jos Markovin ketju $\{X_n\}$ on kääntyvä ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
+	Jos Markovin ketju $(X_n)$ on kääntyvä ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
 \end{lause}
 
 \begin{proof}
@@ -189,11 +193,10 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{maar}
-	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. Voidaan esimerksiksi määritellä
-	\begin{equation*}
+	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. Voidaan esimerksiksi määritellä 	siirtymätiheys
+	\begin{equation}
 		T_1...T_d
-	\end{equation*}
-	siirtymätiheys.
+	\end{equation}
 \end{maar}
 
 \begin{lause}\label{cyclic-kernel}
@@ -206,49 +209,46 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 	\end{equation*}
 \end{proof}
 
+Käydään vielä nopeasti läpi muutama ominaisuus, joita tarvitaan kun haluamme osoittaa kappaleessa 3 algoritmiemme toimivan.
 
+\begin{maar}
+	Markovin ketju $(X_n)$, siirtymäytimellä $T(x,y)$ on \textit{pelkistymätön} jos kaikilla $A \in \mathcal{T}$, joilla $\pr(A)>0$, on olemassa sellainen $n$, että $T^n(x, A)>0$ kaikilla $x\in S$
+\end{maar} 
 
+Käytännössä pelkistymättömyys tarkoittaa siis sitä, että jokaisesta tila-avaruuden kolkasta on mahdollista päästä jokaiseen muuhun pisteeseen avaruutta, eli ketju ei voi jäädä jumiin johonkin alueelle.
 
+\begin{maar}
+	Markovin ketju $(X_n)$ on \textit{palautuva} jos
+	\begin{enumerate}[(i)]
+		\item ketju $(X_n)$ on pelkistymätön ja
+		\item kaikilla $A\in \mathcal{T}$, joilla $\pr(A)>0$, $\mathbb{E}_x [\eta_A]=\infty$ kaikilla $x\in A$
+	\end{enumerate}
+	Missä $\eta_A$ on käyntien määrä joukossa $A$.
+\end{maar}
 
+Palautuvalla ketju tarkoittaa sitä, että ketju palaa alueelle, jossa se on jo käynyt. Palautumista vahvempi ominaisuus on \textit{Harris}-palautuvuus.
 
+\begin{maar}
+	Joukko $A$ on Harris palautuva, jos $\pr_x(\eta_A =\infty) = 1$ kaikilla $x\in A$. Markovin ketju $(X_n)$ on Harris palautuva $(X_n)$ on pelkistymätön, ja jokainen joukko $A$, jolla $\pr(A)>0$, joukko $A$ on Harris palautuva.
+\end{maar}
 
+\begin{maar}
+	Markovin ketju $(X_n)$ on perioidinen, jos on olemassa erilliset osajoukot $A_1, A_2,...,A_d \subset S, d > 1$, että 
+	\begin{equation}
+		T(x, A_{i+1}) = 1 , \: \forall \in A_i, \: i=1,...,d-1
+	\end{equation}
+	ja 
+	\begin{equation}
+		T(x,A_1)=1, \: i = d
+	\end{equation}
+	Jos ketju ei ole perioidinen, se on \textit{aperiodinen}.
+\end{maar}
 
+Määritellään sitten viekä ergodisuus, joka on tärkeä ominaisuus Markovin ketjun tasapainojakauman olemassaolon kannalta.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{maar}
+	Markovin ketju $(X_n)$ on ergodinen, jos se on pelkistymätön, aperiodinen ja Harris palautuva.
+\end{maar}
 
 
 
