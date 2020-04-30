@@ -1,4 +1,22 @@
-\chapter{Markov Chain Monte Carlo}
+\chapter{Markovin ketju Monte Carlo menetelmät}
+
+Tässä luvussa aiomme esitellä MCMC-metodeja. Esittelemme alaluvussa \ref{gibbs} Gibbsin otanta-algoritmina tunnetun MCMC-menetelmän, ja sitten alaluvussa \ref{Metropolis--Hastings algoritmi} esittelemme Metropolis--Hastings algoritmin. Osoitamme myös, että todellisuudessa alaluvun \ref{gibbs} algoritmi onkin todella vain erikoistapaus luvun \ref{Metropolis--Hastings algoritmi} algoritmista. Pohditaan kuitenkin ensin menetelmän motivaatiota.
+ 
+\begin{maar}
+	MCMC-menetelmiksi kutsutaan jakaumaa $p$ simuloiviin menetelmiin, jotka perustuvat siihen, että luodaan ergodinen Markovin ketju $(X_n)$, jolla on tasapainojakaumana jakauma $p$.
+\end{maar}
+
+Ketjun ergodisuus takaa siis sen, että ketju konvergoituu jokaisesta tila-avaruuden pisteestä. Se takaa, että ketjun empiirinen keskiarvo konvergoituu odotusarvoon
+\begin{equation}
+	\mathfrak{J}_N = \frac{1}{N} \sum_{t=1}^{N} h(X_t)
+\end{equation}
+konvergoituu odotusarvoon, eli
+\begin{equation}
+	\lim_{N\to\infty} \mathfrak J_N \to \mathbb{E}_p[h(X_t)] = \int h(x)p(x)dx
+\end{equation}
+Tällöin ketjun tiloja voidaan siis käsitellä i.i.d. otoksena tasapainojakaumasta.
+
+Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka tasapainojakaumana on haluamamme simuloitava jakauma. Tämän voisi kuvitella olevan kovin vaikeaa, mutta yllättävästi se onkin melko triviaalia.
 
 \section{Gibbsin otanta-algoritmi}\label{gibbs}
 
