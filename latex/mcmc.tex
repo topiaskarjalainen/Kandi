@@ -82,7 +82,7 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työske
 	\begin{enumerate}
 		\item Valitaan aloitus tila $\theta_0$ ja asetetaan $n=0$
 		\item Generoidaan kandidaatti tila $\theta'$ satunnaisesti jakaumasta $J_n(\theta'|\theta_{n-1})$
-		\item Lasketaan tiheyksien tai todennäköisyyksien suhde
+		\item Lasketaan suhde
 		\begin{displaymath}
 			r = \frac{p(\theta'|y)/J_n(\theta'|\theta_{n-1})}{p(\theta_{n-1}|y)/J_n(\theta_{n-1}|\theta')}
 		\end{displaymath}
