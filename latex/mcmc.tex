@@ -45,6 +45,8 @@ Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestyst
 \end{lause}
 
 \begin{proof}
+	Voitaisiin osoittaa, että määritelmän \ref{gibbs} algoritmin tuottama Markovin ketju on ergodinen, ja täten konvergoituu tasapainojakaumaan. Ohitetaan se kuitenin nyt tässä, sillä todistus on melko tekninen.
+	
 	Olkoot $\tnm$ alkuperäienen tila, ja $\tn_j$ uusi $j$:nennen parametrin tila. Nyt $\tnm$:n ja $\tn_j$:n yhteis tiheys on 
 	\begin{equation}
 		p(\tnm)p_j(\tn_j|\tnm_{-j})
@@ -183,6 +185,36 @@ Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk} ja
 
 	Kuvasta \ref{kuva2} nähdään esimerkin tulokset. Huomataan, että vaikka ehdotusjakauma on melko kummallinen, niin kuitenkin tarpeaksi monella iteraatiolla saavutetaan tasapainojakauma. Huomaa, että vasemmassa kuvaajassa on vihreällä simulaatio keskiarvo, ja punaisella analyyttinen keskiarvo, mutta nämä arvot ovat niin lähellä toisiaan, että viivat ovat päällekkäin.
 \end{esim}
+
+\subsection{Yhteys Gibsin otanta-algoritmiin}
+
+Kuten jo totesimme aiemmin, Gibbsin otanta-algoritmin voi esittää Metropolis-Hastings algoritmin erityis tilanteena, jossa hyväksymis todennäköisyys on 1.
+
+\begin{lause}
+	Gibbsin otanta-algoritmi on erityis tapaus Metropolis-hastings algoritmista.
+\end{lause}
+
+\begin{proof}
+	Määritellään MH-algoritmin iteraatio $n$ niin, että  se sisältää $d$ askelta, ja jossa iteraation $n$ askel $j$ kuvaa parametriosavektorin $\theta_j$ päivitystä ehdollistettuna kaikilla muilla $\theta$:n elementeillä. Tällöin ehdotusjakauma $J_{j,n}$ iteraation $n$ askeleessa $j$, voidaan määrittää siten, että se ehdottaa vain tiloja, jotka muuttaa vain parametria $\theta_j$. Eli:
+	\begin{equation}
+		J_{j,n}^{Gibbs}(\theta^*|\tnm)=\begin{cases}
+			p(\theta^*_j|\tnm_{-j}) \qq{kun} \theta^*_{-j}=\tnm_{-j} \\
+			0 \qq{muulloin}
+		\end{cases}
+	\end{equation}
+	Nyt voidaan kirjoittaa suhde $r$ iteraation $n$ $j$:nen askeleen kohdalla muotoon
+	\begin{equation}
+		\begin{split}
+			r &= \frac{p(\theta^*)/J_{j,n}^{Gibbs}(\theta^*|\tnm)}
+			{p(\tnm)/J_{j,n}^{Gibbs}(\tnm|\theta^*)} \\
+			&= \frac{p(\theta^*)/p(\theta^*_j|\tnm_{-j})}
+			{p(\tnm)/p(\tnm_{j}|\tnm_{-j})} \\
+			&= \frac{p(\tnm_{-j})}{p(\tnm_{-j})} \\
+			&= 1
+		\end{split}
+	\end{equation}
+	Eli määrittelemällä MH-algoritmille siirtymäjakauma sillä tavalla, että se vastaa Gibbsin otanta-algoritmia, siirtymän hyväksymistodennäköisyydeksi tulee 1.
+\end{proof}
 
 \subsection{Ehdotusjakauman valinnasta}
 
