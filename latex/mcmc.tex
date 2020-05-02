@@ -31,7 +31,8 @@ Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka
 		\begin{equation}
 			p(\theta_j|\tnm_{-j},y)
 		\end{equation}
-		missä $\tnm_{-j}$ on kaikki muut $\theta$:n komponentit paitsi $j$s komponentti, näiden tämänhetkisillä arvoilla eli 
+		missä $\tnm_{-j}$ on kaikki muut $\theta$:n komponentit paitsi $j$s komponentti, näiden tämänhetkisillä arvoil
+		la eli 
 		\begin{equation*}
 			\tnm_{-j} = (\tn_{1},...,\tn_{j-1},\tnm_{j+1},...,\tnm_{d})
 		\end{equation*}
@@ -40,7 +41,7 @@ Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka
 
 Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestystä, vaan järjestys päätetään alussa, ja sitä pidetään koko algortimin ajan samana. Tällöin kyseessä on ns. \textit{systemic scan Gibbs sampler}.
 
-\begin{lause}
+\begin{lause}\label{gibbs-proof}
 	Määritelmän \ref{gibbs} mukaisen algoritmin tuottama Markovin ketju on aperiodinen, pelkistymätön ja Harris palautuva ja sillä on sitten uniikki tasapainojakauma $p(\theta)$. \cite{koistinen_computational_2009}
 \end{lause}
 
@@ -68,6 +69,18 @@ Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestyst
 \end{proof}
 
 Ohitetaan Gibbsin otanta-algoritmin kohdalla toistaiseksi esimerkit, ja palataan siihen kappaleessa \ref{esimerkki}, jossa tarkastelemme laajempaa esimerkkiä lineaarisen regression parissa. Toteutamme tämän Gibbsin otanta-algoritmina.
+
+Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseenkin rajoittavalta, sillä joskus voidaan tutkia mallia, jolle on vaikea laskea ehdolliset jakaumat. Tällöin voidaan kuitenkin pienin muunnoksin hyödyntää Gibbsin otanta-algoritmia hyödyntämällä seuraavaa määritelmää \ref{completion}.
+
+\begin{maar}\label{completion}
+	Olkoot $p$ tiheysfunktio. Tiheysfunktiota $\lambda$, joka täyttää ehdon
+	\begin{equation}
+		\int_Z \lambda(x,z) dz = p(x)
+	\end{equation}
+	kutsutaan $p$:n täydellistymäksi.
+\end{maar}
+
+Tiheys $\lambda$ valitaan siten, että sille voi ratkaista ehdolliset jakaumat. Nyt Gibsin otanta-algoritmi voidaan toteuttaa käyttämällä jakaumaa $\lambda$ ja sen ehdollisia jakaumia. Lauseen \ref{gibbs-proof} tulos pätee myös tässä tapauksessa. Tällöin malliin tulee toki uusi parametri $z$, joka on täysin turha mallin kannalta, mutta avustaa simuloinnissa.
 
 \section{Metropolis--Hastings algoritmi}\label{Metropolis--Hastings algoritmi}
 

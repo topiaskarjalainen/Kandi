@@ -41,7 +41,10 @@ Asetetaan hyperparametrit $\mu_0 = 80,\mu_1 = 0, \mu_2 = -5, \tau_0 = 1/50, \tau
 \begin{table}[ht]\label{diagnostics}\centering\begin{tabular}{rrr}  \hline $\theta$ & $\hat{R}$ & $\hat{n}_{eff}$ \\   \hline  $\beta_0$ & 1.00 & 778 \\   $\beta_1$ & 1.00 & 1177 \\   $\beta_2$ & 1.01 & 902  \\   $\tau$ & 1.00 & 7656  \\    \hline\end{tabular}
 \caption{Diagnostiikka}\end{table}
 
-Taulukoissa 4.1 ja 4.2 nähdään tulokset ja MCMC-diagnostiikat, joista puhuttiin aiemmin. Nähdään, että ketjut näyttäisivät konvergoituneen, mikä ei sinänsä ihmetytä lainkaan, sillä simulaatio määrämme on valtava. Yhteensä burn-in periodin jälkeen otoksia on 8000.
+Taulukoissa 4.1 ja 4.2 nähdään tulokset ja MCMC-diagnostiikat, joista puhuttiin aiemmin. Nähdään, että ketjut näyttäisivät konvergoituneen, mikä ei sinänsä ihmetytä lainkaan, sillä simulaatio määrämme on valtava. Yhteensä burn-in periodin jälkeen otoksia on 8000. 
+
+Mielenkiintoista on nähdä, että kuvassa \ref{kuva1} ketju parametrille $1/\tau$ on aivan ernäköinen kuin muille parametreille. Otoksia on yhtä paljon kaikissa, mutta $1/\tau$:n ketju näyttää siltä, että otoksia olisi enemmän. Tämä toki nähdään myös $\hat{n}_{eff}$ estimaatista.
+
 \begin{figure}[h!]
 	\includegraphics[width=\textwidth]{gibbsexample}
 	\caption[Regressio]{\textit{Esimerkin regression tulos, vasemmalla Solar.R -akselilla ja oikealla Wind. Punainen viiva on posteriori keskiarvolla piiretty regressio viiva ja vihreä on vertailun vuoksi PNS mentelmällä sovitettu suora. Siniset ovat sovitteita parametrien eri ehdotus arvoilla.}}

@@ -1,6 +1,11 @@
 \chapter{Loppusanat}
 
-Olemme nyt tarkastelleet perus ajatuksia MCMC-menetelmistä. Kävimme läpi hieman teoriaa, esittelimme algoritmit ja kokeilimme sellaista käytännön tilanteessa. Kuitenkin olemme vain raapaisseet pintaa. Käyttämämme algoritmit ovat monessa mielessä erittäin rajoittuneita. Gibbsin otanta-algortimissa meidän tulee tuntea marginaalijakaumat analyyttisesti, ja Metropolis--Hastings voi olla välillä hidas konvergoitumaan. 
+Olemme nyt tarkastelleet perus ajatuksia MCMC-menetelmistä. Kävimme läpi hieman teoriaa, esittelimme algoritmit ja kokeilimme sellaista käytännön tilanteessa. Kuitenkin olemme vain raapaisseet pintaa. Käyttämämme algoritmit ovat monessa mielessä erittäin rajoittuneita. Gibbsin otanta-algortimissa meidän tulee tuntea marginaalijakaumat, ja Metropolis--Hastings voi olla välillä hidas konvergoitumaan. 
 
 Tärkeitä laajennuksia, jotka korjaavat edellisessäkappaleessa mainitsemiani onglemia, on myöhemmin kehitetyt tehokkaammat MCMC-metodit. Tärkeimpänä \textit{Hamiltonian monte carlo} eli HMC. Se pyrkii vähentämään tarvittavien otosten määrää, joka tarvitaan tarpeeksi tarkan posteriori estimaatin saamiseksi, sillä menetelmä vähentää autokorrelaatiota tilojen välillä.
 
+Ohitimme myös useita asioita liittyen Markovin ketjuihin. Markovin ketjujen matematiikka ei ole  kovin vaikeaa käytännössä, mutta monet todistukset ovat työläitä ja vaativat matematiikkaa, joka ylittää tämän tutkielman laajuuden.
+
+Kuitenkin MCMC-menetelmät ovat mullistaneet maailmaa muunmuassa koneoppimis menetelmien massakaupallistumisen myötä. Ne ovat myös tehneet tieteestä luotettavampaa mahdollistamalla Bayesiläisen tilastotieteen uuden nousun. Varsinkin replikaatiokriisin jälkeisessä maailmassa se on arvokas kontribuutio.
+
+Paljon on kuitenkin vielä tutkittavaa. Suurista viimeaikaisista loikista huolimatta, MCMC-menetelmtä eivät voita vieläkään nopeudessa perinteisiä tilastollisia menetelmiä, joten uusia ja nopeampia algoritmeja olisi vielä kehiteltävä ja helppokäyttöisyyttä parannettava, jotta MCMC-menetelmät saavuttavat täyden potentiaalinsa.
