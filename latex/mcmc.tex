@@ -1,12 +1,40 @@
-\chapter{Markov Chain Monte Carlo}
+\chapter{Markovin ketju Monte Carlo menetelmät}
+
+Tässä luvussa aiomme esitellä MCMC-metodeja. Esittelemme alaluvussa \ref{gibbs} Gibbsin otanta-algoritmina tunnetun MCMC-menetelmän, ja sitten alaluvussa \ref{Metropolis--Hastings algoritmi} esittelemme Metropolis--Hastings algoritmin. Osoitamme myös, että todellisuudessa alaluvun \ref{gibbs} algoritmi onkin todella vain erikoistapaus luvun \ref{Metropolis--Hastings algoritmi} algoritmista. Pohditaan kuitenkin ensin menetelmän motivaatiota.
+ 
+\begin{maar}
+	MCMC-menetelmiksi kutsutaan jakaumaa $p$ simuloiviin menetelmiin, jotka perustuvat siihen, että luodaan ergodinen Markovin ketju $(X_n)$, jolla on tasapainojakaumana jakauma $p$.
+\end{maar}
+
+Ketjun ergodisuus takaa siis sen, että ketju konvergoituu jokaisesta tila-avaruuden pisteestä. Se takaa, että ketjun empiirinen keskiarvo
+\begin{equation}
+	\mathfrak{J}_n = \frac{1}{n} \sum_{t=1}^{n} h(X_t)
+\end{equation}
+konvergoituu odotusarvoon, eli
+\begin{equation}
+	\lim_{n\to\infty} \mathfrak J_n \to \mathbb{E}_p[h(X_t)] = \int h(x)p(x)dx
+\end{equation}
+
+Tällöin ketjun tiloja voidaan siis käsitellä i.i.d. otoksena tasapainojakaumasta.
+
+Joillekkin Markovin ketjuille (ja useimmille MCMC-menetelmien tuottamille Markovin ketjuille) pätee myös keskeinen raja-arvolause \ref{CLT}.
+
+\begin{equation}\label{CLT}
+	\sqrt{n}\qty(\mathfrak{J}_n-\mathbb{E}_p[h(X_t)]) \to N(0, \sigma^2_h) \qq{kun} n\to\infty
+\end{equation}
+jossa 
+\begin{equation}
+	\sigma^2_h = \text{var}_p(h(X_0))+2\sum_{t=1}^{\infty}\text{cov}_p(h(X_0),h(X_t))
+\end{equation}
+
+Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka tasapainojakaumana on haluamamme simuloitava jakauma. Tämän voisi kuvitella olevan kovin vaikeaa, mutta yllättävästi se onkin melko triviaalia.
 
 \section{Gibbsin otanta-algoritmi}\label{gibbs}
 
 \textit{Gibbsin otanta-algoritmi} on tapa simuloida Bayesiläistä moniulotteista posteriorijakaumaa (eli ulottuvuuksia vähintään 2), kun suora otanta on hankalaa. Algoritmi on nimetty amerikkalaisen fyysikon, \textit{Josiah Willard Gibbs}'n (1839-1903) mukaan, mutta sen todellinen kehittäjä on veljekset \textit{Donald Geman} (1943-) ja \textit{Stuart Geman} (1949-) vuonna 1984 artikkelissa \textit{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}.
 
+
 \begin{maar}\label{gibbs}
-	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
-	\begin{maar}\label{gibbs}
 	Olkoot $\theta$ parametrivektori, joka jaetaan $d$:hen osaan tai osavektoriin, eli $\theta = (\theta_1, \theta_2,...,\theta_d)$. Gibbsin otanta-algoritmi määritellään seuraavanlaisesti:
 	\begin{enumerate}
 		\item Valitaan satunnainen indeksi $j$ jolle $1 \leq j \leq d$
@@ -14,21 +42,23 @@
 		\begin{equation}
 			p(\theta_j|\tnm_{-j},y)
 		\end{equation}
-		missä $\tnm_{-j}$ on kaikki muut $\theta$:n komponentit paitsi $j$s komponentti, näiden tämänhetkisillä arvoilla eli 
+		missä $\tnm_{-j}$ on kaikki muut $\theta$:n komponentit paitsi $j$s komponentti, näiden tämänhetkisillä arvoil
+		la eli 
 		\begin{equation*}
 			\tnm_{-j} = (\tn_{1},...,\tn_{j-1},\tnm_{j+1},...,\tnm_{d})
 		\end{equation*}
 	\end{enumerate}
 \end{maar}
-\end{maar}
 
 Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestystä, vaan järjestys päätetään alussa, ja sitä pidetään koko algortimin ajan samana. Tällöin kyseessä on ns. \textit{systemic scan Gibbs sampler}.
 
-\begin{lause}
-	Määritelmän \ref{gibbs} mukaisen algoritmin tuottamalla Markovin ketjulla on tasapainojakauma $p(\theta)$. \cite{koistinen_computational_2009}
+\begin{lause}\label{gibbs-proof}
+	Määritelmän \ref{gibbs} mukaisen algoritmin tuottama Markovin ketju on aperiodinen, pelkistymätön ja Harris palautuva ja sillä on sitten uniikki tasapainojakauma $p(\theta)$. \cite{koistinen_computational_2009}
 \end{lause}
 
 \begin{proof}
+	Voitaisiin osoittaa, että määritelmän \ref{gibbs} algoritmin tuottama Markovin ketju on ergodinen, ja täten konvergoituu tasapainojakaumaan. Ohitetaan se kuitenin nyt tässä, sillä todistus on melko tekninen.
+	
 	Olkoot $\tnm$ alkuperäienen tila, ja $\tn_j$ uusi $j$:nennen parametrin tila. Nyt $\tnm$:n ja $\tn_j$:n yhteis tiheys on 
 	\begin{equation}
 		p(\tnm)p_j(\tn_j|\tnm_{-j})
@@ -51,6 +81,18 @@ Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestyst
 
 Ohitetaan Gibbsin otanta-algoritmin kohdalla toistaiseksi esimerkit, ja palataan siihen kappaleessa \ref{esimerkki}, jossa tarkastelemme laajempaa esimerkkiä lineaarisen regression parissa. Toteutamme tämän Gibbsin otanta-algoritmina.
 
+Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseenkin rajoittavalta, sillä joskus voidaan tutkia mallia, jolle on vaikea laskea ehdolliset jakaumat. Tällöin voidaan kuitenkin pienin muunnoksin hyödyntää Gibbsin otanta-algoritmia hyödyntämällä seuraavaa määritelmää \ref{completion}.
+
+\begin{maar}\label{completion}
+	Olkoot $p$ tiheysfunktio. Tiheysfunktiota $\lambda$, joka täyttää ehdon
+	\begin{equation}
+		\int_Z \lambda(x,z) dz = p(x)
+	\end{equation}
+	kutsutaan $p$:n täydellistymäksi (\textit{completion}).
+\end{maar}
+
+Tiheys $\lambda$ valitaan siten, että sille voi ratkaista ehdolliset jakaumat. Nyt Gibsin otanta-algoritmi voidaan toteuttaa käyttämällä jakaumaa $\lambda$ ja sen ehdollisia jakaumia. Lauseen \ref{gibbs-proof} tulos pätee myös tässä tapauksessa. Tällöin malliin tulee toki uusi parametri $z$, joka on täysin turha mallin kannalta, mutta avustaa simuloinnissa.
+
 \section{Metropolis--Hastings algoritmi}\label{Metropolis--Hastings algoritmi}
 
 \textit{Metropolis--Hastings} algoritmi on kehittelijöidenssä \textit{Nicholas Metropolisksen} (1915-1999) ja \textit{Wilfred Keith Hastings}:n (1930-2016) mukaan nimetty MCMC-menetelmä, jolla voidaan simuloida Bayesiläisessä analyysissa käytettäviä posteriori jakaumia myös silloin kun tiheys on mahdotonta määrittää analyyttisesti.
@@ -66,7 +108,7 @@ Algoritmin pohjan kehitti \textit{Stanislav Ulam} ja \textit{Metropolis} työske
 	\begin{enumerate}
 		\item Valitaan aloitus tila $\theta_0$ ja asetetaan $n=0$
 		\item Generoidaan kandidaatti tila $\theta'$ satunnaisesti jakaumasta $J_n(\theta'|\theta_{n-1})$
-		\item Lasketaan tiheyksien tai todennäköisyyksien suhde
+		\item Lasketaan suhde
 		\begin{displaymath}
 			r = \frac{p(\theta'|y)/J_n(\theta'|\theta_{n-1})}{p(\theta_{n-1}|y)/J_n(\theta_{n-1}|\theta')}
 		\end{displaymath}
@@ -167,6 +209,36 @@ Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk} ja
 
 	Kuvasta \ref{kuva2} nähdään esimerkin tulokset. Huomataan, että vaikka ehdotusjakauma on melko kummallinen, niin kuitenkin tarpeaksi monella iteraatiolla saavutetaan tasapainojakauma. Huomaa, että vasemmassa kuvaajassa on vihreällä simulaatio keskiarvo, ja punaisella analyyttinen keskiarvo, mutta nämä arvot ovat niin lähellä toisiaan, että viivat ovat päällekkäin.
 \end{esim}
+
+\subsection{Yhteys Gibsin otanta-algoritmiin}
+
+Kuten jo totesimme aiemmin, Gibbsin otanta-algoritmin voi esittää Metropolis-Hastings algoritmin erityis tilanteena, jossa hyväksymis todennäköisyys on 1.
+
+\begin{lause}
+	Gibbsin otanta-algoritmi on erityis tapaus Metropolis-hastings algoritmista.
+\end{lause}
+
+\begin{proof}
+	Määritellään MH-algoritmin iteraatio $n$ niin, että  se sisältää $d$ askelta, ja jossa iteraation $n$ askel $j$ kuvaa parametriosavektorin $\theta_j$ päivitystä ehdollistettuna kaikilla muilla $\theta$:n elementeillä. Tällöin ehdotusjakauma $J_{j,n}$ iteraation $n$ askeleessa $j$, voidaan määrittää siten, että se ehdottaa vain tiloja, jotka muuttaa vain parametria $\theta_j$. Eli:
+	\begin{equation}
+		J_{j,n}^{Gibbs}(\theta^*|\tnm)=\begin{cases}
+			p(\theta^*_j|\tnm_{-j}) \qq{kun} \theta^*_{-j}=\tnm_{-j} \\
+			0 \qq{muulloin}
+		\end{cases}
+	\end{equation}
+	Nyt voidaan kirjoittaa suhde $r$ iteraation $n$ $j$:nen askeleen kohdalla muotoon
+	\begin{equation}
+		\begin{split}
+			r &= \frac{p(\theta^*)/J_{j,n}^{Gibbs}(\theta^*|\tnm)}
+			{p(\tnm)/J_{j,n}^{Gibbs}(\tnm|\theta^*)} \\
+			&= \frac{p(\theta^*)/p(\theta^*_j|\tnm_{-j})}
+			{p(\tnm)/p(\tnm_{j}|\tnm_{-j})} \\
+			&= \frac{p(\tnm_{-j})}{p(\tnm_{-j})} \\
+			&= 1
+		\end{split}
+	\end{equation}
+	Eli määrittelemällä MH-algoritmille siirtymäjakauma sillä tavalla, että se vastaa Gibbsin otanta-algoritmia, siirtymän hyväksymistodennäköisyydeksi tulee 1.
+\end{proof}
 
 \subsection{Ehdotusjakauman valinnasta}
 

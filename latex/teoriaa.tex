@@ -30,6 +30,10 @@ Määritellään ensiksi todennäköisyys.
 \end{maar}
 
 \begin{maar}
+	Olkoot $\mathcal{A}$ $\sigma$-algebra, ja olkoot $X$ joukko. Pari $(X, \mathcal{A})$ on mitallinen avaruus.
+\end{maar}
+
+\begin{maar}
 	Kolmikkoa $(\Omega, \mathcal{F}, \pr )$ kutsutaan \textit{todennäköisyysavaruudeksi}.
 \end{maar}
 
@@ -43,20 +47,36 @@ Määritellään ensiksi todennäköisyys.
 
 \section{Markovin ketjut}
 
-Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät kuulu sellaisenaan opetussuunnitelmaan. \cite{piiroinen_stokastiset_nodate}
-
-\subsection{Äärellinen tilajoukko}
+Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät kuulu sellaisenaan opetussuunnitelmaan. Aloitetaan määrittelemällä stokastinen prosessi.
 
 \begin{maar}
 	Jono $(X_n:n=1,2,3,...)$ satunnaismuuttujia on diskreettiaikainen \textit{stokastinen prosessi}.
 \end{maar}
 
 \begin{merk}
-	Merkitään stokastista prosessia merkinnällä $\{ X_n \}$
+	Merkitään stokastista prosessia merkinnällä $( X_n )$
 \end{merk}
 
+Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet ja esitetään sitten \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}. \cite{monte_carlo_book}
+
 \begin{maar}
-	Stokastinen prosessi $\{X_n\}$ on \textit{Markovin ketju}, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
+	Olkoot $(S,\mathcal{S})$ ja $(T,\mathcal{T})$ mitallisia avaruuksia. Siirtymäydin on funktio $T:S\times \mathcal{T} \rightarrow [0,\infty[$, jolle pätee
+	\begin{enumerate}[(i)]
+		\item $\forall s \in S: A \rightarrow T(s,A)$ on todennäköisyysmitta.
+		\item $\forall A \in \mathcal{T}: s \rightarrow T(s,A)$ on mitallinen
+	\end{enumerate}
+	Diskreetissä tapauksessa siirtymäydintä kutsutaan \textit{siirtymä matriisiksi}, joka on 
+	\begin{equation}
+		p_{ij} = \pr(X_n = i | X_{n-1} = j), \:\forall i,j \in S
+	\end{equation}
+	Jatkuvassa tapauksessaydin kuvaa sitä ehdollista todennäköisyyttä, että siirtymä tapahtuu, eli $P(X \in A|x) = \int_A T(x,x')dx'$. Tälle pätee, että 
+	\begin{equation}\label{siirt-tiheys}
+		\int_S T(x,x')dx' = 1
+	\end{equation}
+\end{maar}
+
+\begin{maar}\label{markovin-ehto-d}
+	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju}diskreetissä tila-avaruudessa, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
 	\begin{equation}\label{markov-property}
 		\begin{split}
 			&\pr(X_{n+1}=j|X_0=i_0,X_1=i_1,...,X_{n-1}=i_{n-1},X_n=i) \\
@@ -71,72 +91,21 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 	että siirtymätodennäköisyys tilojen $i\ \text{ja}\ j$ välillä ei riipu ajasta $m\ \text{ja}\ n$, vaan pelkästään tiloista $i\ \text{ja}\ j$.
 \end{maar}
 
+\begin{maar}\label{markov-maar-c}
+	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju} jatkuvassa tila-avaruudessa, jos kaikilla alkuhetkillä $t$, $X_t$:n ehdolliselle jakaumalle pätee
+	\begin{equation}
+		P(X_t\in A | x_{t-1},x_{t-2},...,x_0) = 	P(X_t\in A | x_{t-1})
+	\end{equation}
+\end{maar}
+
 \begin{maar}
 	Satunnaismuuttujan $X_0$ jakaumaa kutsutaan \textit{alkujakaumaksi}. 
 \end{maar}
 
-\begin{lause}
-	Ajanhetkellä $n\geq 1$ polun $(i_0,...i_n)$ todennäköisyys on 
-	\begin{equation}
-		\pr (X_0=i_0,...,X_n=i_n) = p_{i_0} p_{i_0,i_1} p_{i_1,i_2} ... p_{i_{n-1},i_n}
-	\end{equation} 
-\end{lause}
-\begin{proof}
-	Käyttäen ehdollisen todennäköisyyden kaavaa, saadaan 2:lle tapahtumalle
-	\begin{equation*}
-		\pr (A_0, A_1)=\pr(A_0)\pr(A_1|A_0)
-	\end{equation*}
-	Jos tapahtumia on kolme, saadaan
-	\begin{equation*}
-		\pr (A_0, A_1, A_2)=\pr(A_0)\pr(A_1|A_0)\pr(A_2|A_1, A_0)
-	\end{equation*}
-	neljä
-	\begin{equation*}
-		\pr (A_0, A_1, A_2, A_3)=\pr(A_0)\pr(A_1|A_0)\pr(A_2|A_1, A_0)\pr(A_3|A_2,A_1,A_0)
-	\end{equation*}
-	ja n
-	\begin{equation}\label{condprob}
-		\pr (A_0,...,A_n)=\pr(A_0)\pr(A_1|A_0)...\pr(A_n|A_{n-1},...A_0)
-	\end{equation}
-	Tämä on yleinen ehdollinen todennäköisyys. Merkataan $A_n \coloneqq (X_i=i_n)$. Koska käsittelemme Markovin ketjua, niin yhtälö \ref{markov-property} pätee, jolloin yhtälöstä \ref{condprob} saadaan 
-	\begin{equation*}
-		\pr(X_0=i_0,...,X_n=i_n) = \pr(X_0=i_0) \pr(X_1=i_1|X_0=i_0)...\pr(X_n=i_n|X_{n-1}=i_{n-1})
-	\end{equation*}
-	jossa $\forall n=0,1,2,...,n: \pr(X_n=i_n|X_{n-1}=i_{n-1})$ on siirtymätödennäköisyys $p_{i_{n-1},i_n}$ jolloin tulos seuraa substituoimalla termit.
-\end{proof}
-
-\begin{merk}
-	\begin{equation}
-		p_{ij}^{(m)} \coloneqq \pr (X_m=j|X_0=i),\ i,j\in S,m\in T
-	\end{equation}
-	on siirtymätodennäköisyys tilasta $i$ tilaan $j$, kun aikaa kuluu $m$ yksikköä.
-\end{merk}
+MCMC-menetelmien kannalta keskeinen ominaisuus Markovin ketjulle on sen tasapaino jakauma (eng. \textit{invariant distribution}). Siihen perustuu koko idea menetelmän takana. Esitetään seuraavaksi tämä ominaisuus, sekä määritellään toinen ominaisuus eli \textit{kääntyvä Markovin ketju} esittämällä ns. \textit{detailed balance}-yhtälö, jota tarvitaan Metropolis-hastings algoritmin tasapainojakauman olemassa olon osoittamiseen. 
 
 \begin{maar}
-	\textit{Siirtymämatriisi} on matriisi
-	\begin{equation}
-		\pr ^{(m)} \coloneqq (p_{ij}^{(m)})_{i,j} =
-		\begin{pmatrix}
-			p_{00}^{(m)} & p_{01}^{(m)} & \dots & p_{0n}^{(m)} \\
-			p_{10}^{(m)} & p_{11}^{(m)} & \dots & p_{1n}^{(m)} \\
-			\vdots & & \ddots & \vdots \\
-			p_{n0}^{(m)} & p_{n1}^{(m)} & \dots & p_{nn}^{(m)}
-		\end{pmatrix}
-	\end{equation}
-\end{maar}
-
-\begin{lause}
-	Kaikilla ajanhetkillä on voimassa
-	\begin{equation}
-		\pr ^{(m)} = \pr ^m
-	\end{equation}
-\end{lause}
-\begin{proof}
-	Todistus on melko pitkä, joten ohitetaan se.
-\end{proof}
-
-\begin{maar}
-	Todennäköisyysjakauma $\pi=(\pi)_{i\in S}$ on Markovin ketjun $\{X_n\}$ tasapainojakauma, jos 
+	Todennäköisyysjakauma $\pi=(\pi)_{i\in S}$ on diskreetin tila-avaruuden Markovin ketjun $(X_n)$ tasapainojakauma, jos 
 	\begin{equation}\label{stationary-dist}
 		\sum_{i\in S} \pi_i p_{ij}=\pi_j, \forall j\in S
 	\end{equation}
@@ -144,11 +113,12 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 	\begin{equation}\label{stationary-dist2}
 		\pi^T\pr= \pi^T
 	\end{equation}
+	
+	Jakauma $\pi$ on jatkuvan tila-avaruuden Markovin ketjun $( X_n )$ tasapainojakauma jos 
+	\begin{equation}
+		\pi(y) = \int_S \pi(x) T(x,y) dx
+	\end{equation}
 \end{maar}
-
-\begin{lause}
-	Äärellisellä Markovin ketjulla on aina jokin tasapainojakauma $\pi$.
-\end{lause}
 
 \begin{maar}\label{kaant-disk}
 	Markovin ketju on \textit{kääntyvä}, jos löytyy sellainen TN-jakauma $\lambda=(\lambda_i)_{i\in S}$, että 
@@ -156,6 +126,15 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 		\lambda_ip_{ij}= \lambda_jp_{ji},\forall i,j\in S
 	\end{equation}
 \end{maar}
+
+\begin{maar}\label{kaant-jatk}
+	Markovin ketju jatkuvassa $S$:ssä on kääntyvä, jos on olemassa 
+	\begin{equation}
+		\pi(x)T(x,y)=\pi(y)T(y,x), \forall x,y\in S
+	\end{equation}
+\end{maar}
+
+Kääntyvällä Markovin ketjulla on sellainen mukava ominaisuus, että ketjun kääntyvyys on riittävä ehto tasapainojakauman olemassa ololle. Osoitamme tämän seuraavaksi.
 
 \begin{lause}
 	Jos Markovin ketju on kääntyvä, niin $\lambda=\pi$ on sen tasapainojakauma.
@@ -165,6 +144,18 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 		\sum_{i\in S} \lambda_i p_{ij} = \sum_{i\in S} \lambda_j p_{ji} = \lambda_j \sum_{i\in S} p_{ij} = \lambda_j
 	\end{equation*}
 \end{proof}
+
+\begin{lause}
+	Jos Markovin ketju $(X_n)$ on kääntyvä ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
+\end{lause}
+
+\begin{proof}
+	Yhtälön \ref{siirt-tiheys} mukaan $\int_S T(y,x)dx = 1$, joten
+	\begin{equation}
+		\int_S \pi(x) T(x,y) dx = \int_S \pi(y) T(y,x) dx = \pi(y)\int_S T(y,x) dx = \pi(y)
+	\end{equation}
+\end{proof}
+
 \begin{esim}
 	Pohditaan lyhyttä esimerkkiä, jossa tilajoukko on $S=\{"sataa", "paistaa"\}$. Määritellään siirtymätodennäköisyydet siirtymämatriisilla
 	\begin{displaymath}
@@ -194,52 +185,18 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 	Ketju on äärellinen, joten sillä on tasapainojakauma. Yhtälö \ref{stationary-dist2} implikoi, että jakauma $\pi$ on siirtymämatriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). Tämä voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt nähdään, että \ref{stationary-dist2} pätee.
 \end{esim}
 
-\subsection{Ääretön jatkuva tilajoukko}
-Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaan simuloida normaalijakaumasta, joka voi saada minkä vain arvon väliltä $(-\infty,\infty)$), niin teoria muuttuu hieman. Suurin osa tuloksista pätee pienin muutoksin, mutta niiden todistaminen on hankalaa ja ylittää kanditason. Esitetään kuitenkin tarvittavat perustulokset.
+Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan tulos, jota tarvitsemme Gibbsin otanta-algoritmin tasapainojakauman todistuksen yhteydessä.
 
-
-\begin{maar}
-	Kun $S$ on rajoittamaton, siirtymämatriisi on parasta ajatella kuvauksena $T: S\times S \rightarrow [0,1]$, joka kuvaa tilaparin $x,y\in S$ todennäköisyydeksi $T(x,y)$
-\end{maar}
-
-\begin{maar}
-	Iistymätodennäköisyys $p^{(n)}_{ij}$ voidaan kirjoittaa \textit{siirtymätiheytenä} $T^{(n)}(x,y)$, jolle pätee
-	\begin{equation}\label{siirt-tiheys}
-		\int_S T(x,y)dy = 1 \hspace{1cm} \text{ja} \hspace{1cm} \int_S T^{(n)}(x,y)dy = 1, \forall n \geq 1
-	\end{equation}
-\end{maar}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{maar}
-	Jakauma $\pi$ on Markovin ketjun $\{ X_n \}$ kun $S$ on jatkuva, tasapainojakauma jos 
+	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. Voidaan esimerksiksi määritellä 	siirtymätiheys
 	\begin{equation}
-		\pi(y) = \int_S \pi(x) T(x,y) dx
-	\end{equation}
-\end{maar}
-
-\begin{maar}\label{kaant-jatk}
-	Markovin ketju jatkuvassa $S$:ssä on kääntyvä, jos on olemassa 
-	\begin{equation}
-		\pi(x)T(x,y)=\pi(y)T(y,x), \forall x,y\in S
-	\end{equation}
-\end{maar}
-
-\begin{lause}
-	Jos Markovin ketju $\{X_n\}$ on kääntyvä ja tilajoukko $S$ on jatkuva, niin $\pi$ on sen tasapainojakauma.
-\end{lause}
-
-\begin{proof}
-	Yhtälön \ref{siirt-tiheys} mukaan $\int_S T(y,x)dx = 1$, joten
-	\begin{equation}
-		\int_S \pi(x) T(x,y) dx = \int_S \pi(y) T(y,x) dx = \pi(y)\int_S T(y,x) dx = \pi(y)
-	\end{equation}
-\end{proof}
-
-\begin{maar}
-	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. Voidaan esimerksiksi määritellä
-	\begin{equation*}
 		T_1...T_d
-	\end{equation*}
-	siirtymätiheys.
+	\end{equation}
 \end{maar}
 
 \begin{lause}\label{cyclic-kernel}
@@ -252,58 +209,48 @@ Kun Markovin ketjun tilajoukko $S$ ei olekkaan rajattu (esimerkiksi, jos halutaa
 	\end{equation*}
 \end{proof}
 
+Käydään vielä nopeasti läpi muutama ominaisuus, joita tarvitaan kun haluamme osoittaa kappaleessa 3 algoritmiemme toimivan.
 
+\begin{maar}
+	Markovin ketju $(X_n)$, siirtymäytimellä $T(x,y)$ on \textit{pelkistymätön} jos kaikilla $A \in \mathcal{T}$, joilla $\pr(A)>0$, on olemassa sellainen $n$, että $T^n(x, A)>0$ kaikilla $x\in S$
+\end{maar} 
 
+Käytännössä pelkistymättömyys tarkoittaa siis sitä, että jokaisesta tila-avaruuden kolkasta on mahdollista päästä jokaiseen muuhun pisteeseen avaruutta, eli ketju ei voi jäädä jumiin johonkin alueelle.
 
+\begin{maar}
+	Markovin ketju $(X_n)$ on \textit{palautuva} jos
+	\begin{enumerate}[(i)]
+		\item ketju $(X_n)$ on pelkistymätön ja
+		\item kaikilla $A\in \mathcal{T}$, joilla $\pr(A)>0$, $\mathbb{E}_x [\eta_A]=\infty$ kaikilla $x\in A$
+	\end{enumerate}
+	Missä $\eta_A$ on käyntien määrä joukossa $A$.
+\end{maar}
 
+Palautuvalla ketju tarkoittaa sitä, että ketju palaa alueelle, jossa se on jo käynyt. Palautumista vahvempi ominaisuus on \textit{Harris}-palautuvuus.
 
+\begin{maar}
+	Joukko $A$ on Harris palautuva, jos $\pr_x(\eta_A =\infty) = 1$ kaikilla $x\in A$. Markovin ketju $(X_n)$ on Harris palautuva jos $(X_n)$ on pelkistymätön, ja jokainen joukko $A$, jolla $\pr(A)>0$, on Harris palautuva.
+\end{maar}
 
+\begin{maar}
+	Markovin ketju $(X_n)$ on perioidinen, jos on olemassa erilliset osajoukot $A_1, A_2,...,A_d \subset S, d > 1$, että 
+	\begin{equation}
+		T(x, A_{i+1}) = 1 , \: \forall \in A_i, \: i=1,...,d-1
+	\end{equation}
+	ja 
+	\begin{equation}
+		T(x,A_1)=1, \: i = d
+	\end{equation}
+	Jos ketju ei ole perioidinen, se on \textit{aperiodinen}.
+\end{maar}
 
+Määritellään sitten viekä ergodisuus, joka on tärkeä ominaisuus Markovin ketjun tasapainojakauman olemassaolon kannalta.
 
+\begin{maar}
+	Markovin ketju $(X_n)$ on ergodinen, jos se on pelkistymätön, aperiodinen ja Harris palautuva.
+\end{maar}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Ergodisuus on MCMC-menetelmien kannalta tärkeä ominaisuus, sillä se takaa Markovin ketjun $(X_n)$ konvergoitumisen uniikkiin tasapainojakaumaansa mistä tahansa tila-avaruuden $S$ pisteestä. Tämän osoittaminen on melko hankalaa ja ylittää reilusti tämän tutkielman laajuuden, joten jätämme sen tekemättä.
 
 
 
