@@ -6,15 +6,25 @@ Tässä luvussa aiomme esitellä MCMC-metodeja. Esittelemme alaluvussa \ref{gibb
 	MCMC-menetelmiksi kutsutaan jakaumaa $p$ simuloiviin menetelmiin, jotka perustuvat siihen, että luodaan ergodinen Markovin ketju $(X_n)$, jolla on tasapainojakaumana jakauma $p$.
 \end{maar}
 
-Ketjun ergodisuus takaa siis sen, että ketju konvergoituu jokaisesta tila-avaruuden pisteestä. Se takaa, että ketjun empiirinen keskiarvo konvergoituu odotusarvoon
+Ketjun ergodisuus takaa siis sen, että ketju konvergoituu jokaisesta tila-avaruuden pisteestä. Se takaa, että ketjun empiirinen keskiarvo
 \begin{equation}
-	\mathfrak{J}_N = \frac{1}{N} \sum_{t=1}^{N} h(X_t)
+	\mathfrak{J}_n = \frac{1}{n} \sum_{t=1}^{n} h(X_t)
 \end{equation}
 konvergoituu odotusarvoon, eli
 \begin{equation}
-	\lim_{N\to\infty} \mathfrak J_N \to \mathbb{E}_p[h(X_t)] = \int h(x)p(x)dx
+	\lim_{n\to\infty} \mathfrak J_n \to \mathbb{E}_p[h(X_t)] = \int h(x)p(x)dx
+\end{equation}
+jossa 
+\begin{equation}
+	\sigma^2_h = \text{var}_p(h(X_0))+2\sum_{t=1}^{\infty}\text{cov}_p(h(X_0),h(X_t))
 \end{equation}
 Tällöin ketjun tiloja voidaan siis käsitellä i.i.d. otoksena tasapainojakaumasta.
+
+Joillekkin Markovin ketjuille (ja useimmille MCMC-menetelmien tuottamille Markovin ketjuille) pätee myös keskeinen raja-arvolause \ref{CLT}.
+
+\begin{equation}\label{CLT}
+	\sqrt{n}\qty(\mathfrak{J}_n-\mathbb{E}_p[h(X_t)]) \to N(0, \sigma^2_h) \qq{kun} n\to\infty
+\end{equation}
 
 Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka tasapainojakaumana on haluamamme simuloitava jakauma. Tämän voisi kuvitella olevan kovin vaikeaa, mutta yllättävästi se onkin melko triviaalia.
 
@@ -77,7 +87,7 @@ Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseen
 	\begin{equation}
 		\int_Z \lambda(x,z) dz = p(x)
 	\end{equation}
-	kutsutaan $p$:n täydellistymäksi.
+	kutsutaan $p$:n täydellistymäksi (\textit{completion}).
 \end{maar}
 
 Tiheys $\lambda$ valitaan siten, että sille voi ratkaista ehdolliset jakaumat. Nyt Gibsin otanta-algoritmi voidaan toteuttaa käyttämällä jakaumaa $\lambda$ ja sen ehdollisia jakaumia. Lauseen \ref{gibbs-proof} tulos pätee myös tässä tapauksessa. Tällöin malliin tulee toki uusi parametri $z$, joka on täysin turha mallin kannalta, mutta avustaa simuloinnissa.
