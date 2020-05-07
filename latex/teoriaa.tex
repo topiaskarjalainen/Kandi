@@ -4,11 +4,11 @@
 \chapter{Teoriaa}\label{teor}
 
 \section{Perusmääritelmiä}
-
-Määritellään ensiksi todennäköisyys.
+% TODO: Tähän viittaus luentomonisteeseen
+Määritellään ensiksi todennäköisyys. \cite{piiroinen_stokastiset_nodate, durrett_2010}
 
 \begin{maar}
-	\textit{$\sigma$-algebra.} Olkoot $\Omega$ mielivaltainen epätyhjä joukko. Sigma-algebra perusjoukolla $\Omega$ on sen osajoukkojen joukkoperhe $\mathcal{F}$, joka toteuttaa ehdot:
+	Olkoot $\Omega$ mielivaltainen epätyhjä joukko. \emph{$\sigma$-algebra} perusjoukolla $\Omega$ on sen osajoukkojen joukkoperhe $\mathcal{F}$, joka toteuttaa ehdot:
 	
 	\begin{enumerate}
 		\item $\emptyset\in\mathcal{F}$
@@ -27,10 +27,11 @@ Määritellään ensiksi todennäköisyys.
 			\pr(\bigcup_{k\in\N} A_k) = \sum_{k\in\N}\pr(A_k)
 		\end{displaymath}
 	\end{enumerate}
+	Kuvausta $\pr$ kutsutaan \emph{todennäköisyysmitaksi}.
 \end{maar}
 
 \begin{maar}
-	Olkoot $\mathcal{A}$ $\sigma$-algebra, ja olkoot $X$ joukko. Pari $(X, \mathcal{A})$ on mitallinen avaruus.
+	Olkoot $\mathcal{A}$ $\sigma$-algebra joukolla $X$. Pari $(X, \mathcal{A})$ on \emph{mitallinen avaruus}.
 \end{maar}
 
 \begin{maar}
@@ -45,9 +46,11 @@ Määritellään ensiksi todennäköisyys.
 %%  Tässä Markovin ketjuista   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%TODO: lähteete selosta edessä. MC kirja, piiroinen moniste ja comp. stat. moniste
+
 \section{Markovin ketjut}
 
-Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät kuulu sellaisenaan opetussuunnitelmaan. Aloitetaan määrittelemällä stokastinen prosessi.
+Esitellään ensiksi joitain perusasioita Markovin ketjuista, sillä ne eivät kuulu sellaisenaan opetussuunnitelmaan. Aloitetaan määrittelemällä stokastinen prosessi.\cite{piiroinen_stokastiset_nodate}
 
 \begin{maar}
 	Jono $(X_n:n=1,2,3,...)$ satunnaismuuttujia on diskreettiaikainen \textit{stokastinen prosessi}.
@@ -57,26 +60,26 @@ Esitellään ensiksi joitain perus asioita Markovin Ketjuista, sillä ne eivät 
 	Merkitään stokastista prosessia merkinnällä $( X_n )$
 \end{merk}
 
-Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet ja esitetään sitten \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}. \cite{monte_carlo_book}
+Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet. Esitetään sitten \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}. \cite{monte_carlo_book}
 
 \begin{maar}
 	Olkoot $(S,\mathcal{S})$ ja $(T,\mathcal{T})$ mitallisia avaruuksia. Siirtymäydin on funktio $T:S\times \mathcal{T} \rightarrow [0,\infty[$, jolle pätee
 	\begin{enumerate}[(i)]
-		\item $\forall s \in S: A \rightarrow T(s,A)$ on todennäköisyysmitta.
-		\item $\forall A \in \mathcal{T}: s \rightarrow T(s,A)$ on mitallinen
+		\item $\forall s \in S: A \mapsto T(s,A)$ on todennäköisyysmitta.
+		\item $\forall A \in \mathcal{T}: s \mapsto T(s,A)$ on mitallinen
 	\end{enumerate}
-	Diskreetissä tapauksessa siirtymäydintä kutsutaan \textit{siirtymä matriisiksi}, joka on 
+	Diskreetissä tapauksessa siirtymäydintä kutsutaan \textit{siirtymämatriisiksi}, joka on 
 	\begin{equation}
 		p_{ij} = \pr(X_n = i | X_{n-1} = j), \:\forall i,j \in S
 	\end{equation}
-	Jatkuvassa tapauksessaydin kuvaa sitä ehdollista todennäköisyyttä, että siirtymä tapahtuu, eli $P(X \in A|x) = \int_A T(x,x')dx'$. Tälle pätee, että 
+	Jatkuvassa tapauksessaydin kuvaa ehdollista todennäköisyyttä $P(X_{n+1} \in A|X_n = x) = \int_A T(x,x')dx'$. Tälle pätee, että 
 	\begin{equation}\label{siirt-tiheys}
 		\int_S T(x,x')dx' = 1
 	\end{equation}
 \end{maar}
 
 \begin{maar}\label{markovin-ehto-d}
-	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju}diskreetissä tila-avaruudessa, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
+	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju} diskreetissä tila-avaruudessa, jos kaikilla alkuhetkillä $m,n$ ja tiloilla $i,j\in S$ on voimassa
 	\begin{equation}\label{markov-property}
 		\begin{split}
 			&\pr(X_{n+1}=j|X_0=i_0,X_1=i_1,...,X_{n-1}=i_{n-1},X_n=i) \\
@@ -92,9 +95,9 @@ Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen väl
 \end{maar}
 
 \begin{maar}\label{markov-maar-c}
-	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju} jatkuvassa tila-avaruudessa, jos kaikilla alkuhetkillä $t$, $X_t$:n ehdolliselle jakaumalle pätee
+	Stokastinen prosessi $(X_n)$ on \textit{Markovin ketju} jatkuvassa tila-avaruudessa, jos kaikilla alkuhetkillä $n$, $X_n$:n ehdolliselle jakaumalle pätee
 	\begin{equation}
-		P(X_t\in A | x_{t-1},x_{t-2},...,x_0) = 	P(X_t\in A | x_{t-1})
+		\pr(X_{n+1} \in A | X_n=x_{n},...,X_0=x_0) = \pr(X_{n+1}\in A | X_n=x_{n})
 	\end{equation}
 \end{maar}
 
@@ -102,10 +105,10 @@ Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen väl
 	Satunnaismuuttujan $X_0$ jakaumaa kutsutaan \textit{alkujakaumaksi}. 
 \end{maar}
 
-MCMC-menetelmien kannalta keskeinen ominaisuus Markovin ketjulle on sen tasapaino jakauma (eng. \textit{invariant distribution}). Siihen perustuu koko idea menetelmän takana. Esitetään seuraavaksi tämä ominaisuus, sekä määritellään toinen ominaisuus eli \textit{kääntyvä Markovin ketju} esittämällä ns. \textit{detailed balance}-yhtälö, jota tarvitaan Metropolis-hastings algoritmin tasapainojakauman olemassa olon osoittamiseen. 
+MCMC-menetelmien kannalta keskeinen ominaisuus Markovin ketjulle on sen tasapainojakauma (eng. \textit{invariant distribution}). Siihen perustuu koko idea menetelmän takana. Esitetään seuraavaksi tämä ominaisuus, sekä määritellään toinen ominaisuus eli \textit{kääntyvä Markovin ketju} esittämällä ns. \textit{detailed balance}-yhtälö, jota tarvitaan Metropolis-Hastingsin algoritmin tasapainojakauman olemassa olon osoittamiseen. 
 
 \begin{maar}
-	Todennäköisyysjakauma $\pi=(\pi)_{i\in S}$ on diskreetin tila-avaruuden Markovin ketjun $(X_n)$ tasapainojakauma, jos 
+	Todennäköisyysjakauma $\pi=(\pi_i)_{i\in S}$ on diskreetin tila-avaruuden Markovin ketjun $(X_n)$ tasapainojakauma, jos 
 	\begin{equation}\label{stationary-dist}
 		\sum_{i\in S} \pi_i p_{ij}=\pi_j, \forall j\in S
 	\end{equation}
@@ -121,14 +124,14 @@ MCMC-menetelmien kannalta keskeinen ominaisuus Markovin ketjulle on sen tasapain
 \end{maar}
 
 \begin{maar}\label{kaant-disk}
-	Markovin ketju on \textit{kääntyvä}, jos löytyy sellainen TN-jakauma $\lambda=(\lambda_i)_{i\in S}$, että 
+	Markovin ketju on \textit{kääntyvä}, jos löytyy sellainen todennäköisyysjakauma $\lambda=(\lambda_i)_{i\in S}$, että 
 	\begin{equation}
 		\lambda_ip_{ij}= \lambda_jp_{ji},\forall i,j\in S
 	\end{equation}
 \end{maar}
 
 \begin{maar}\label{kaant-jatk}
-	Markovin ketju jatkuvassa $S$:ssä on kääntyvä, jos on olemassa 
+	Markovin ketju jatkuvassa tilajoukossa $S$ on kääntyvä, jos on olemassa sellainen todennäköisyys tiheys $\pi(x)$ joukossa $S$, että
 	\begin{equation}
 		\pi(x)T(x,y)=\pi(y)T(y,x), \forall x,y\in S
 	\end{equation}
@@ -182,7 +185,7 @@ Kääntyvällä Markovin ketjulla on sellainen mukava ominaisuus, että ketjun k
 	\caption[Yksinkertainen esimerrki Markovin ketjusta]{Esimerkki \ref{mc-esimerkki1}}
 	\end{center}
 	\end{figure}
-	Ketju on äärellinen, joten sillä on tasapainojakauma. Yhtälö \ref{stationary-dist2} implikoi, että jakauma $\pi$ on siirtymämatriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). Tämä voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt nähdään, että \ref{stationary-dist2} pätee.
+	Yhtälö \ref{stationary-dist2} implikoi, että jakauma $\pi$ on siirtymämatriisin $\pr$ vasen ominaisvektori ($\pi^T\pr=\lambda\pi^T$, jossa $\lambda=1$). Tämä voidaan ratkaista numeerisesti, ja ratkaisu on $\pi^T=(0.4, 0.6)$. Helposti nyt nähdään, että \ref{stationary-dist2} pätee.
 \end{esim}
 
 Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan tulos, jota tarvitsemme Gibbsin otanta-algoritmin tasapainojakauman todistuksen yhteydessä.
@@ -191,23 +194,46 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% TODO: määrittele tarkemmin syklinen diks ja cont. 
 \begin{maar}
-	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. Voidaan esimerksiksi määritellä 	siirtymätiheys
+	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. 
+	Diskreetissä tilanteessa siirtymätodennäköisyys
 	\begin{equation}
 		T_1...T_d
+	\end{equation}
+	voidaan määritellä matriisitulona $P_1P_2...P_d$. Jatkuvassa tapauksessa taas määritellään, että $T_c=T_1...T_d$ on syklinen, jos
+	\begin{equation}
+		T_c(x,y) = \int_S T_1(x,z_1)T_2(z_1,z_2)...T_d(z_{d-1},y)dz_1...z_{d-1}
 	\end{equation}
 \end{maar}
 
 \begin{lause}\label{cyclic-kernel}
-	Jos $\pi$ on tasapainojakauma kaikille siirtymätiheyksille $T_1,...,T_d$, niin se on tasapainojakauma siirtymätiheydelle $T = T_1...T_d$.
+	Jos tilajoukko $S$ on diskreetti ja $\pi^T$ on tasapainojakauma kaikille siirtymämatriiseille $\pr_1,...,\pr_d$, niin se on tasapainojakauma siirtymämatriisille $\pr = \pr_1...\pr_d$.
+\end{lause}
+% TODO: todista jatkuva tapaus. Fubinin teoreema.
+\begin{proof}
+	\begin{equation*}
+		\pi^T \pr = \pi^T \pr_1...\pr_d = \pi^T \pr_2...\pr_d = ... = \pi^T \pr_d = \pi^T
+	\end{equation*}
+\end{proof}
+
+\begin{lause}
+	Jos tilajoukko $S$ on jatkuva ja $\pi$ on tasapainojakauma kaikille siirtymätiheyksille $T_1,..,T_d$, niin se on tasapainojakauma siirtymätiheydelle $T_c=T_1...T_d$
 \end{lause}
 
 \begin{proof}
-	\begin{equation*}
-		\pi T = \pi T_1...T_d = \pi T_2...T_d = ... = \pi T_d = \pi
-	\end{equation*}
+	\begin{equation}
+		\begin{split}
+			\int_S \pi(x) T_c(x,y)dx &= \int_S \pi(x) \int_ST_1(x,z_1)T_2(z_1,z_2)...T_d(z_{d-1},y)dz_1...z_{d-1}dx \\
+			&= \int_S T_2(z_1,z_2)...T_d(z_{d-1},y) \underbrace{\int_S \pi(x) T_1(x,z_1)dx}_{\pi(z_1)} dz_1...z_{d-1}\\
+			&= \int_S T_3(z_2,z_3)...T_d(z_{d-1},y) \int_S \pi(z_1)T_2(z_1,z_2)dz_1 dz_2...d_{d-1} \\
+			& \vdots \\
+			&= \int_S \pi(z_{d-1})T_d(z_{d-1},y)dz_{d-1} \\
+			&= \pi(y)
+		\end{split}
+	\end{equation}
 \end{proof}
+
 
 Käydään vielä nopeasti läpi muutama ominaisuus, joita tarvitaan kun haluamme osoittaa kappaleessa 3 algoritmiemme toimivan.
 
@@ -233,7 +259,7 @@ Palautuvalla ketju tarkoittaa sitä, että ketju palaa alueelle, jossa se on jo 
 \end{maar}
 
 \begin{maar}
-	Markovin ketju $(X_n)$ on perioidinen, jos on olemassa erilliset osajoukot $A_1, A_2,...,A_d \subset S, d > 1$, että 
+	Markovin ketju $(X_n)$ on jaksollinen, jos on olemassa erilliset osajoukot $A_1, A_2,...,A_d \subset S, d > 1$, että 
 	\begin{equation}
 		T(x, A_{i+1}) = 1 , \: \forall \in A_i, \: i=1,...,d-1
 	\end{equation}
@@ -241,16 +267,16 @@ Palautuvalla ketju tarkoittaa sitä, että ketju palaa alueelle, jossa se on jo 
 	\begin{equation}
 		T(x,A_1)=1, \: i = d
 	\end{equation}
-	Jos ketju ei ole perioidinen, se on \textit{aperiodinen}.
+	Jos ketju ei ole jaksollinen, se on \textit{jaksoton}.
 \end{maar}
 
 Määritellään sitten viekä ergodisuus, joka on tärkeä ominaisuus Markovin ketjun tasapainojakauman olemassaolon kannalta.
 
 \begin{maar}
-	Markovin ketju $(X_n)$ on ergodinen, jos se on pelkistymätön, aperiodinen ja Harris palautuva.
+	Markovin ketju $(X_n)$ on ergodinen, jos se on pelkistymätön, jaksoton ja Harris-palautuva.
 \end{maar}
 
-Ergodisuus on MCMC-menetelmien kannalta tärkeä ominaisuus, sillä se takaa Markovin ketjun $(X_n)$ konvergoitumisen uniikkiin tasapainojakaumaansa mistä tahansa tila-avaruuden $S$ pisteestä. Tämän osoittaminen on melko hankalaa ja ylittää reilusti tämän tutkielman laajuuden, joten jätämme sen tekemättä.
+Ergodisuus on MCMC-menetelmien kannalta tärkeä ominaisuus, sillä se takaa Markovin ketjun $(X_n)$ konvergoitumisen yksikäsitteisen tasapainojakaumaansa mistä tahansa tila-avaruuden $S$ pisteestä. Tämän osoittaminen on melko hankalaa ja ylittää reilusti tämän tutkielman laajuuden, joten jätämme sen tekemättä.
 
 
 
