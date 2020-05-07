@@ -60,13 +60,13 @@ Esitellään ensiksi joitain perusasioita Markovin ketjuista, sillä ne eivät k
 	Merkitään stokastista prosessia merkinnällä $( X_n )$
 \end{merk}
 
-Määritellään nyt siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet. Esitetään sitten \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}. \cite{monte_carlo_book}
+Esitetään nyt \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}. \cite{monte_carlo_book} Määritellään kuitenkin ensin siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet.  \cite[s.~273]{durrett_2010}
 
 \begin{maar}
-	Olkoot $(S,\mathcal{S})$ ja $(T,\mathcal{T})$ mitallisia avaruuksia. Siirtymäydin on funktio $T:S\times \mathcal{T} \rightarrow [0,\infty[$, jolle pätee
+	Olkoot $(S,\mathcal{S})$ mitallinen avaruus. Siirtymäydin on funktio $T:S\times \mathcal{S} \rightarrow \mathbb{R}$, jolle pätee
 	\begin{enumerate}[(i)]
-		\item $\forall s \in S: A \mapsto T(s,A)$ on todennäköisyysmitta.
-		\item $\forall A \in \mathcal{T}: s \mapsto T(s,A)$ on mitallinen
+		\item $\forall s \in S: A \mapsto T(s,A)$ on todennäköisyysmitta avaruudessa $(S, \mathcal{S})$
+		\item $\forall A \in \mathcal{S}: s \mapsto T(s,A)$ on mitallinen
 	\end{enumerate}
 	Diskreetissä tapauksessa siirtymäydintä kutsutaan \textit{siirtymämatriisiksi}, joka on 
 	\begin{equation}

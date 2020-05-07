@@ -1,6 +1,6 @@
 \chapter{Markovin ketju Monte Carlo menetelmät}
 
-Tässä luvussa aiomme esitellä MCMC-metodeja. Esittelemme alaluvussa \ref{gibbs} Gibbsin otanta-algoritmina tunnetun MCMC-menetelmän, ja sitten alaluvussa \ref{Metropolis--Hastings algoritmi} esittelemme Metropolis--Hastings algoritmin. Osoitamme myös, että todellisuudessa alaluvun \ref{gibbs} algoritmi onkin todella vain erikoistapaus luvun \ref{Metropolis--Hastings algoritmi} algoritmista. Pohditaan kuitenkin ensin menetelmän motivaatiota. \cite[s. 94]{koistinen_computational_2009} \cite[s. 269]{monte_carlo_book}
+Tässä luvussa aiomme esitellä MCMC-metodeja. Esittelemme alaluvussa \ref{gibbs} Gibbsin otanta-algoritmina tunnetun MCMC-menetelmän, ja sitten alaluvussa \ref{Metropolis--Hastings algoritmi} esittelemme Metropolis--Hastings algoritmin. Osoitamme myös, että todellisuudessa alaluvun \ref{gibbs} algoritmi onkin todella vain erikoistapaus luvun \ref{Metropolis--Hastings algoritmi} algoritmista. Pohditaan kuitenkin ensin menetelmän motivaatiota. \cite[s.~94]{koistinen_computational_2009} \cite[s.~269]{monte_carlo_book}
  
 \begin{maar}
 	MCMC-menetelmiksi kutsutaan jakaumaa $p$ simuloiviin menetelmiin, jotka perustuvat siihen, että luodaan ergodinen Markovin ketju $(X_n)$, jolla on tasapainojakaumana jakauma $p$.
@@ -79,7 +79,7 @@ Yleensä ylläolevassa määritelmässä kohdassa 1. ei arvota uutta järjestyst
 
 Ohitetaan Gibbsin otanta-algoritmin kohdalla toistaiseksi esimerkit, ja palataan siihen kappaleessa \ref{esimerkki}, jossa tarkastelemme laajempaa esimerkkiä lineaarisen regression parissa. Toteutamme tämän Gibbsin otanta-algoritmina.
 
-Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseenkin rajoittavalta, sillä joskus voidaan tutkia mallia, jolle on vaikea laskea ehdolliset jakaumat. Tällöin voidaan kuitenkin pienin muunnoksin hyödyntää Gibbsin otanta-algoritmia hyödyntämällä seuraavaa määritelmää \ref{completion}. \cite[s. 374]{monte_carlo_book} 
+Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseenkin rajoittavalta, sillä joskus voidaan tutkia mallia, jolle on vaikea laskea ehdolliset jakaumat. Tällöin voidaan kuitenkin pienin muunnoksin hyödyntää Gibbsin otanta-algoritmia hyödyntämällä seuraavaa määritelmää \ref{completion}. \cite[s.~374]{monte_carlo_book} 
 
 \begin{maar}\label{completion}
 	Olkoot $p$ tiheysfunktio. Tiheysfunktiota $\lambda$, joka täyttää ehdon
@@ -106,7 +106,7 @@ Algoritmin pohjan kehittivät \textit{Stanislav Ulam} ja Metropolis työskennell
 	TN-jakauma $J_n(\cdot|\cdot)$ on niin sanottu \textit{ehdotusjakauma} (\textit{proposal distribution, jumping distribution}), josta \textit{MH-algoritmissa} arvotaan ehdotustila.
 \end{merk}
 
-Nyt kun ehdotusjakauma on määritelty, voidaan määritellä Metropolis-Hastingsin algoritmi seuraavanlaisesti \cite[s. 278-279]{gelman_andrew_bayesian_nodate}
+Nyt kun ehdotusjakauma on määritelty, voidaan määritellä Metropolis-Hastingsin algoritmi seuraavanlaisesti \cite[s.278-279]{gelman_andrew_bayesian_nodate}
 
 \begin{maar}\label{mh-maar}
 	Metropolis--Hastings algoritmi on seuraavanlainen
@@ -248,7 +248,7 @@ Kuten jo totesimme aiemmin, Gibbsin otanta-algoritmin voi esittää Metropolis-H
 
 Kummassakin kappaleen \ref{Metropolis--Hastings algoritmi} esimerkissä valitsimme ehdotusjakauman melko satunnaisesti. Varsinkin esimerkissä \ref{MH-esim2} se on erittäin epätavallinen, mistä syystä hyvän approksimaation saavuttaminen vie todella monta iteraatiota. Yleensä jos haluamme oikeasti tehokkaasti ja ekonomisesti simuloida jakaumia esitetyllä algoritmilla, haluamme valita ehdotusjakauman jollakin järkevällä, systemaattisella tavalla, joka minimoisi tarvittavien iteraatioiden määrän.
 
-Yleisesti ottaen hyvällä ehdotusjakaumalla on muutama ominaisuus\cite[s. 280]{gelman_andrew_bayesian_nodate}
+Yleisesti ottaen hyvällä ehdotusjakaumalla on muutama ominaisuus\cite[s.~280]{gelman_andrew_bayesian_nodate}
 \begin{enumerate}
 	\item Kaikilla $\theta$:n arvoilla on helppo arpoa arvo $J(\theta'|\theta)$
 	\item Suhde $r$ on helppo laskea
@@ -256,7 +256,7 @@ Yleisesti ottaen hyvällä ehdotusjakaumalla on muutama ominaisuus\cite[s. 280]{
 	\item Siirtymiä ei hylätä liian usein. Muuten Markovin ketju ei etene vaan seisoo paikallaan.
 \end{enumerate}
 
-Lisäksi simulointia voidaan nopeuttaa mm. käyttämällä adaptiivista ehdotusjakaumaa, eli toisinsanoen ehdotusjakaumaa muunnellaan riippuen ketjun liikkeistä. \cite[s. 295]{gelman_andrew_bayesian_nodate}
+Lisäksi simulointia voidaan nopeuttaa mm. käyttämällä adaptiivista ehdotusjakaumaa, eli toisinsanoen ehdotusjakaumaa muunnellaan riippuen ketjun liikkeistä. \cite[s.~295]{gelman_andrew_bayesian_nodate}
 
 
 
