@@ -60,13 +60,13 @@ Esitellään ensiksi joitain perusasioita Markovin ketjuista, sillä ne eivät k
 	Merkitään stokastista prosessia merkinnällä $( X_n )$
 \end{merk}
 
-Esitetään nyt \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}. \cite{monte_carlo_book} Määritellään kuitenkin ensin siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet.  \cite[s.~273]{durrett_2010}
+Esitetään nyt \textit{Markovin ehto} diskreetille tila-avaruudelle määritelmässä \ref{markovin-ehto-d}, ja laajennetaan se jatkuvalle tila-avaruudelle määritelmässä \ref{markov-maar-c}. \cite{monte_carlo_book} Määritellään kuitenkin ensin siirtymäydin, eli jakauma, joka määrittelee tilojen välisten siirtymien todennäköisyydet.  \cite[s.~180]{klenke2013probability}
 
 \begin{maar}
-	Olkoot $(S,\mathcal{S})$ mitallinen avaruus. Siirtymäydin on funktio $T:S\times \mathcal{S} \rightarrow \mathbb{R}$, jolle pätee
+	Olkoot $(S,\mathcal{S})$ ja $(Y, \mathcal{Y})$ mitallisia avaruuksia. \emph{Siirtymäydin} on funktio $T:S\times \mathcal{Y} \rightarrow [0, \infty[$, jolle pätee
 	\begin{enumerate}[(i)]
-		\item $\forall s \in S: A \mapsto T(s,A)$ on todennäköisyysmitta avaruudessa $(S, \mathcal{S})$
-		\item $\forall A \in \mathcal{S}: s \mapsto T(s,A)$ on mitallinen
+		\item $\forall s \in S: A \mapsto T(s,A)$ on todennäköisyysmitta
+		\item $\forall A \in \mathcal{Y}: s \mapsto T(s,A)$ on mitallinen
 	\end{enumerate}
 	Diskreetissä tapauksessa siirtymäydintä kutsutaan \textit{siirtymämatriisiksi}, joka on 
 	\begin{equation}
@@ -217,7 +217,7 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 	\end{equation*}
 \end{proof}
 
-\begin{lause}
+\begin{lause}\label{cyclic-kernel-jatkuva}
 	Jos tilajoukko $S$ on jatkuva ja $\pi$ on tasapainojakauma kaikille siirtymätiheyksille $T_1,..,T_d$, niin se on tasapainojakauma siirtymätiheydelle $T_c=T_1...T_d$
 \end{lause}
 
@@ -226,7 +226,7 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 		\begin{split}
 			\int_S \pi(x) T_c(x,y)dx &= \int_S \pi(x) \int_ST_1(x,z_1)T_2(z_1,z_2)...T_d(z_{d-1},y)dz_1...z_{d-1}dx \\
 			&= \int_S T_2(z_1,z_2)...T_d(z_{d-1},y) \underbrace{\int_S \pi(x) T_1(x,z_1)dx}_{\pi(z_1)} dz_1...z_{d-1}\\
-			&= \int_S T_3(z_2,z_3)...T_d(z_{d-1},y) \int_S \pi(z_1)T_2(z_1,z_2)dz_1 dz_2...d_{d-1} \\
+			&= \int_S T_3(z_2,z_3)...T_d(z_{d-1},y) \underbrace{\int_S \pi(z_1)T_2(z_1,z_2)dz_1}_{\pi(z_2)} dz_2...d_{d-1} \\
 			& \vdots \\
 			&= \int_S \pi(z_{d-1})T_d(z_{d-1},y)dz_{d-1} \\
 			&= \pi(y)
@@ -235,7 +235,7 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 \end{proof}
 
 
-Käydään vielä nopeasti läpi muutama ominaisuus, joita tarvitaan kun haluamme osoittaa kappaleessa 3 algoritmiemme toimivan.
+Käydään vielä nopeasti läpi muutama ominaisuus, joita tarvitaan kun haluamme osoittaa kappaleessa 3 algoritmiemme toimivan. \cite{monte_carlo_book, koistinen_computational_2009}
 
 \begin{maar}
 	Markovin ketju $(X_n)$, siirtymäytimellä $T(x,y)$ on \textit{pelkistymätön} jos kaikilla $A \in \mathcal{T}$, joilla $\pr(A)>0$, on olemassa sellainen $n$, että $T^n(x, A)>0$ kaikilla $x\in S$
