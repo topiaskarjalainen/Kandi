@@ -111,18 +111,18 @@ Nyt kun ehdotusjakauma on määritelty, voidaan määritellä Metropolis-Hasting
 \begin{maar}\label{mh-maar}
 	Metropolis--Hastings algoritmi on seuraavanlainen
 	\begin{enumerate}
-		\item Valitaan aloitus tila $\theta_0$ ja asetetaan $n=0$
-		\item Generoidaan kandidaatti tila $\theta'$ satunnaisesti ehdotusjakaumasta $J_n(\theta'|\theta_{n-1})$
+		\item Valitaan aloitus tila $\theta_0$ ja asetetaan $n=1$
+		\item Generoidaan kandidaatti tila $\theta'$ satunnaisesti ehdotusjakaumasta $J_n(\theta'|\tnm)$
 		\item Lasketaan suhde
 		\begin{displaymath}
-			r = \frac{p(\theta'|y)/J_n(\theta'|\theta_{n-1})}{p(\theta_{n-1}|y)/J_n(\theta_{n-1}|\theta')}
+			r = \frac{p(\theta'|y)/J_n(\theta'|\tnm)}{p(\tnm|y)/J_n(\tnm|\theta')}
 		\end{displaymath}
 		\item Asetetaan
 		\begin{displaymath}
-			\theta_t= 
+			\tn= 
 			\begin{cases}
 				\theta', \text{todennäköisyydellä} \hspace{0.3cm} \min(r,1) \\
-				\theta_{t-1}, \text{muuten}
+				\tnm, \text{muuten}
 			\end{cases}
 		\end{displaymath}
 	\end{enumerate}
@@ -174,11 +174,11 @@ Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk}) j
 	\begin{equation}
 		p(\theta) \varpropto \exp(-5 |\theta_1^2+\theta_2^2-1|)
 	\end{equation}
-	joka muodostaa regasmaisen 2-ulotteisen jakauman. Valitaan ehdotusjakaumaksi $J_n(\theta_n|\theta_{n-1})$ 2d-multinormaalijakauma 
+	joka muodostaa regasmaisen 2-ulotteisen jakauman. Valitaan ehdotusjakaumaksi $J_n(\tn|\tnm)$ 2d-multinormaalijakauma 
 	\begin{equation}
-		J_n(\theta_n|\theta_{n-1}) \sim N(\theta_{n-1}, \sigma^2 I_2)
+		J_n(\tn|\tnm) \sim N(\tnm, \sigma^2 I_2)
 	\end{equation}
-	jossa $I_2$ on 2x2 yksikkömatriisi ja olkoot $\sigma^2 = 0.01$. Nyt Metropolis-Hastingsin algoritmin avulla voidaan simuloida jakaumaa $p(\theta)$ algoritmilla \ref{mh-maar}. Simuloidaan kaksi Markovin ketjua asettemalla aloitustiloiksi $(0,0)$ ja $(5,5)$, 
+	jossa $I_2$ on $2 \times 2$ yksikkömatriisi ja olkoot $\sigma^2 = 0.01$. Nyt Metropolis-Hastingsin algoritmin avulla voidaan simuloida jakaumaa $p(\theta)$ algoritmilla \ref{mh-maar}. Simuloidaan kaksi Markovin ketjua asettemalla aloitustiloiksi $(0,0)$ ja $(5,5)$, 
 	\begin{figure}[h!]
 		\includegraphics[width=\textwidth]{mhexample1}
 		\caption[Kaksiulotteinen Metropolis--Hastings esimerkki]{\textit{Vasemmalla: (5,5). Keskellä: (0,0) Oikealla: tiheysestimaatti (huomaa eri skaala).}}
