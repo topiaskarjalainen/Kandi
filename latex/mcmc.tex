@@ -16,7 +16,7 @@ konvergoituu odotusarvoon, eli
 \end{equation}
 Tällöin ketjun tiloja voidaan siis käsitellä i.i.d. otoksena tasapainojakaumasta.
 
-Markovin ketjuille (ja useimmille MCMC-menetelmien tuottamille Markovin ketjuille) pätee myös keskeinen raja-arvolause \ref{CLT}.
+Markovin ketjuille (ja useimmille MCMC-menetelmien tuottamille Markovin ketjuille) pätee myös keskeinen raja-arvolause \eqref{CLT}.
 
 \begin{equation}\label{CLT}
 	\sqrt{n}\qty(\mathfrak{J}_n-\mathbb{E}_p[h(X_t)]) \to N(0, \sigma^2_h) \qq{kun} n\to\infty
@@ -26,7 +26,7 @@ jossa
 	\sigma^2_h = \text{var}_p(h(X_0))+2\sum_{t=1}^{\infty}\text{cov}_p(h(X_0),h(X_t))
 \end{equation}
 
-Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka tasapainojakaumana on haluamamme simuloitava jakauma. Tämän voisi kuvitella olevan kovin vaikeaa, mutta yllättävästi se onkin melko triviaalia.
+Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka tasapainojakaumana on haluamamme simuloitava jakauma. Tämän voisi kuvitella olevan kovin vaikeaa, mutta yllättävästi se onkin melko helppoa.
 
 \section{Gibbsin otanta-algoritmi}\label{gibbs}
 

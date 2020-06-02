@@ -200,9 +200,9 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 	Markovin ketjuissa voimme myös tietyin ehdoin yhdistää siirtymätiheyksiä. Tällöin puhutaan syklisistä siirtymätiheyksistä. 
 	Diskreetissä tilanteessa siirtymätodennäköisyys
 	\begin{equation}
-		T_1...T_d
+		T_1...T_d(x,y)
 	\end{equation}
-	voidaan määritellä matriisitulona $P_1P_2...P_d$. Jatkuvassa tapauksessa taas määritellään, että $T_c=T_1...T_d$ on syklinen, jos
+	voidaan määritellä matriisitulona $P_1P_2...P_d$. Jatkuvassa tapauksessa taas määritellään, että $T_c=T_1...T_d(x,y)$ on syklinen, jos
 	\begin{equation}
 		T_c(x,y) = \int_S T_1(x,z_1)T_2(z_1,z_2)...T_d(z_{d-1},y)dz_1...z_{d-1}
 	\end{equation}
@@ -219,10 +219,11 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 \end{proof}
 
 \begin{lause}\label{cyclic-kernel-jatkuva}
-	Jos tilajoukko $S$ on jatkuva ja $\pi$ on tasapainojakauma kaikille siirtymätiheyksille $T_1,..,T_d$, niin se on tasapainojakauma siirtymätiheydelle $T_c=T_1...T_d$
+	Jos tilajoukko $S$ on jatkuva ja $\pi$ on tasapainojakauma kaikille siirtymätiheyksille $T_1,..,T_d$, niin se on tasapainojakauma siirtymätiheydelle $T_c=T_1...T_d(x,y)$
 \end{lause}
 
 \begin{proof}
+Lause voidaan todistaa hyödyntämällä \emph{Fubinin lausetta}.
 	\begin{equation}
 		\begin{split}
 			\int_S \pi(x) T_c(x,y)dx &= \int_S \pi(x) \int_ST_1(x,z_1)T_2(z_1,z_2)...T_d(z_{d-1},y)dz_1...z_{d-1}dx \\
@@ -233,10 +234,12 @@ Seuraavaksi esitellään lyhyeksi \textit{syklinen siirtymäydin}, ja osoitetaan
 			&= \pi(y)
 		\end{split}
 	\end{equation}
+	Tässä $S$ viittaa nyt aina siihen tilajoukkoon, jonka yli kussakin vaiheessa integroidaan.
+	
 \end{proof}
 
 
-Käydään vielä nopeasti läpi muutama ominaisuus, joita tarvitaan kun haluamme osoittaa kappaleessa 3 algoritmiemme toimivan. \cite{monte_carlo_book, koistinen_computational_2009}
+Käydään vielä nopeasti läpi muutama ominaisuus, jotka ovat keskeisiä MCMC-menetelmien teoriassa. \cite{monte_carlo_book, koistinen_computational_2009}
 
 \begin{maar}
 	Markovin ketju $(X_n)$, siirtymäytimellä $T(x,y)$ on \textit{pelkistymätön} jos kaikilla $A \in \mathcal{T}$, joilla $\pr(A)>0$, on olemassa sellainen $n$, että $T^n(x, A)>0$ kaikilla $x\in S$
@@ -260,7 +263,7 @@ Palautuvalla ketju tarkoittaa sitä, että ketju palaa alueelle, jossa se on jo 
 \end{maar}
 
 \begin{maar}
-	Markovin ketju $(X_n)$ on jaksollinen, jos on olemassa erilliset osajoukot $A_1, A_2,...,A_d \subset S, d > 1$, että 
+	Markovin ketju $(X_n)$ on \emph{jaksollinen}, jos on olemassa erilliset osajoukot $A_1, A_2,...,A_d \subset S, d > 1$, että 
 	\begin{equation}
 		T(x, A_{i+1}) = 1 , \: \forall \in A_i, \: i=1,...,d-1
 	\end{equation}
@@ -271,7 +274,7 @@ Palautuvalla ketju tarkoittaa sitä, että ketju palaa alueelle, jossa se on jo 
 	Jos ketju ei ole jaksollinen, se on \textit{jaksoton}.
 \end{maar}
 
-Määritellään sitten viekä ergodisuus, joka on tärkeä ominaisuus Markovin ketjun tasapainojakauman olemassaolon kannalta.
+Määritellään sitten viekä \emph{ergodisuus}, joka yhdistää yllä olevat ominaisuudet.
 
 \begin{maar}
 	Markovin ketju $(X_n)$ on ergodinen, jos se on pelkistymätön, jaksoton ja Harris-palautuva.
