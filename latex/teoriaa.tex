@@ -13,25 +13,26 @@ Määritellään ensiksi todennäköisyys. \cite{piiroinen_stokastiset_nodate, d
 	\begin{enumerate}
 		\item $\emptyset\in\mathcal{F}$
 		\item jos $A\in\mathcal{F},\ niin\ A^c \in\mathcal{F}$
-		\item jos jos $A_k\in\mathcal{F},\ kaikilla\ k\in K$, missä $K$ on numeroituva joukko, niin $\bigcup_{k\in K} A_k \in \mathcal{F}$
+		\item jos $A_k\in\mathcal{F},\ kaikilla\ k\in K$, missä $K$ on numeroituva joukko, niin $\bigcup_{k\in K} A_k \in \mathcal{F}$
 	\end{enumerate}
 \end{maar}
 
 \begin{maar}
-	Kuvaus \pr\ liittää kuhunkin tapahtumaan $A$ \textit{todennäköisyyden}, joka on luku suljetulla välillä [0,1] ja sille pätee:
+	Olkoot $\mathcal{A}$ $\sigma$-algebra joukolla $X$. Pari $(X, \mathcal{A})$ on \emph{mitallinen avaruus}.
+\end{maar}
+
+\begin{maar}
+	\emph{Kolmogorovin aksioomat:} Olkoot $(\Omega, \mathcal{F})$ mitallinen avaruus.
+	Kuvaus \pr\ liittää kuhunkin \emph{tapahtumaan} $A$ \textit{todennäköisyyden}. Se on kuvaus $\pr: \mathcal{F} \mapsto  \R $  ja sille pätee:
 	\begin{enumerate}
+		\item $\pr(A) \geq 0 \quad \forall A \in \mathcal{F}$
 		\item $\pr(\Omega)=1$
-		\item Jos $A$ on tapahtuma, niin sen komplementtitapahtuman $A^c$ todennäköisyys on $\pr(A^c)= 1 - \pr(A)$
 		\item Jos $(A_k)_{k\in\N}$ ovat erillisiä tapahtumia, niin 
 		\begin{displaymath}
 			\pr(\bigcup_{k\in\N} A_k) = \sum_{k\in\N}\pr(A_k)
 		\end{displaymath}
 	\end{enumerate}
 	Kuvausta $\pr$ kutsutaan \emph{todennäköisyysmitaksi}.
-\end{maar}
-
-\begin{maar}
-	Olkoot $\mathcal{A}$ $\sigma$-algebra joukolla $X$. Pari $(X, \mathcal{A})$ on \emph{mitallinen avaruus}.
 \end{maar}
 
 \begin{maar}
