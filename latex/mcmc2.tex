@@ -1,20 +1,20 @@
 \section{Yleisiä käytäntöjä MCMC-menetelmissä}
 
-Usein on tapana simuloida useampi kuin yksi ketju kustakin tapauksesta. Tällöin asetetaan näiden ketjujen aloitustilat eriäviksi, jotta saadaan vähennettyä aloitustilan vaikutusta lopputukokseen.
+Usein MCMC-menetelmissä on tapana simuloida useampi kuin yksi ketju. Tällöin asetetaan näiden ketjujen aloitustilat eriäviksi, jotta saadaan vähennettyä aloitustilan vaikutusta lopputukokseen.
 
-Toinen yleinen käytäntö on jättää ketjun alkupäästä jonkin verran tiloja huomiotta, sillä ketjun alkupäässä ei se ei välttämättä ole vielä saavuttanut tasapainojakaumaa. Tätä kutsutaan \textit{Burn-in periodiksi}.
+Toinen yleinen käytäntö on jättää ketjun alkupäästä jonkin verran tiloja huomioimatta, sillä ketjun alkupäässä se ei välttämättä ole vielä saavuttanut tasapainojakaumaa. Tätä kutsutaan \emph{Burn-in periodiksi}.
 
-Joskus taas on hyvä tapa pudottaa joka $n$:s tila ketjusta. Tilojen tiputtaminen ei vaikuta tasapainojakaumaan, kunhan ketju vain on saavuttanut sen. Tilojen tiputtamista on hyötyä jos mallissa on paljon parametreja, jolloin tietokoneessa voi tulla ongelmia tilan kanssa.
+Joskus taas on hyvä tapa pudottaa joka $n$:s tila ketjusta. Tilojen tiputtaminen ei vaikuta tasapainojakaumaan, kunhan ketju vain on saavuttanut sen. Tilojen tiputtamista on hyötyä jos mallissa on paljon parametreja, jolloin tietokoneessa voi tulla ongelmia tilan kanssa.\cite{gelman_andrew_bayesian_nodate}
 
 \section{Konvergenssi ja Diagnostiikka}
 
 Kappaleissa \ref{gibbs} ja \ref{Metropolis--Hastings algoritmi} esiteltyjen algoritmien kohdalla voi herätä kysymys, että mikä on riittävä määrä iteraatioita, jotta Markovin ketju on saavuttanut tasapainojakaumansa ja otanta on riittävän hyvä aproksimaatio posteriorijaukaumasta. Esimerkiksi kun katsotaan kuvan \ref{kuva1} vasemman puolen kuvan punaista polkua, niin voidaan sanoa, että se ei ole vielä saavuttanut tasapainojakaumaa sillä haluttu jakauma tunnetaan, mutta tätä ei välttämättä osata sanoa suoraan. 
 
-Toinen yleinen ongelma, joka kaipaa pohdintaa on se, että ketjujen sisällä on korrelaatiota, mikä vaikeuttaa päättelyä simuloinnin tuloksista. Otannat eivät siis ole välttämättä täysin riippumattomia.
+Toinen yleinen ongelma, joka kaipaa pohdintaa on se, että ketjujen sisällä on korrelaatiota, mikä vaikeuttaa päättelyä simuloinnin tuloksista. Otannat eivät siis ole välttämättä täysin riippumattomia. Esitetään nyt kaksi menetelmää diagnosoida näihin onglemiin liittyviä vaikutuksia.
 
 \subsection{Gelmanin $\hat{R}$}
 
-Yksi yleisimmistä estimaattoreista, joita käytetään MCMC-metodeissa Markovin ketjujen konvergenssin arvioimiseen on \textit{Andrew Gelmanin} $\hat{R}$. Se mittaa ketjujen sisäistä sekoittumista (eng. \textit{mixing}) ja erillisten ketjujen välistä sekoittumista.\cite{gelman_andrew_inference_1992, gelman_andrew_general_1998}
+Yksi yleisimmistä estimaattoreista, joita käytetään MCMC-metodeissa Markovin ketjujen konvergenssin arvioimiseen on \textit{(Andrew) Gelmanin} $\hat{R}$. Se mittaa ketjujen sisäistä sekoittumista (eng. \textit{mixing}) ja erillisten ketjujen välistä sekoittumista.\cite{gelman_andrew_inference_1992, gelman_andrew_general_1998}
 \begin{maar}
 \textit{Gelmanin $\hat{R}$} lasketaan jakamalla ensin jokin määrä simuloituja ketjua erillisillä aloituspisteillä keskeltä kahtia. Olkoon nyt $m$ ketjujen määrä jaon jälkeen ja $n$ ketjujen pituus. Olkoot
 	$\psi_{ij} (i=1,...,n;j=1,...,m)$ tila $i$ ketjussa $j$.  Nyt merkitään
@@ -34,23 +34,23 @@ Ja merkitään
 	W = \frac{1}{m}\sum_{j=1}^{m}s_j^2, \hspace{0.2cm} jossa \hspace{0.2cm}
 	s_j^2 = \frac{1}{n-1}\sum_{i=1}^{n}(\psi_{ij}-\overline{\psi}_{.j})^2
 \end{equation}
-Jossa siis $B$ on ketjujen välinen varianssi (\textit{between sequence}) ja $W$ on ketjujen sisäinen varianssi (\textit{within sequence}). Näiden painotettuna keskiarvona saadaan estimaattori parametrin $\psi$ marginaaliselle posteriorivarianssille
+Jossa siis $B$ on ketjujen välinen varianssi (\textit{between sequence}) ja $W$ on ketjujen sisäinen varianssi (\textit{within sequence}). Näiden painotettuna keskiarvona saadaan estimaattori parametrin $\psi$ ehdolliselle posteriorivarianssille
 \begin{equation}\label{sigma+}
 	\hat{\sigma}^+(\psi|y) = \frac{n-1}{n}W + \frac{1}{n}B
 \end{equation}
-Nyt $\hat{R}$ voidaan määritellä
+Nyt $\hat{R}$ voidaan määritellä kaavalla
 \begin{equation}
 	\hat{R}= \sqrt{\frac{\hat{\sigma}^+(\psi|y)}{W}}
 \end{equation}
 \end{maar}
 
-Gelmanin $\hat{R}$ mittaa sitä miten paljon kullakin hetkellä $\psi$:n jakauma voisi supistua, jos simulaatioiden annettaisiin jatkua loputtomasti. Eli siis kun $\hat{R}\approx 1$, niin voidaan sanoa, että Markovin ketju on todennäköisesti saavuttanut tasapainojakaumansa, sillä tällöin eri pisteitä aloitettujen ketjujen välinen varianssi on vakaantunut.
+Gelmanin $\hat{R}$ mittaa sitä miten paljon kullakin hetkellä $\psi$:n jakauma voisi supistua, jos simulaatioiden annettaisiin jatkua loputtomasti. Eli siis kun $\hat{R}\approx 1$, niin voidaan sanoa, että Markovin ketju on todennäköisesti saavuttanut tasapainojakaumansa, sillä tällöin eri pisteitä aloitettujen ketjujen välinen varianssi on vakaantunut, eli kaikki ketjut ovat todennäköisesti saavuttaneet tasapainojakauman.
 
-Tällä diagnostiikalla on kuitenkin ongelmansa ja rajoitteensa. Se saattaa virheellisesti diagnosoida konvergoituneen ketjun esimerkiksi jos ketjulla on pitkät hännät. Sen takia käytetäänkin mielummin muita diagnostiikka keinoja. Esimerkiksi \textit{Stan} käyttää korjattua $\hat{R}$ diagnostiikkaa. \cite{vehtari_2019}
+Tällä diagnostiikalla on kuitenkin ongelmansa ja rajoitteensa ja se saattaa virheellisesti diagnosoida konvergoituneen ketjun esimerkiksi jos ketjulla on pitkät hännät. Näitä onglemia korjaa Aalto-yliopiston \emph{Aki Vehtarin} kehittelemä uudempi variaatio $\hat{R}$ diagnostiikasta. \cite{vehtari_2019}
 
 \subsection{ESS}
 
-Toinen hyödyllinen diagnostiikka MCMC-menetelmissä on niin sanottu \textit{effective sample size (ESS)}, joka mittaa sitä kuinka monta effektiivisesti riippumatonta otosta ketjussa on. Tämä tarkoittaa siis sitä, että se mittaa kuinka paljon ketjun autokorrelaatio vaikuttaa keskivirheeseen verrattuna täysin riippumattomiin otoksiin.
+Toinen hyödyllinen diagnostiikka MCMC-menetelmissä on niin sanottu \textit{effective sample size (ESS)}, joka pyrkii mittaamaan sitä kuinka monta todellakin riippumatonta otosta ketjussa on. Tämä tarkoittaa siis sitä, että se mittaa kuinka paljon ketjun \emph{autokorrelaatio} vaikuttaa keskivirheeseen verrattuna täysin riippumattomiin otoksiin.
 \begin{maar}
 	ESS lasketaan kaavalla
 	\begin{equation}
@@ -67,6 +67,10 @@ Toinen hyödyllinen diagnostiikka MCMC-menetelmissä on niin sanottu \textit{eff
 	\end{subequations}
 	Kaavan \eqref{mcmc2:ess:a} $\hat{\sigma}^+$ saadaan kaavasta \eqref{sigma+}. Termissä $\sum_{t=1}^{T}\hat{\rho}_t$ autokorrelaatioita summataan, kunnes kahden peräkkäisen kovariaatin summa on negatiivinen \cite{geyer_practical_1992}.
 \end{maar}
+
+Myös ESS estimaatille on olemassa paranneltu versio, joka jakaa estimaatin kahteen osaan ja mittaa erikseen jakauman häntien riippumattomien otantojen kokoa.
+
+
 
 
 
