@@ -30,7 +30,7 @@ Menetelmän ydin on siis rakentaa systemaattisella tavalla Markovin ketju, jonka
 
 \section{Gibbsin otanta-algoritmi}\label{gibbs}
 
-\textit{Gibbsin otanta-algoritmi} on tapa simuloida bayesiläistä moniulotteista posteriorijakaumaa (eli ulottuvuuksia vähintään 2), kun suora otanta on hankalaa. Algoritmi on nimetty amerikkalaisen fyysikon, \textit{Josiah Willard Gibbsin} (1839-1903) mukaan, mutta sen todellinen kehittäjä on veljekset \textit{Donald Geman} (1943-) ja \textit{Stuart Geman} (1949-) vuonna 1984 artikkelissa \textit{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}. 
+\textit{Gibbsin otanta-algoritmi} on tapa simuloida bayesilaista moniulotteista posteriorijakaumaa (eli ulottuvuuksia vähintään 2), kun suora otanta on hankalaa. Algoritmi on nimetty amerikkalaisen fyysikon, \textit{Josiah Willard Gibbsin} (1839-1903) mukaan, mutta sen todellinen kehittäjä on veljekset \textit{Donald Geman} (1943-) ja \textit{Stuart Geman} (1949-) vuonna 1984 artikkelissa \textit{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}. 
 
 Aloitetaan määrittelemällä algoritmi. \cite[s.276-277]{gelman_andrew_bayesian_nodate}
 
@@ -92,7 +92,7 @@ Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseen
 	\begin{equation}
 		\int_Z \lambda(x,z) dz = p(x)
 	\end{equation}
-	kutsutaan $p$:n täydellistymäksi (\textit{completion}).
+	kutsutaan tiheysfunktion $p$ täydellistymäksi (\textit{completion}).
 \end{maar}
 
 Tiheys $\lambda$ valitaan siten, että sille voi ratkaista ehdolliset jakaumat. Nyt Gibsin otanta-algoritmi voidaan toteuttaa käyttämällä jakaumaa $\lambda$ ja sen ehdollisia jakaumia. Lauseen \ref{gibbs-proof} tulos pätee myös tässä tapauksessa. Tällöin malliin tulee toki uusi parametri $z$, joka on täysin turha mallin kannalta, mutta avustaa simuloinnissa.
@@ -104,7 +104,7 @@ Tiheys $\lambda$ valitaan siten, että sille voi ratkaista ehdolliset jakaumat. 
 
 \section{Metropolis--Hastings algoritmi}\label{Metropolis--Hastings algoritmi}
 
-\textit{Metropolis--Hastings} algoritmi on kehittelijöidenssä \textit{Nicholas Metropolin} (1915-1999) ja \textit{Wilfred Keith Hastingsin} (1930-2016) mukaan nimetty MCMC-menetelmä, jolla voidaan simuloida bayesiläisessä analyysissa käytettäviä posteriori jakaumia myös silloin kun tiheys on mahdotonta määrittää analyyttisesti.
+\textit{Metropolis--Hastings} algoritmi on kehittelijöidenssä \textit{Nicholas Metropolin} (1915-1999) ja \textit{Wilfred Keith Hastingsin} (1930-2016) mukaan nimetty MCMC-menetelmä, jolla voidaan simuloida bayesilaisessa analyysissa käytettäviä posteriori jakaumia myös silloin kun tiheys on mahdotonta määrittää analyyttisesti.
 
 Algoritmin pohjan kehittivät \textit{Stanislav Ulam} ja Metropolis työskennellessään \textit{Los Alamosissa} ja myöhemmin Metropolis kehitteli nykyään \textit{Metropolis-algoritmina} tunnettua algoritmiä ja esittelivät sen artikkelissa \textit{Equation of state calculations by fast computing machines}\cite{metropolis_nicholas_equation_1953}. Tämä versio algoritmista vaati, että pian esiteltävä \textit{ehdotusjakauma} on symmetrinen. Myöhemmin \textit{Hastings} laajenti algoritmin koskemaan myös epäsymmetrisiä ehdotusjakaumia artikkelissa \textit{Monte Carlo Sampling Methods Using Markov Chains and Their Applications}. Esitämme jälkimmäisen version algoritmista, sillä edellinen seuraa jälkimmäisestä suoraan.
 
@@ -151,9 +151,9 @@ Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk}) j
 	Tilanteessa (1) siirtymätodennäköisyys pisteestä $\tnm$ pisteeseen $\tn$ on
 	\begin{equation}
 		T(\tn|\tnm) = J_n(\tn|\tnm)
-		\min\Big( \frac{p(\tn)J_n(\tnm|\tn)}{p(\tnm)J_n(\tn|\tnm)},1 \Big)
+		\min\Big( \frac{p(\tn)J_n(\tnm|\tn)}{p(\tnm)J_n(\tn|\tnm)},1 \Big),
 	\end{equation}
-	Jota voidaan muokata helposti muotoon
+	joka voidaan muokata helposti muotoon
 	\begin{equation}\label{metr-has-proof1}
 		\begin{split}
 			T(\tn|\tnm) &= J_n(\tn|\tnm)
@@ -233,7 +233,7 @@ Kuten jo totesimme aiemmin, Gibbsin otanta-algoritmin voi esittää Metropolis-H
 \end{lause}
 
 \begin{proof}
-	Määritellään MH-algoritmin iteraatio $n$ niin, että  se sisältää $d$ askelta, ja jossa iteraation $n$ askel $j$ kuvaa parametriosavektorin $\theta_j$ päivitystä ehdollistettuna kaikilla muilla parametrin $\theta$:n elementeillä. Tällöin ehdotusjakauma $J_{j,n}$ iteraation $n$ askeleessa $j$, voidaan määrittää siten, että se ehdottaa vain tiloja, jotka muuttaa vain parametria $\theta_j$. Eli:
+	Määritellään MH-algoritmin iteraatio $n$ niin, että  se sisältää $d$ askelta, ja jossa iteraation $n$ askel $j$ kuvaa parametriosavektorin $\theta_j$ päivitystä ehdollistettuna kaikilla muilla parametrivektorin $\theta$ elementeillä. Tällöin ehdotusjakauma $J_{j,n}$ iteraation $n$ askeleessa $j$, voidaan määrittää siten, että se ehdottaa vain tiloja, jotka muuttaa vain parametria $\theta_j$. Eli:
 	\begin{equation}
 		J_{j,n}^{Gibbs}(\theta^*|\tnm)=\begin{cases}
 			p(\theta^*_j|\tnm_{-j}) \qq{kun} \theta^*_{-j}=\tnm_{-j} \\
