@@ -1,10 +1,10 @@
 \chapter{Loppusanat}
 
-Olemme nyt tarkastelleet perusajatuksia MCMC-menetelmistä. Kävimme läpi hieman teoriaa, esittelimme algoritmit ja kokeilimme sellaista käytännön tilanteessa. Kuitenkin olemme vain raapaisseet pintaa. Käyttämämme algoritmit ovat monessa mielessä erittäin rajoittuneita. Gibbsin otanta-algoritmissa meidän tulee tuntea ehdolliset jakaumat, ja Metropolis--Hastingsin algoritmi voi olla välillä hidas konvergoitumaan.
+Tässä tutkielmassa ollaan tarkasteltu perusajatuksia MCMC-menetelmistä. Tarkasteltiin teoriaa, esitteltiin algoritmeja ja kokeiltiin sellaista käytännön tilanteessa. Kuitenkin tutkielma on vain raapaissut pintaa. Esitellyt algoritmit ovat monessa mielessä erittäin rajoittuneita. Gibbsin otanta-algoritmissa tulee tuntea ehdolliset jakaumat, ja Metropolis--Hastingsin algoritmi voi olla välillä hidas konvergoitumaan.
 
 Tärkeitä laajennuksia MCMC-algoritmeihin on viimeaikoina kehitetyt ekonomisemmat MCMC-metodit. Tärkeimpänä \textit{Hamiltonian Monte Carlo} eli HMC. Se on variaatio Metropolis--Hastingsin algoritmista, jossa simulaatioon integroidaan tietynlainen fysiikka simulaatio, jolla pyritään suurentamaan Markovin ketjun askelkokoa. Tällä pyritään vähentämään tarvittavien otosten määrää, joka tarvitaan tarpeeksi tarkan posterioriestimaatin saamiseksi, sillä menetelmä vähentää autokorrelaatiota tilojen välillä. Nimensä menetelmä saa \emph{Hamiltonin mekaniikasta}.
 
-Ohitimme myös useita asioita liittyen Markovin ketjuihin. Markovin ketjujen matematiikka ei ole kovin vaikeaa käytännössä, mutta monet todistukset ovat työläitä ja vaativat matematiikkaa, joka ylittää tämän tutkielman laajuuden.
+Myös useita asioita liittyen Markovin ketjuihin ohitettiin. Markovin ketjujen matematiikka ei ole kovin vaikeaa käytännössä, mutta monet todistukset ovat työläitä ja vaativat matematiikkaa, joka ylittää tämän tutkielman laajuuden.
 
 Kuitenkin MCMC-menetelmät ovat mullistaneet maailmaa muunmuassa koneoppimis menetelmien massakaupallistumisen myötä. Ne ovat myös tehneet tieteestä luotettavampaa mahdollistamalla bayesilaisen tilastotieteen uuden nousun ja varsinkin \emph{replikaatiokriisin} jälkeisessä maailmassa se on arvokas kontribuutio.
 

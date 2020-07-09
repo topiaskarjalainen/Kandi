@@ -1,6 +1,6 @@
 \chapter{Markovin ketju Monte Carlo menetelmät}
 
-Tässä luvussa aiomme esitellä MCMC-metodeja. Esittelemme alaluvussa \ref{gibbs} Gibbsin otanta-algoritmina tunnetun MCMC-menetelmän, ja sitten alaluvussa \ref{Metropolis--Hastings algoritmi} esittelemme Metropolis--Hastings algoritmin. Osoitamme myös, että todellisuudessa alaluvun \ref{gibbs} algoritmi onkin todella vain erikoistapaus luvun \ref{Metropolis--Hastings algoritmi} algoritmista. Pohditaan kuitenkin ensin menetelmän motivaatiota. \cite[s.~94]{koistinen_computational_2009} \cite[s.~269]{monte_carlo_book}
+Tässä luvussa esitellään MCMC-metodeja. Alaluvussa \ref{gibbs} tutustutaan Gibbsin otanta-algoritmina tunnetun MCMC-menetelmään, ja sitten alaluvussa \ref{Metropolis--Hastings algoritmi} esittellään Metropolis--Hastings algoritmi. Osoitetaan myös, että todellisuudessa alaluvun \ref{gibbs} algoritmi onkin todella vain erikoistapaus luvun \ref{Metropolis--Hastings algoritmi} algoritmista. Pohditaan kuitenkin ensin menetelmän motivaatiota. \cite[s.~94]{koistinen_computational_2009} \cite[s.~269]{monte_carlo_book}
  
 \begin{maar}
 	MCMC-menetelmiksi kutsutaan jakaumaa $p$ simuloivia menetelmiä, jotka perustuvat siihen, että luodaan ergodinen Markovin ketju $(X_n)$, jolla on tasapainojakaumana jakauma $p$.
@@ -14,7 +14,7 @@ konvergoituu odotusarvoon, eli
 \begin{equation}
 	\lim_{n\to\infty} \mathfrak J_n \to \mathbb{E}_p[h(X_t)] = \int h(x)p(x)dx
 \end{equation}
-Tällöin ketjun tiloja voidaan siis käsitellä i.i.d. otoksena tasapainojakaumasta.
+Tällöin ketjun tiloja voidaan siis käsitellä i.i.d. otoksena tasapainojakaumasta, eli siis tavoitejakaumasta.
 
 Markovin ketjuille (ja useimmille MCMC-menetelmien tuottamille Markovin ketjuille) pätee myös keskeinen raja-arvolause \eqref{CLT}.
 
@@ -83,9 +83,9 @@ Yleensä määritelmässä \ref{gibbs} kohdassa 1. ei arvota uutta permutaatiota
 
 \end{proof}
 
-Ohitetaan Gibbsin otanta-algoritmin kohdalla toistaiseksi esimerkit, ja palataan siihen kappaleessa \ref{esimerkki}, jossa tarkastelemme laajempaa esimerkkiä lineaarisen regression parissa. Toteutamme tämän Gibbsin otanta-algoritmina.
+Ohitetaan Gibbsin otanta-algoritmin kohdalla toistaiseksi esimerkit, ja palataan siihen kappaleessa \ref{esimerkki}, jossa tarkastelemme laajempaa esimerkkiä lineaarisen regression parissa.
 
-Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseenkin rajoittavalta, sillä joskus voidaan tutkia mallia, jolle on vaikea laskea ehdolliset jakaumat. Toisaalta taas joskus saatamme haluta simuloida yksiulotteista jakaumaa Gibbsin otanta-algoritmilla, mutta tämä ei suoraan ole mahdollista sillä algoritmi tarvitsee vähintään kaksiulotteisen parametrin. Tällöin voidaan kuitenkin pienin muunnoksin hyödyntää Gibbsin otanta-algoritmia hyödyntämällä seuraavaa määritelmää \ref{completion}. \cite[s.~374]{monte_carlo_book} 
+Gibbsin otanta-algoritmin vaatimus ehdollisista jakaumista voi vaikuttaa jokseenkin rajoittavalta, sillä joskus voidaan tutkia mallia, jolle on vaikea laskea ehdolliset jakaumat. Toisaalta taas joskus saatetaan haluta simuloida yksiulotteista jakaumaa Gibbsin otanta-algoritmilla, mutta tämä ei suoraan ole mahdollista sillä algoritmi tarvitsee vähintään kaksiulotteisen parametrin. Tällöin voidaan kuitenkin pienin muunnoksin hyödyntää Gibbsin otanta-algoritmia hyödyntämällä seuraavaa määritelmää \ref{completion}. \cite[s.~374]{monte_carlo_book} 
 
 \begin{maar}\label{completion}
 	Olkoot $p$ tiheysfunktio. Tiheysfunktiota $\lambda$, joka täyttää ehdon
@@ -106,7 +106,7 @@ Tiheys $\lambda$ valitaan siten, että sille voi ratkaista ehdolliset jakaumat. 
 
 \textit{Metropolis--Hastings} algoritmi on kehittelijöidenssä \textit{Nicholas Metropolin} (1915-1999) ja \textit{Wilfred Keith Hastingsin} (1930-2016) mukaan nimetty MCMC-menetelmä, jolla voidaan simuloida bayesilaisessa analyysissa käytettäviä posteriori jakaumia myös silloin kun tiheys on mahdotonta määrittää analyyttisesti.
 
-Algoritmin pohjan kehittivät \textit{Stanislav Ulam} ja Metropolis työskennellessään \textit{Los Alamosissa} ja myöhemmin Metropolis kehitteli nykyään \textit{Metropolis-algoritmina} tunnettua algoritmiä ja esittelivät sen artikkelissa \textit{Equation of state calculations by fast computing machines}\cite{metropolis_nicholas_equation_1953}. Tämä versio algoritmista vaati, että pian esiteltävä \textit{ehdotusjakauma} on symmetrinen. Myöhemmin \textit{Hastings} laajenti algoritmin koskemaan myös epäsymmetrisiä ehdotusjakaumia artikkelissa \textit{Monte Carlo Sampling Methods Using Markov Chains and Their Applications}. Esitämme jälkimmäisen version algoritmista, sillä edellinen seuraa jälkimmäisestä suoraan.
+Algoritmin pohjan kehittivät \textit{Stanislav Ulam} ja Metropolis työskennellessään \textit{Los Alamosissa} ja myöhemmin Metropolis kehitteli nykyään \textit{Metropolis-algoritmina} tunnettua algoritmiä ja esittelivät sen artikkelissa \textit{Equation of state calculations by fast computing machines}\cite{metropolis_nicholas_equation_1953}. Tämä versio algoritmista vaati, että pian esiteltävä \textit{ehdotusjakauma} on symmetrinen. Myöhemmin \textit{Hastings} laajenti algoritmin koskemaan myös epäsymmetrisiä ehdotusjakaumia artikkelissa \textit{Monte Carlo Sampling Methods Using Markov Chains and Their Applications}. Esitellään nyt jälkimmäinen version algoritmista, sillä edellinen seuraa jälkimmäisestä suoraan.
 
 \begin{merk}
 	TN-jakauma $J_n(\cdot|\cdot)$ on niin sanottu \textit{ehdotusjakauma} (\textit{proposal distribution, jumping distribution}), josta \textit{MH-algoritmissa} arvotaan ehdotustila.
@@ -177,7 +177,7 @@ Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk}) j
 \end{proof}
 
 \begin{esim}\label{mh-esim1}
-	Ajatellaan kuvitteellista tapausta, jossa meillä jatkuva kaksiulotteinen todennäköisyysjakauma, jonka tiheysfunktio on 
+	Ajatellaan kuvitteellista tapausta, jossa tutkitaan jatkuvaa kaksiulotteista todennäköisyysjakaumaa, jonka tiheysfunktio on 
 	\begin{equation}
 		p(\theta) \varpropto \exp(-5 |\theta_1^2+\theta_2^2-1|)
 	\end{equation}
@@ -191,7 +191,7 @@ Todistus nojautuu Markovin ketjun kääntyvyysominaisuuteen (\ref{kaant-disk}) j
 		\caption[Kaksiulotteinen Metropolis--Hastings esimerkki]{\textit{Vasemmalla: (5,5). Keskellä: (0,0) Oikealla: tiheysestimaatti (huomaa eri skaala).}}
 		\label{kuva1}
 	\end{figure}
-	kummastakin 10 000 tilaa. Simuloimme myös 200 000 pistettä aloitusarvolla (0,0), joista luodaan tiheysestimaatti. Tulokset löytyy kuvasta \ref{kuva1}. Kahdessa ensimmäisessä kuvassa viiva on ensimmäisen 250 pisteen polku. Selvästi nähdään, että aloituspisteellä ei ole väliä. Markovin ketjun tasapainojakauma on sama huolimatta aloituspisteestä.
+	kummastakin 10 000 tilaa. Simuloidaan myös 200 000 pistettä aloitusarvolla (0,0), joista luodaan tiheysestimaatti. Tulokset löytyy kuvasta \ref{kuva1}. Kahdessa ensimmäisessä kuvassa viiva on ensimmäisen 250 pisteen polku. Selvästi nähdään, että aloituspisteellä ei ole väliä. Markovin ketjun tasapainojakauma on sama huolimatta aloituspisteestä.
 	
 \end{esim}
 
@@ -257,7 +257,7 @@ Kuten jo totesimme aiemmin, Gibbsin otanta-algoritmin voi esittää Metropolis-H
 
 \subsection{Ehdotusjakauman valinnasta}
 
-Kummassakin kappaleen \ref{Metropolis--Hastings algoritmi} esimerkissä valitsimme ehdotusjakauman melko satunnaisesti. Varsinkin esimerkissä \ref{MH-esim2} se on erittäin epätavallinen, mistä syystä hyvän approksimaation saavuttaminen vie todella monta iteraatiota. Yleensä jos haluamme oikeasti tehokkaasti ja ekonomisesti simuloida jakaumia esitetyllä algoritmilla, haluamme valita ehdotusjakauman jollakin järkevällä, systemaattisella tavalla, joka minimoisi tarvittavien iteraatioiden määrän.
+Kummassakin kappaleen \ref{Metropolis--Hastings algoritmi} esimerkissä ehdotusjakauma valittiin melko satunnaisesti. Varsinkin esimerkissä \ref{MH-esim2} se on erittäin epätavallinen, mistä syystä hyvän approksimaation saavuttaminen vie todella monta iteraatiota. Yleensä jos halutaan oikeasti tehokkaasti ja ekonomisesti simuloida jakaumia esitetyllä algoritmilla, halutaan valita ehdotusjakauman jollakin järkevällä, systemaattisella tavalla, joka minimoisi tarvittavien iteraatioiden määrän.
 
 Yleisesti ottaen hyvällä ehdotusjakaumalla on muutama ominaisuus\cite[s.~280]{gelman_andrew_bayesian_nodate}
 \begin{enumerate}
